@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		99A9B8C827F0CA590020360C /* ListClients.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99A9B8C727F0CA590020360C /* ListClients.xib */; };
+		99A9B8CA27F0CB0C0020360C /* ListClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A9B8C927F0CB0C0020360C /* ListClients.swift */; };
 		99F3773427EDEFB10086A1BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3773327EDEFB10086A1BF /* AppDelegate.swift */; };
 		99F3773627EDEFB10086A1BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3773527EDEFB10086A1BF /* SceneDelegate.swift */; };
 		99F3773827EDEFB10086A1BF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3773727EDEFB10086A1BF /* ViewController.swift */; };
@@ -16,6 +18,7 @@
 		99F3774B27EDEFB50086A1BF /* CrmSalonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3774A27EDEFB50086A1BF /* CrmSalonTests.swift */; };
 		99F3775527EDEFB50086A1BF /* CrmSalonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3775427EDEFB50086A1BF /* CrmSalonUITests.swift */; };
 		99F3775727EDEFB50086A1BF /* CrmSalonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3775627EDEFB50086A1BF /* CrmSalonUITestsLaunchTests.swift */; };
+		99F3776727EDF1E70086A1BF /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3776627EDF1E70086A1BF /* Data.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		99056F6E27EDFF040087C8AC /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		99A9B8C727F0CA590020360C /* ListClients.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListClients.xib; sourceTree = "<group>"; };
+		99A9B8C927F0CB0C0020360C /* ListClients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListClients.swift; sourceTree = "<group>"; };
 		99F3773027EDEFB10086A1BF /* CrmSalon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrmSalon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99F3773327EDEFB10086A1BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99F3773527EDEFB10086A1BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +55,7 @@
 		99F3775027EDEFB50086A1BF /* CrmSalonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrmSalonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		99F3775427EDEFB50086A1BF /* CrmSalonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrmSalonUITests.swift; sourceTree = "<group>"; };
 		99F3775627EDEFB50086A1BF /* CrmSalonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrmSalonUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		99F3776627EDF1E70086A1BF /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,12 +106,13 @@
 		99F3773227EDEFB10086A1BF /* CrmSalon */ = {
 			isa = PBXGroup;
 			children = (
+				99056F6E27EDFF040087C8AC /* MyPlayground.playground */,
 				99F3773327EDEFB10086A1BF /* AppDelegate.swift */,
 				99F3773527EDEFB10086A1BF /* SceneDelegate.swift */,
-				99F3773727EDEFB10086A1BF /* ViewController.swift */,
-				99F3773927EDEFB10086A1BF /* Main.storyboard */,
+				99F3776527EDEFF70086A1BF /* Controller */,
+				99F3776427EDEFF00086A1BF /* View */,
+				99F3776327EDEFE20086A1BF /* Model */,
 				99F3773C27EDEFB50086A1BF /* Assets.xcassets */,
-				99F3773E27EDEFB50086A1BF /* LaunchScreen.storyboard */,
 				99F3774127EDEFB50086A1BF /* Info.plist */,
 			);
 			path = CrmSalon;
@@ -125,6 +133,33 @@
 				99F3775627EDEFB50086A1BF /* CrmSalonUITestsLaunchTests.swift */,
 			);
 			path = CrmSalonUITests;
+			sourceTree = "<group>";
+		};
+		99F3776327EDEFE20086A1BF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				99F3776627EDF1E70086A1BF /* Data.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		99F3776427EDEFF00086A1BF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				99A9B8C727F0CA590020360C /* ListClients.xib */,
+				99F3773927EDEFB10086A1BF /* Main.storyboard */,
+				99F3773E27EDEFB50086A1BF /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		99F3776527EDEFF70086A1BF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				99F3773727EDEFB10086A1BF /* ViewController.swift */,
+				99A9B8C927F0CB0C0020360C /* ListClients.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +268,7 @@
 			files = (
 				99F3774027EDEFB50086A1BF /* LaunchScreen.storyboard in Resources */,
 				99F3773D27EDEFB50086A1BF /* Assets.xcassets in Resources */,
+				99A9B8C827F0CA590020360C /* ListClients.xib in Resources */,
 				99F3773B27EDEFB10086A1BF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +297,8 @@
 				99F3773827EDEFB10086A1BF /* ViewController.swift in Sources */,
 				99F3773427EDEFB10086A1BF /* AppDelegate.swift in Sources */,
 				99F3773627EDEFB10086A1BF /* SceneDelegate.swift in Sources */,
+				99F3776727EDF1E70086A1BF /* Data.swift in Sources */,
+				99A9B8CA27F0CB0C0020360C /* ListClients.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +481,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -454,7 +493,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -471,6 +510,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -482,7 +522,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
