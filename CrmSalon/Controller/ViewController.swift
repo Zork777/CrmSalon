@@ -8,51 +8,99 @@
 import UIKit
 import Contacts
 
-class ResultVC: UIViewController{
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let customView = UIView()
-        customView.frame = CGRect(x: 0, y: 0, width: 100, height: 10)
-        customView.backgroundColor = UIColor.red
-        customView.center = self.view.center
-        self.view.addSubview(customView)
-        
-        view.backgroundColor = .lightGray
-        view.layer.borderWidth = 10
-        
+    var searchClients = [Client]()
+    var searching = false
+    let lineCoordinate = DrawLineCoordinate()
+
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tblView: UITableView!
+    
+    @IBAction func buttonGotoCalendare(_ sender: Any) {
     }
-}
-
-class ViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate {
-
-    let searchController = UISearchController(searchResultsController: ResultVC())
+    
+    @IBAction func buttonCreateNewClient(_ sender: Any) {
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
        // generate contact in adress book
 //        let clients = generateClient()
 //        for client in clients {
 //            _ = saveContactToBook(client: client)
 //        }
         
-        searchController.searchBar.delegate = self
-        searchController.searchResultsUpdater = self
-        navigationItem.searchController = searchController
+//        let findPhoneNumber = "950538756"
+//        print ("get some contact")
+//        var contactFind = getSomeContact(phoneNumber: findPhoneNumber)
+//        for client in getFioPhoneClient(contacts: contactFind){
+//            print (client.fio + " " + client.telephone)
+//        }
+//        
+//        print ("get contacts")
+//        contactFind = searchForContactUsingPhoneNumber(phoneNumber: findPhoneNumber)
+//        for client in getFioPhoneClient(contacts: contactFind){
+//            print (client.fio + " " + client.telephone)
+//        }
         
-//        print ("get contact")
-//        let contactFind = getContact(phoneNumber: "9505387563")
-//        print (contactFind[0].givenName, contactFind[0].phoneNumbers[0].value.stringValue)
+        clientsBase = allContacts()
+        
+        
     }
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searching {
+            return searchClients.count
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        print ("select")
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellClients", for: indexPath) as! ClientTableViewCell
+        tableView.rowHeight = cell.fio.font.capHeight + cell.phoneNumber.font.capHeight + 8*4
+        
+        if searching {
+            cell.fio.text = searchClients[indexPath.row].fio.firstName + " " + searchClients[indexPath.row].fio.lastName
+            cell.phoneNumber.text = String(searchClients[indexPath.row].telephone)
+        }
+        return cell
+    }
+    
+        
     func updateSearchResults(for searchController: UISearchController) {
         guard let textSearch = searchController.searchBar.text else {return}
-        
-        let vc = searchController.searchResultsController as? ResultVC
-        vc?.view.backgroundColor = .yellow
+        print (textSearch)
     }
-
+    
 }
 
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let contactFind = searchForContactUsingPhoneNumber(phoneNumber: searchText)
+        searchClients = getFioPhoneClient(contacts: contactFind)
+        searching = true
+        tblView.reloadData()
+        
+        if searchText.isEmpty {
+            searching = false
+            tblView.reloadData()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searching = false
+        searchBar.text = ""
+        tblView.reloadData()
+    }
+    
+    
+}
