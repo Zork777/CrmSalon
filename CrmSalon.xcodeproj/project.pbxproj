@@ -7,9 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		99076ED12809EE85001D72B2 /* AlertWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99076ED02809EE85001D72B2 /* AlertWindow.swift */; };
 		996BE9AF27F5E46700AC29CD /* ClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996BE9AE27F5E46700AC29CD /* ClientTableViewCell.swift */; };
 		996BE9B127F6401300AC29CD /* drawLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996BE9B027F6401300AC29CD /* drawLine.swift */; };
 		996BE9B327F640D100AC29CD /* ViewCreateNewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996BE9B227F640D100AC29CD /* ViewCreateNewClient.swift */; };
+		998598AB280B65540079EF58 /* CrmSalonTests1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998598AA280B65540079EF58 /* CrmSalonTests1.swift */; };
+		998598B32811BBFC0079EF58 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 998598B12811BBFC0079EF58 /* DataModel.xcdatamodeld */; };
+		99D85B5F2807468D00426DCF /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D85B5E2807468D00426DCF /* Error.swift */; };
+		99D9DF6427FA1B0F00AE8D5E /* ViewCalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D9DF6327FA1B0F00AE8D5E /* ViewCalendarController.swift */; };
+		99D9DF6827FB002600AE8D5E /* ViewCalendarCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D9DF6727FB002600AE8D5E /* ViewCalendarCollection.swift */; };
+		99D9DF6B27FB013E00AE8D5E /* CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D9DF6927FB013E00AE8D5E /* CalendarCollectionViewCell.swift */; };
+		99D9DF6C27FB013E00AE8D5E /* CalendarCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99D9DF6A27FB013E00AE8D5E /* CalendarCollectionViewCell.xib */; };
 		99F3773427EDEFB10086A1BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3773327EDEFB10086A1BF /* AppDelegate.swift */; };
 		99F3773627EDEFB10086A1BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3773527EDEFB10086A1BF /* SceneDelegate.swift */; };
 		99F3773827EDEFB10086A1BF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3773727EDEFB10086A1BF /* ViewController.swift */; };
@@ -23,6 +31,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		998598AC280B65540079EF58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 99F3772827EDEFB10086A1BF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 99F3772F27EDEFB10086A1BF;
+			remoteInfo = CrmSalon;
+		};
 		99F3774727EDEFB50086A1BF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 99F3772827EDEFB10086A1BF /* Project object */;
@@ -41,9 +56,18 @@
 
 /* Begin PBXFileReference section */
 		99056F6E27EDFF040087C8AC /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		99076ED02809EE85001D72B2 /* AlertWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindow.swift; sourceTree = "<group>"; };
 		996BE9AE27F5E46700AC29CD /* ClientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTableViewCell.swift; sourceTree = "<group>"; };
 		996BE9B027F6401300AC29CD /* drawLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drawLine.swift; sourceTree = "<group>"; };
 		996BE9B227F640D100AC29CD /* ViewCreateNewClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCreateNewClient.swift; sourceTree = "<group>"; };
+		998598A8280B65540079EF58 /* CrmSalonTests1.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrmSalonTests1.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		998598AA280B65540079EF58 /* CrmSalonTests1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrmSalonTests1.swift; sourceTree = "<group>"; };
+		998598B22811BBFC0079EF58 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		99D85B5E2807468D00426DCF /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		99D9DF6327FA1B0F00AE8D5E /* ViewCalendarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCalendarController.swift; sourceTree = "<group>"; };
+		99D9DF6727FB002600AE8D5E /* ViewCalendarCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCalendarCollection.swift; sourceTree = "<group>"; };
+		99D9DF6927FB013E00AE8D5E /* CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewCell.swift; sourceTree = "<group>"; };
+		99D9DF6A27FB013E00AE8D5E /* CalendarCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarCollectionViewCell.xib; sourceTree = "<group>"; };
 		99F3773027EDEFB10086A1BF /* CrmSalon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrmSalon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99F3773327EDEFB10086A1BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99F3773527EDEFB10086A1BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +85,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		998598A5280B65540079EF58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		99F3772D27EDEFB10086A1BF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -85,12 +116,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		998598A9280B65540079EF58 /* CrmSalonTests1 */ = {
+			isa = PBXGroup;
+			children = (
+				998598AA280B65540079EF58 /* CrmSalonTests1.swift */,
+			);
+			path = CrmSalonTests1;
+			sourceTree = "<group>";
+		};
 		99F3772727EDEFB10086A1BF = {
 			isa = PBXGroup;
 			children = (
 				99F3773227EDEFB10086A1BF /* CrmSalon */,
 				99F3774927EDEFB50086A1BF /* CrmSalonTests */,
 				99F3775327EDEFB50086A1BF /* CrmSalonUITests */,
+				998598A9280B65540079EF58 /* CrmSalonTests1 */,
 				99F3773127EDEFB10086A1BF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -101,6 +141,7 @@
 				99F3773027EDEFB10086A1BF /* CrmSalon.app */,
 				99F3774627EDEFB50086A1BF /* CrmSalonTests.xctest */,
 				99F3775027EDEFB50086A1BF /* CrmSalonUITests.xctest */,
+				998598A8280B65540079EF58 /* CrmSalonTests1.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,7 +181,9 @@
 		99F3776327EDEFE20086A1BF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				998598B12811BBFC0079EF58 /* DataModel.xcdatamodeld */,
 				99F3776627EDF1E70086A1BF /* Data.swift */,
+				99D85B5E2807468D00426DCF /* Error.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -149,8 +192,10 @@
 			isa = PBXGroup;
 			children = (
 				99F3773927EDEFB10086A1BF /* Main.storyboard */,
+				99D9DF6A27FB013E00AE8D5E /* CalendarCollectionViewCell.xib */,
 				99F3773E27EDEFB50086A1BF /* LaunchScreen.storyboard */,
 				996BE9B027F6401300AC29CD /* drawLine.swift */,
+				99076ED02809EE85001D72B2 /* AlertWindow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -160,7 +205,10 @@
 			children = (
 				99F3773727EDEFB10086A1BF /* ViewController.swift */,
 				996BE9B227F640D100AC29CD /* ViewCreateNewClient.swift */,
+				99D9DF6327FA1B0F00AE8D5E /* ViewCalendarController.swift */,
+				99D9DF6727FB002600AE8D5E /* ViewCalendarCollection.swift */,
 				996BE9AE27F5E46700AC29CD /* ClientTableViewCell.swift */,
+				99D9DF6927FB013E00AE8D5E /* CalendarCollectionViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -168,6 +216,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		998598A7280B65540079EF58 /* CrmSalonTests1 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 998598B0280B65540079EF58 /* Build configuration list for PBXNativeTarget "CrmSalonTests1" */;
+			buildPhases = (
+				998598A4280B65540079EF58 /* Sources */,
+				998598A5280B65540079EF58 /* Frameworks */,
+				998598A6280B65540079EF58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				998598AD280B65540079EF58 /* PBXTargetDependency */,
+			);
+			name = CrmSalonTests1;
+			productName = CrmSalonTests1;
+			productReference = 998598A8280B65540079EF58 /* CrmSalonTests1.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		99F3772F27EDEFB10086A1BF /* CrmSalon */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 99F3775A27EDEFB50086A1BF /* Build configuration list for PBXNativeTarget "CrmSalon" */;
@@ -231,6 +297,10 @@
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
+					998598A7280B65540079EF58 = {
+						CreatedOnToolsVersion = 13.3;
+						TestTargetID = 99F3772F27EDEFB10086A1BF;
+					};
 					99F3772F27EDEFB10086A1BF = {
 						CreatedOnToolsVersion = 13.3;
 					};
@@ -260,15 +330,24 @@
 				99F3772F27EDEFB10086A1BF /* CrmSalon */,
 				99F3774527EDEFB50086A1BF /* CrmSalonTests */,
 				99F3774F27EDEFB50086A1BF /* CrmSalonUITests */,
+				998598A7280B65540079EF58 /* CrmSalonTests1 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		998598A6280B65540079EF58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		99F3772E27EDEFB10086A1BF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99D9DF6C27FB013E00AE8D5E /* CalendarCollectionViewCell.xib in Resources */,
 				99F3774027EDEFB50086A1BF /* LaunchScreen.storyboard in Resources */,
 				99F3773D27EDEFB50086A1BF /* Assets.xcassets in Resources */,
 				99F3773B27EDEFB10086A1BF /* Main.storyboard in Resources */,
@@ -292,15 +371,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		998598A4280B65540079EF58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				998598AB280B65540079EF58 /* CrmSalonTests1.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		99F3772C27EDEFB10086A1BF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				99F3773827EDEFB10086A1BF /* ViewController.swift in Sources */,
 				99F3773427EDEFB10086A1BF /* AppDelegate.swift in Sources */,
+				99D9DF6827FB002600AE8D5E /* ViewCalendarCollection.swift in Sources */,
+				99D85B5F2807468D00426DCF /* Error.swift in Sources */,
+				99D9DF6427FA1B0F00AE8D5E /* ViewCalendarController.swift in Sources */,
+				99D9DF6B27FB013E00AE8D5E /* CalendarCollectionViewCell.swift in Sources */,
+				99076ED12809EE85001D72B2 /* AlertWindow.swift in Sources */,
 				99F3773627EDEFB10086A1BF /* SceneDelegate.swift in Sources */,
 				996BE9B127F6401300AC29CD /* drawLine.swift in Sources */,
 				996BE9AF27F5E46700AC29CD /* ClientTableViewCell.swift in Sources */,
+				998598B32811BBFC0079EF58 /* DataModel.xcdatamodeld in Sources */,
 				996BE9B327F640D100AC29CD /* ViewCreateNewClient.swift in Sources */,
 				99F3776727EDF1E70086A1BF /* Data.swift in Sources */,
 			);
@@ -326,6 +419,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		998598AD280B65540079EF58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 99F3772F27EDEFB10086A1BF /* CrmSalon */;
+			targetProxy = 998598AC280B65540079EF58 /* PBXContainerItemProxy */;
+		};
 		99F3774827EDEFB50086A1BF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 99F3772F27EDEFB10086A1BF /* CrmSalon */;
@@ -358,6 +456,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		998598AE280B65540079EF58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RC9H8Z8TW3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Evgenii-Zakharov.CrmSalonTests1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CrmSalon.app/CrmSalon";
+			};
+			name = Debug;
+		};
+		998598AF280B65540079EF58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RC9H8Z8TW3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Evgenii-Zakharov.CrmSalonTests1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CrmSalon.app/CrmSalon";
+			};
+			name = Release;
+		};
 		99F3775827EDEFB50086A1BF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -609,6 +743,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		998598B0280B65540079EF58 /* Build configuration list for PBXNativeTarget "CrmSalonTests1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				998598AE280B65540079EF58 /* Debug */,
+				998598AF280B65540079EF58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		99F3772B27EDEFB10086A1BF /* Build configuration list for PBXProject "CrmSalon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -646,6 +789,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		998598B12811BBFC0079EF58 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				998598B22811BBFC0079EF58 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 998598B22811BBFC0079EF58 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 99F3772827EDEFB10086A1BF /* Project object */;
 }

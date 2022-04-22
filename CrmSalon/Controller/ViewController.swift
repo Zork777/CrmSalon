@@ -28,26 +28,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         
         view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
-       // generate contact in adress book
-//        let clients = generateClient()
-//        for client in clients {
-//            _ = saveContactToBook(client: client)
-//        }
         
-//        let findPhoneNumber = "950538756"
-//        print ("get some contact")
-//        var contactFind = getSomeContact(phoneNumber: findPhoneNumber)
-//        for client in getFioPhoneClient(contacts: contactFind){
-//            print (client.fio + " " + client.telephone)
-//        }
-//        
-//        print ("get contacts")
-//        contactFind = searchForContactUsingPhoneNumber(phoneNumber: findPhoneNumber)
-//        for client in getFioPhoneClient(contacts: contactFind){
-//            print (client.fio + " " + client.telephone)
-//        }
+        clientsBase = try allContacts() ?? [CNContact]()
         
-        clientsBase = allContacts()
         
         
     }

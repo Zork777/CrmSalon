@@ -14,28 +14,47 @@ class ViewCreateNewClient: UIView {
     @IBOutlet weak var phoneNumber: UITextField!
     
     @IBAction func buttonSaveNewClient(_ sender: Any) {
+        
         if !phoneNumber.text!.isEmpty && !firstName.text!.isEmpty {
-            let stringPhoneNumber = clearStringPhoneNumber(phoneNumberString: phoneNumber.text!)
-            if let newClient = saveNewClient(client: Client(fio: Fio(firstName: firstName.text ?? "", lastName: lastName.text ?? ""),
-                                                            telephone: Int(stringPhoneNumber)!)) {
+            do {
+                let stringPhoneNumber = try checkPhoneNumber(PhoneNumber: clearStringPhoneNumber(phoneNumberString: phoneNumber.text ?? ""))
+                let newClient = try saveNewClient(client: Client(fio: Fio(firstName: firstName.text ?? "", lastName: lastName.text ?? ""),
+                                                                  telephone: Int(stringPhoneNumber)!))
                 clientsBase.append(newClient[0])
             }
-            else
-            {
-                print ("error saving client to contact book")
-            }
+            catch ValidationError.failedSavingContact{
+                showMessage(message: ValidationError.failedSavingContact.errorDescription!)}
             
+            catch ValidationError.foundSameContactInBook(phoneNumber.text){
+                showMessage(message: ValidationError.foundSameContactInBook(phoneNumber.text!).errorDescription!)}
+            
+            catch ValidationError.wrongSaveInBook(phoneNumber.text){
+                showMessage(message: ValidationError.wrongSaveInBook(phoneNumber.text!).errorDescription!)}
+            
+            catch ValidationError.wrongPhoneNumber{
+                showMessage(message: ValidationError.wrongPhoneNumber.errorDescription!)}
+            
+            catch{
+                showMessage(message: ValidationError.failedSavingContact.errorDescription!)
+                return
+            }
         }
         else{
-            print ("enter phone number and firstname")
+            showMessage(message: ValidationError.userPhoneName.errorDescription!)
         }
     }
-    
+//    view.endEditing(true)
     override func didAddSubview(_ subview: UIView) {
 
         self.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
         
     }
+    
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        endEditing(true)
+//        super.touchesEnded(touches, with: event)
+//    }
+    
     
 
 }

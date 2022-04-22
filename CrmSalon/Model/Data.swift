@@ -14,7 +14,7 @@ struct Fio {
     var lastName: String
 }
 
-struct Client {
+public struct Client {
     var fio: Fio
     var telephone: Int
 }
@@ -28,7 +28,7 @@ let keysToFetch: [CNKeyDescriptor] = [
 
 var clientsBase = [CNContact]()
 
-let allContacts = { () -> [CNContact] in
+let allContacts = { () -> [CNContact]? in
             let contactStore = CNContactStore()
 
 
@@ -37,7 +37,8 @@ let allContacts = { () -> [CNContact] in
             do {
                 allContainers = try contactStore.containers(matching: nil)
             } catch {
-                print("Error fetching containers")
+                print (ValidationError.failedFeatchContact)
+                return nil
             }
 
             var results: [CNContact] = []
@@ -50,7 +51,8 @@ let allContacts = { () -> [CNContact] in
                     let containerResults = try     contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch)
                     results.append(contentsOf: containerResults)
                 } catch {
-                    print("Error fetching results for container")
+                    print (ValidationError.failedFeatchContact)
+                    return nil
                 }
             }
 
@@ -96,7 +98,7 @@ func generateClient() -> [Client]{
 }
 
 
-func saveContactToBook(client: Client) -> Bool{
+func saveContactToBook(client: Client) throws -> Bool{
     let contact = CNMutableContact()
     contact.givenName = client.fio.firstName
     contact.familyName = client.fio.lastName
@@ -110,33 +112,38 @@ func saveContactToBook(client: Client) -> Bool{
     do {
         try store.execute(saveRequest)
     } catch {
-        print("Saving contact failed, error: \(error)")
-        return false
+        throw ValidationError.failedSavingContact
         // Handle the error
     }
     return true
 }
 
-func saveNewClient(client: Client) -> [CNContact]?{
+func saveNewClient(client: Client) throws -> [CNContact]{
     var clientSaveToBase: [CNContact]
-    if saveContactToBook(client: client){
-        clientSaveToBase = getSomeContact(phoneNumber: String(client.telephone))
-        switch clientSaveToBase.count {
-        case 0:
-            print ("wrong save in contact book, not found client with number \(client.telephone)")
-        case 1:
-            print("client saved")
-            return clientSaveToBase
-        default:
-            print ("error found more 1 client the same number phone \(client.telephone)")
+    let checkContactInBook = try getSomeContact(phoneNumber: String(client.telephone)).isEmpty
+    if !checkContactInBook {
+        throw ValidationError.foundSameContactInBook(String(client.telephone))
+    }
+    else {
+        if try saveContactToBook(client: client){
+            clientSaveToBase = try getSomeContact(phoneNumber: String(client.telephone))
+            switch clientSaveToBase.count {
+            case 0:
+                throw ValidationError.wrongSaveInBook(String(client.telephone))
+            case 1:
+                print("client saved")
+                return clientSaveToBase
+            default:
+                throw ValidationError.foundSameContactInBook(String(client.telephone))
+            }
         }
     }
 
-    return nil
+    throw ValidationError.failedSavingContactErrorGlobal
     
 }
 
-func getSomeContact(phoneNumber: String) -> [CNContact]{
+func getSomeContact(phoneNumber: String) throws -> [CNContact]{
     
     let store = CNContactStore()
     do {
@@ -144,9 +151,7 @@ func getSomeContact(phoneNumber: String) -> [CNContact]{
         let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
         return contacts
     } catch {
-        print("Failed to fetch contact, error: \(error)")
-        return [] //nil
-        // Handle the error
+        throw ValidationError.failedFeatchContact
     }
 }
 
@@ -162,4 +167,11 @@ func getFioPhoneClient(contacts: [CNContact]) -> [Client]{
 
 func clearStringPhoneNumber(phoneNumberString: String) -> String{
     return phoneNumberString.components(separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "")
+}
+
+func checkPhoneNumber(PhoneNumber: String) throws -> String{
+    if PhoneNumber.count < 11 {
+        throw ValidationError.wrongPhoneNumber}
+    else {
+        return PhoneNumber}
 }
