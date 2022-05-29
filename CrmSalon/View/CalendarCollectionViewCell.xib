@@ -9,15 +9,27 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ItemCell" id="gTV-IL-0wX" customClass="CalendarCollectionViewCell" customModule="CrmSalon" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="ItemCell" id="gTV-IL-0wX" customClass="CalendarCollectionViewCell" customModule="CrmSalon" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="84" height="73"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="84" height="73"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6DL-Dk-qr3">
-                        <rect key="frame" x="21" y="26" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pxX-hV-u41">
+                        <rect key="frame" x="0.0" y="0.0" width="84" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Client" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5J-Ny-Lym" userLabel="Client">
+                        <rect key="frame" x="0.0" y="23" width="84" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPY-UP-eIV">
+                        <rect key="frame" x="0.0" y="44" width="84" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -26,14 +38,23 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="6DL-Dk-qr3" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="C7f-bV-v86"/>
-                <constraint firstItem="6DL-Dk-qr3" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="cty-qw-66c"/>
+                <constraint firstItem="pxX-hV-u41" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="7AO-Lc-q6M"/>
+                <constraint firstItem="q5J-Ny-Lym" firstAttribute="leading" secondItem="pxX-hV-u41" secondAttribute="leading" id="Fpy-VO-aWT"/>
+                <constraint firstItem="DPY-UP-eIV" firstAttribute="leading" secondItem="q5J-Ny-Lym" secondAttribute="leading" id="HKN-Vo-wI3"/>
+                <constraint firstItem="q5J-Ny-Lym" firstAttribute="top" secondItem="pxX-hV-u41" secondAttribute="bottom" constant="2" id="JzV-8g-8Gp"/>
+                <constraint firstAttribute="trailing" secondItem="pxX-hV-u41" secondAttribute="trailing" id="bHj-IG-S8e"/>
+                <constraint firstItem="q5J-Ny-Lym" firstAttribute="trailing" secondItem="pxX-hV-u41" secondAttribute="trailing" id="cjV-mI-b4W"/>
+                <constraint firstItem="DPY-UP-eIV" firstAttribute="top" secondItem="q5J-Ny-Lym" secondAttribute="bottom" id="mAr-k2-GSf"/>
+                <constraint firstItem="DPY-UP-eIV" firstAttribute="trailing" secondItem="q5J-Ny-Lym" secondAttribute="trailing" id="olz-9V-ACc"/>
+                <constraint firstItem="pxX-hV-u41" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ycm-U4-vBY"/>
             </constraints>
             <size key="customSize" width="84" height="73"/>
             <connections>
-                <outlet property="label" destination="6DL-Dk-qr3" id="tbi-ek-ens"/>
+                <outlet property="clientName" destination="q5J-Ny-Lym" id="fqY-3J-ukF"/>
+                <outlet property="label" destination="pxX-hV-u41" id="3TF-Cg-9vc"/>
+                <outlet property="service" destination="DPY-UP-eIV" id="iCm-pQ-hZW"/>
             </connections>
-            <point key="canvasLocation" x="156.52173913043478" y="90.066964285714278"/>
+            <point key="canvasLocation" x="155.07246376811597" y="90.066964285714278"/>
         </collectionViewCell>
     </objects>
 </document>

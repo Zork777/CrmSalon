@@ -9,6 +9,39 @@ import Foundation
 import UIKit
 import Contacts
 
+let timeShift = { () -> [String] in
+    var time = [String]()
+    var firstZeroOne = ""
+    var firstZeroSecond = ""
+    for hour in (8...21){
+        hour < 10 ? (firstZeroOne = "0") : (firstZeroOne = "")
+        hour+1 < 10 ? (firstZeroSecond = "0") : (firstZeroSecond = "")
+        time.append("\(firstZeroOne)\(hour):00 - \(firstZeroOne)\(hour):30")
+        time.append("\(firstZeroOne)\(hour):30 - \(firstZeroSecond)\(hour+1):00")
+    }
+    return time
+}
+
+let timeShiftArray = timeShift()
+
+enum Bases: String, CaseIterable {
+    case clients = "EntityClients"
+    case masters = "EntityMasters"
+    case orders = "EntityOrders"
+    case services = "EntityServices"
+}
+
+enum Services: String, CaseIterable {
+    case manicure = "Маникюр"
+    case pedicure = "Педикюр"
+}
+
+struct Orders {
+    var date: Date
+    var time: Int
+    var price: Int
+}
+
 struct Fio {
     var firstName: String
     var lastName: String
@@ -19,16 +52,42 @@ public struct Client {
     var telephone: Int
 }
 
+public struct Masters {
+    var fio: Fio
+    var telephone: Int64
+}
+
+extension Date {
+    var convertToString: String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/YY"
+        return dateFormatter.string(from: self)
+    }
+    var tomorrow: Date{
+        return Calendar.current.date(byAdding: .day, value: 1, to: self)!
+    }
+    var yesterday: Date{
+        return Calendar.current.date(byAdding: .day, value: -1, to: self)!
+    }
+    
+    func stripTime() -> Date {
+        let components = Calendar.current.dateComponents([.year, .month, .day], from: self)
+        let date = Calendar.current.date(from: components)
+        return date!
+    }
+}
+
 let keysToFetch: [CNKeyDescriptor] = [
     CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
-    CNContactEmailAddressesKey as CNKeyDescriptor,
     CNContactPhoneNumbersKey as CNKeyDescriptor,
-    CNContactImageDataAvailableKey as CNKeyDescriptor,
-    CNContactThumbnailImageDataKey as CNKeyDescriptor]
+    CNContactJobTitleKey as CNKeyDescriptor]
+//    CNContactImageDataAvailableKey as CNKeyDescriptor,
+//    CNContactThumbnailImageDataKey as CNKeyDescriptor,
+//    CNContactNoteKey as CNKeyDescriptor]
 
 var clientsBase = [CNContact]()
 
-let allContacts = { () -> [CNContact]? in
+let allContacts = { () -> [CNContact] in
             let contactStore = CNContactStore()
 
 
@@ -38,7 +97,6 @@ let allContacts = { () -> [CNContact]? in
                 allContainers = try contactStore.containers(matching: nil)
             } catch {
                 print (ValidationError.failedFeatchContact)
-                return nil
             }
 
             var results: [CNContact] = []
@@ -48,11 +106,10 @@ let allContacts = { () -> [CNContact]? in
                 let fetchPredicate = CNContact.predicateForContactsInContainer(withIdentifier: container.identifier)
 
                 do {
-                    let containerResults = try     contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch)
+                    let containerResults = try contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch)
                     results.append(contentsOf: containerResults)
                 } catch {
-                    print (ValidationError.failedFeatchContact)
-                    return nil
+                    print (ValidationError.failedFeatchContact, error.localizedDescription)
                 }
             }
 
@@ -71,7 +128,8 @@ func searchForContactUsingPhoneNumber(phoneNumber: String) -> [CNContact] {
                   if let phoneNumberStruct = phoneNumber.value as? CNPhoneNumber {
                       let phoneNumberString = phoneNumberStruct.stringValue
                      let phoneNumberToCompare = clearStringPhoneNumber(phoneNumberString: phoneNumberString)
-                      if phoneNumberToCompare.prefix(phoneNumberToCompareAgainst.count).contains(phoneNumberToCompareAgainst) {
+//                      if phoneNumberToCompare.prefix(phoneNumberToCompareAgainst.count).contains(phoneNumberToCompareAgainst) { поиск с начала строки
+                      if phoneNumberToCompare.contains(phoneNumberToCompareAgainst) { //поиск с любой части строки
                           result.append(contact)
                       }
                   }
@@ -82,24 +140,10 @@ func searchForContactUsingPhoneNumber(phoneNumber: String) -> [CNContact] {
       return result
  }
 
-func generateClient() -> [Client]{
-    var clients: [Client] = []
-    
-    guard let asset = NSDataAsset(name: "DataClient") else {return []}
-    
-    let data = String(data: asset.data, encoding: .utf8)
-    for dataRow in data!.components(separatedBy: "\r\n") {
-        let clientData = dataRow.components(separatedBy: ";")
-        clients.append(Client(fio: Fio(firstName: clientData[0], lastName: clientData[1]),
-                              telephone: Int(clearStringPhoneNumber(phoneNumberString: clientData[2])) ?? 0))
-    }
-    
-    return clients
-}
-
 
 func saveContactToBook(client: Client) throws -> Bool{
     let contact = CNMutableContact()
+    contact.jobTitle = "Ноготок"
     contact.givenName = client.fio.firstName
     contact.familyName = client.fio.lastName
     contact.phoneNumbers = [CNLabeledValue(
@@ -143,6 +187,24 @@ func saveNewClient(client: Client) throws -> [CNContact]{
     
 }
 
+func deleteContact(phoneNumber: String) throws {
+    if let contact = try getSomeContact(phoneNumber: phoneNumber).first{
+        let req = CNSaveRequest()
+        let mutableContact = contact.mutableCopy() as! CNMutableContact
+        req.delete(mutableContact)
+        let store = CNContactStore()
+        
+        do{
+            try store.execute(req)
+            print("Success, You deleted the user")
+          } catch let e{
+            print("Error = \(e)")
+          }
+    } else {
+        print ("contact \(phoneNumber) not found")
+    }
+}
+
 func getSomeContact(phoneNumber: String) throws -> [CNContact]{
     
     let store = CNContactStore()
@@ -151,6 +213,7 @@ func getSomeContact(phoneNumber: String) throws -> [CNContact]{
         let contacts = try store.unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
         return contacts
     } catch {
+        print(error.localizedDescription)
         throw ValidationError.failedFeatchContact
     }
 }
@@ -165,6 +228,18 @@ func getFioPhoneClient(contacts: [CNContact]) -> [Client]{
     return clients
 }
 
+func getAllClientInContact(note: String) throws -> [CNContact]{
+
+    let contacts = allContacts()
+    if contacts.isEmpty {
+        throw ValidationError.failedFeatchContact
+    }
+    else{
+        let contact = contacts.filter({ $0.jobTitle == note })
+        return contact
+        }
+}
+
 func clearStringPhoneNumber(phoneNumberString: String) -> String{
     return phoneNumberString.components(separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "")
 }
@@ -175,3 +250,4 @@ func checkPhoneNumber(PhoneNumber: String) throws -> String{
     else {
         return PhoneNumber}
 }
+

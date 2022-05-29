@@ -8,11 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		99076ED12809EE85001D72B2 /* AlertWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99076ED02809EE85001D72B2 /* AlertWindow.swift */; };
+		991F2EEC28440AE2001FEE42 /* ViewClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F2EEB28440AE2001FEE42 /* ViewClientController.swift */; };
+		994DEB622827146100CB560B /* EntityClients+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994DEB5A2827146100CB560B /* EntityClients+CoreDataClass.swift */; };
+		994DEB632827146100CB560B /* EntityClients+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994DEB5B2827146100CB560B /* EntityClients+CoreDataProperties.swift */; };
+		994DEB642827146100CB560B /* EntityOrders+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994DEB5C2827146100CB560B /* EntityOrders+CoreDataClass.swift */; };
+		994DEB652827146100CB560B /* EntityOrders+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994DEB5D2827146100CB560B /* EntityOrders+CoreDataProperties.swift */; };
+		994DEB662827146100CB560B /* EntityMasters+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994DEB5E2827146100CB560B /* EntityMasters+CoreDataClass.swift */; };
+		994DEB672827146100CB560B /* EntityMasters+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994DEB5F2827146100CB560B /* EntityMasters+CoreDataProperties.swift */; };
+		994DEB682827146100CB560B /* EntityServices+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994DEB602827146100CB560B /* EntityServices+CoreDataClass.swift */; };
+		994DEB692827146100CB560B /* EntityServices+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994DEB612827146100CB560B /* EntityServices+CoreDataProperties.swift */; };
 		996BE9AF27F5E46700AC29CD /* ClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996BE9AE27F5E46700AC29CD /* ClientTableViewCell.swift */; };
 		996BE9B127F6401300AC29CD /* drawLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996BE9B027F6401300AC29CD /* drawLine.swift */; };
 		996BE9B327F640D100AC29CD /* ViewCreateNewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996BE9B227F640D100AC29CD /* ViewCreateNewClient.swift */; };
-		998598AB280B65540079EF58 /* CrmSalonTests1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998598AA280B65540079EF58 /* CrmSalonTests1.swift */; };
 		998598B32811BBFC0079EF58 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 998598B12811BBFC0079EF58 /* DataModel.xcdatamodeld */; };
+		99B4FE9F281468B6004A47A1 /* WorkWithCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B4FE9E281468B6004A47A1 /* WorkWithCoreData.swift */; };
+		99CA2002281F2CDB000DC833 /* ViewSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CA2001281F2CDB000DC833 /* ViewSettingController.swift */; };
+		99CA20042822FC1E000DC833 /* GenerateTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CA20032822FC1E000DC833 /* GenerateTestData.swift */; };
 		99D85B5F2807468D00426DCF /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D85B5E2807468D00426DCF /* Error.swift */; };
 		99D9DF6427FA1B0F00AE8D5E /* ViewCalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D9DF6327FA1B0F00AE8D5E /* ViewCalendarController.swift */; };
 		99D9DF6827FB002600AE8D5E /* ViewCalendarCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D9DF6727FB002600AE8D5E /* ViewCalendarCollection.swift */; };
@@ -57,12 +68,24 @@
 /* Begin PBXFileReference section */
 		99056F6E27EDFF040087C8AC /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		99076ED02809EE85001D72B2 /* AlertWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindow.swift; sourceTree = "<group>"; };
+		991F2EEB28440AE2001FEE42 /* ViewClientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewClientController.swift; sourceTree = "<group>"; };
+		994DEB5A2827146100CB560B /* EntityClients+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityClients+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		994DEB5B2827146100CB560B /* EntityClients+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityClients+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		994DEB5C2827146100CB560B /* EntityOrders+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityOrders+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		994DEB5D2827146100CB560B /* EntityOrders+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityOrders+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		994DEB5E2827146100CB560B /* EntityMasters+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityMasters+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		994DEB5F2827146100CB560B /* EntityMasters+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityMasters+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		994DEB602827146100CB560B /* EntityServices+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityServices+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		994DEB612827146100CB560B /* EntityServices+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityServices+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		995D47132825B41E0029F2DB /* DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		996BE9AE27F5E46700AC29CD /* ClientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTableViewCell.swift; sourceTree = "<group>"; };
 		996BE9B027F6401300AC29CD /* drawLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drawLine.swift; sourceTree = "<group>"; };
 		996BE9B227F640D100AC29CD /* ViewCreateNewClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCreateNewClient.swift; sourceTree = "<group>"; };
 		998598A8280B65540079EF58 /* CrmSalonTests1.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrmSalonTests1.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		998598AA280B65540079EF58 /* CrmSalonTests1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrmSalonTests1.swift; sourceTree = "<group>"; };
 		998598B22811BBFC0079EF58 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		99B4FE9E281468B6004A47A1 /* WorkWithCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkWithCoreData.swift; sourceTree = "<group>"; };
+		99CA2001281F2CDB000DC833 /* ViewSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSettingController.swift; sourceTree = "<group>"; };
+		99CA20032822FC1E000DC833 /* GenerateTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateTestData.swift; sourceTree = "<group>"; };
 		99D85B5E2807468D00426DCF /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		99D9DF6327FA1B0F00AE8D5E /* ViewCalendarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCalendarController.swift; sourceTree = "<group>"; };
 		99D9DF6727FB002600AE8D5E /* ViewCalendarCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCalendarCollection.swift; sourceTree = "<group>"; };
@@ -116,12 +139,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		998598A9280B65540079EF58 /* CrmSalonTests1 */ = {
+		99288E882813433F00EC55D4 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				998598AA280B65540079EF58 /* CrmSalonTests1.swift */,
+				994DEB5A2827146100CB560B /* EntityClients+CoreDataClass.swift */,
+				994DEB5B2827146100CB560B /* EntityClients+CoreDataProperties.swift */,
+				994DEB5C2827146100CB560B /* EntityOrders+CoreDataClass.swift */,
+				994DEB5D2827146100CB560B /* EntityOrders+CoreDataProperties.swift */,
+				994DEB5E2827146100CB560B /* EntityMasters+CoreDataClass.swift */,
+				994DEB5F2827146100CB560B /* EntityMasters+CoreDataProperties.swift */,
+				994DEB602827146100CB560B /* EntityServices+CoreDataClass.swift */,
+				994DEB612827146100CB560B /* EntityServices+CoreDataProperties.swift */,
+				99B4FE9E281468B6004A47A1 /* WorkWithCoreData.swift */,
+				998598B12811BBFC0079EF58 /* DataModel.xcdatamodeld */,
 			);
-			path = CrmSalonTests1;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		99F3772727EDEFB10086A1BF = {
@@ -130,7 +162,6 @@
 				99F3773227EDEFB10086A1BF /* CrmSalon */,
 				99F3774927EDEFB50086A1BF /* CrmSalonTests */,
 				99F3775327EDEFB50086A1BF /* CrmSalonUITests */,
-				998598A9280B65540079EF58 /* CrmSalonTests1 */,
 				99F3773127EDEFB10086A1BF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -149,6 +180,7 @@
 		99F3773227EDEFB10086A1BF /* CrmSalon */ = {
 			isa = PBXGroup;
 			children = (
+				99288E882813433F00EC55D4 /* CoreData */,
 				99056F6E27EDFF040087C8AC /* MyPlayground.playground */,
 				99F3773327EDEFB10086A1BF /* AppDelegate.swift */,
 				99F3773527EDEFB10086A1BF /* SceneDelegate.swift */,
@@ -181,8 +213,8 @@
 		99F3776327EDEFE20086A1BF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				998598B12811BBFC0079EF58 /* DataModel.xcdatamodeld */,
 				99F3776627EDF1E70086A1BF /* Data.swift */,
+				99CA20032822FC1E000DC833 /* GenerateTestData.swift */,
 				99D85B5E2807468D00426DCF /* Error.swift */,
 			);
 			path = Model;
@@ -206,7 +238,9 @@
 				99F3773727EDEFB10086A1BF /* ViewController.swift */,
 				996BE9B227F640D100AC29CD /* ViewCreateNewClient.swift */,
 				99D9DF6327FA1B0F00AE8D5E /* ViewCalendarController.swift */,
+				99CA2001281F2CDB000DC833 /* ViewSettingController.swift */,
 				99D9DF6727FB002600AE8D5E /* ViewCalendarCollection.swift */,
+				991F2EEB28440AE2001FEE42 /* ViewClientController.swift */,
 				996BE9AE27F5E46700AC29CD /* ClientTableViewCell.swift */,
 				99D9DF6927FB013E00AE8D5E /* CalendarCollectionViewCell.swift */,
 			);
@@ -375,7 +409,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				998598AB280B65540079EF58 /* CrmSalonTests1.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,16 +418,28 @@
 			files = (
 				99F3773827EDEFB10086A1BF /* ViewController.swift in Sources */,
 				99F3773427EDEFB10086A1BF /* AppDelegate.swift in Sources */,
+				994DEB642827146100CB560B /* EntityOrders+CoreDataClass.swift in Sources */,
 				99D9DF6827FB002600AE8D5E /* ViewCalendarCollection.swift in Sources */,
 				99D85B5F2807468D00426DCF /* Error.swift in Sources */,
 				99D9DF6427FA1B0F00AE8D5E /* ViewCalendarController.swift in Sources */,
+				994DEB662827146100CB560B /* EntityMasters+CoreDataClass.swift in Sources */,
 				99D9DF6B27FB013E00AE8D5E /* CalendarCollectionViewCell.swift in Sources */,
 				99076ED12809EE85001D72B2 /* AlertWindow.swift in Sources */,
 				99F3773627EDEFB10086A1BF /* SceneDelegate.swift in Sources */,
 				996BE9B127F6401300AC29CD /* drawLine.swift in Sources */,
+				994DEB622827146100CB560B /* EntityClients+CoreDataClass.swift in Sources */,
 				996BE9AF27F5E46700AC29CD /* ClientTableViewCell.swift in Sources */,
+				99B4FE9F281468B6004A47A1 /* WorkWithCoreData.swift in Sources */,
+				991F2EEC28440AE2001FEE42 /* ViewClientController.swift in Sources */,
+				994DEB692827146100CB560B /* EntityServices+CoreDataProperties.swift in Sources */,
+				994DEB672827146100CB560B /* EntityMasters+CoreDataProperties.swift in Sources */,
 				998598B32811BBFC0079EF58 /* DataModel.xcdatamodeld in Sources */,
 				996BE9B327F640D100AC29CD /* ViewCreateNewClient.swift in Sources */,
+				994DEB652827146100CB560B /* EntityOrders+CoreDataProperties.swift in Sources */,
+				99CA20042822FC1E000DC833 /* GenerateTestData.swift in Sources */,
+				994DEB682827146100CB560B /* EntityServices+CoreDataClass.swift in Sources */,
+				994DEB632827146100CB560B /* EntityClients+CoreDataProperties.swift in Sources */,
+				99CA2002281F2CDB000DC833 /* ViewSettingController.swift in Sources */,
 				99F3776727EDF1E70086A1BF /* Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -794,6 +839,7 @@
 		998598B12811BBFC0079EF58 /* DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				995D47132825B41E0029F2DB /* DataModel 2.xcdatamodel */,
 				998598B22811BBFC0079EF58 /* DataModel.xcdatamodel */,
 			);
 			currentVersion = 998598B22811BBFC0079EF58 /* DataModel.xcdatamodel */;

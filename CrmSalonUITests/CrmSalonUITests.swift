@@ -58,6 +58,12 @@ class TestUiForm {
         self.app.tables.cells.staticTexts[phoneNumber].tap()
     }
     
+    func deleteAll(){
+        self.app.navigationBars["CrmSalon.View"].buttons["Item"].tap()
+        self.app/*@START_MENU_TOKEN@*/.staticTexts["Clear data base"]/*[[".buttons[\"Clear data base\"].staticTexts[\"Clear data base\"]",".staticTexts[\"Clear data base\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Back"].tap()
+    }
+    
     
 }
 
@@ -99,12 +105,15 @@ class CrmSalonUITests: XCTestCase {
             print ("contact \(phoneNumber) not found")
         }
     }
-    
+
     
     override func setUp() {
         // delete client in adress book
+
         do{
-            try deleteContact(phoneNumber: String(testClients[0].telephone))}
+            try deleteContact(phoneNumber: String(testClients[0].telephone))
+            
+        }
         catch{
             print ("error delete")
         }
@@ -125,6 +134,7 @@ class CrmSalonUITests: XCTestCase {
 
     func testNewClient() throws{
         let testUi = TestUiForm(testClient: testClients[0])
+        testUi.deleteAll()
         testUi.enterNewContact()
         testUi.app.staticTexts["Сохранить"].tap()
         testUi.app.navigationBars["UIView"].buttons["Back"].tap()
@@ -135,6 +145,7 @@ class CrmSalonUITests: XCTestCase {
     
     func testNewClientSame() throws{
         let testUi = TestUiForm(testClient: testClients[0])
+        testUi.deleteAll()
         testUi.enterNewContact()
         testUi.app.staticTexts["Сохранить"].tap()
         testUi.app.staticTexts["Сохранить"].tap()
@@ -146,6 +157,7 @@ class CrmSalonUITests: XCTestCase {
         for (n, testClient) in testClients.enumerated(){
             setUp()
             let testUi = TestUiForm(testClient: testClient)
+            testUi.deleteAll()
             testUi.enterNewContact()
             testUi.app.staticTexts["Сохранить"].tap()
             
@@ -158,6 +170,12 @@ class CrmSalonUITests: XCTestCase {
                 testUi.app.alerts["alert"].scrollViews.otherElements.buttons["OK"].tap()
             }
         }
+    }
+    
+    func testCalendar() {
+        let testUi = TestUiForm(testClient: testClients[0])
+        testUi.deleteAll()
+        testUi.app.staticTexts["Календарь"].tap()
     }
     
 

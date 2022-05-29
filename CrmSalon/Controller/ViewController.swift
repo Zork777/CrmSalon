@@ -7,6 +7,7 @@
 
 import UIKit
 import Contacts
+import CoreData
 
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
@@ -29,9 +30,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
         
-        clientsBase = try allContacts() ?? [CNContact]()
-        
-        
+            clientsBase = allContacts()
         
     }
 
@@ -61,7 +60,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     func updateSearchResults(for searchController: UISearchController) {
         guard let textSearch = searchController.searchBar.text else {return}
-        print (textSearch)
+//        print (textSearch)
     }
     
 }

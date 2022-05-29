@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="EntityClients" representedClassName="EntityClients" syncable="YES">
+        <attribute name="firstName" attributeType="String"/>
+        <attribute name="lastName" optional="YES" attributeType="String"/>
+        <attribute name="phone" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="clientToOrder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EntityOrders" inverseName="orderToClient" inverseEntity="EntityOrders"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="phone"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="EntityMasters" representedClassName="EntityMasters" syncable="YES">
+        <attribute name="firstName" attributeType="String"/>
+        <attribute name="lastName" optional="YES" attributeType="String"/>
+        <attribute name="phone" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="masterToOrder" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EntityOrders" inverseName="orderToMaster" inverseEntity="EntityOrders"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="phone"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="EntityOrders" representedClassName="EntityOrders" syncable="YES">
+        <attribute name="active" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="price" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Binary"/>
+        <relationship name="orderToClient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EntityClients" inverseName="clientToOrder" inverseEntity="EntityClients"/>
+        <relationship name="orderToMaster" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EntityMasters" inverseName="masterToOrder" inverseEntity="EntityMasters"/>
+        <relationship name="orderToService" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EntityServices" inverseName="serviceToOrder" inverseEntity="EntityServices"/>
+    </entity>
+    <entity name="EntityServices" representedClassName="EntityServices" syncable="YES">
+        <attribute name="service" optional="YES" attributeType="String"/>
+        <relationship name="serviceToOrder" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EntityOrders" inverseName="orderToService" inverseEntity="EntityOrders"/>
+    </entity>
+    <elements>
+        <element name="EntityClients" positionX="-327.43359375" positionY="2.68359375" width="128" height="89"/>
+        <element name="EntityMasters" positionX="-309.484375" positionY="136.19921875" width="146.5703125" height="89"/>
+        <element name="EntityOrders" positionX="-75.4921875" positionY="7.55859375" width="128" height="134"/>
+        <element name="EntityServices" positionX="108.90234375" positionY="149.1328125" width="137.1015625" height="59"/>
+    </elements>
+</model>
