@@ -57,6 +57,17 @@ public struct Masters {
     var telephone: Int64
 }
 
+//extension UIBarButtonItem {
+//
+//    var frame: CGRect? {
+//        guard let view = self.value(forKey: "view") as? UIView else {
+//            return nil
+//        }
+//        return view.frame
+//    }
+//
+//}
+
 extension Date {
     var convertToString: String{
         let dateFormatter = DateFormatter()
@@ -119,20 +130,25 @@ let allContacts = { () -> [CNContact] in
 
 
 func searchForContactUsingPhoneNumber(phoneNumber: String) -> [CNContact] {
+    
+    /**
+     Поиск клиента в clientsBase по номеру телефона
+    */
+    
       var result: [CNContact] = []
 
       for contact in clientsBase {
           if (!contact.phoneNumbers.isEmpty) {
              let phoneNumberToCompareAgainst = phoneNumber.components(separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "")
               for phoneNumber in contact.phoneNumbers {
-                  if let phoneNumberStruct = phoneNumber.value as? CNPhoneNumber {
+                  let phoneNumberStruct = phoneNumber.value
                       let phoneNumberString = phoneNumberStruct.stringValue
                      let phoneNumberToCompare = clearStringPhoneNumber(phoneNumberString: phoneNumberString)
 //                      if phoneNumberToCompare.prefix(phoneNumberToCompareAgainst.count).contains(phoneNumberToCompareAgainst) { поиск с начала строки
                       if phoneNumberToCompare.contains(phoneNumberToCompareAgainst) { //поиск с любой части строки
                           result.append(contact)
                       }
-                  }
+                  
               }
            }
       }

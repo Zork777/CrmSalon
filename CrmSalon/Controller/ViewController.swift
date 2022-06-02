@@ -15,11 +15,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var searchClients = [Client]()
     var searching = false
     let lineCoordinate = DrawLineCoordinate()
+    var selectClientPhone = ""
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tblView: UITableView!
     
     @IBAction func buttonGotoCalendare(_ sender: Any) {
+        selectClientPhone = ""
     }
     
     @IBAction func buttonCreateNewClient(_ sender: Any) {
@@ -41,9 +43,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return 0
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let destination = segue.destination as? ViewClientController {
+//            destination.textForLabelClientName = selectClientPhone
+//        }
+        if let destination = segue.destination as? ViewCalendarController {
+            destination.selectClientPhone = selectClientPhone
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print ("select")
+//        let cell = tableView.cellForRow(at: indexPath) as! ClientTableViewCell
+//        selectClientPhone = cell.phoneNumber.text ?? ""
+//        performSegue(withIdentifier: "gotoClient", sender: nil)
+        
+        let cell = tableView.cellForRow(at: indexPath) as! ClientTableViewCell
+        selectClientPhone = cell.phoneNumber.text ?? ""
+        performSegue(withIdentifier: "gotoCalendar", sender: nil)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -57,11 +74,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-        
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let textSearch = searchController.searchBar.text else {return}
+//
+//    func updateSearchResults(for searchController: UISearchController) {
+//        guard let textSearch = searchController.searchBar.text else {return}
 //        print (textSearch)
-    }
+//    }
     
 }
 

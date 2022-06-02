@@ -9,12 +9,21 @@ import UIKit
 
 class ViewClientController: UIViewController {
     let lineCoordinate = DrawLineCoordinate()
+    var textForLabelClientName: String?
     
+    @IBOutlet weak var labelClientPhone: UILabel!
+    @IBOutlet weak var labelClientName: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
+        if let receivedText = textForLabelClientName {
+            let clientObject = searchForContactUsingPhoneNumber(phoneNumber: receivedText)
+            let client = getFioPhoneClient(contacts: clientObject)[0]
+            labelClientName.text = client.fio.firstName + " " + client.fio.lastName
+            labelClientPhone.text = String(client.telephone)
+        }
 
-        // Do any additional setup after loading the view.
+
     }
     
 

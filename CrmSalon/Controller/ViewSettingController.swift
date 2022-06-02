@@ -26,7 +26,7 @@ class ViewSettingController: UIViewController, UITableViewDataSource {
         deleteAllCoreBases()
         deleteAllContactClient()
         cells.removeAll()
-        clientsBase = try allContacts() ?? [CNContact]()
+        clientsBase = allContacts() 
         tableView.reloadData()
     }
     
