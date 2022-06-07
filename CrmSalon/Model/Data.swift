@@ -36,11 +36,16 @@ enum Services: String, CaseIterable {
     case pedicure = "Педикюр"
 }
 
-struct Orders {
-    var date: Date
-    var time: Int
-    var price: Int
+struct OrderForSave {
+    var date: Date?
+    var time = [UInt8]()
+    var master: EntityMasters?
+    var service: EntityServices?
+    var client: EntityClients?
 }
+
+
+
 
 struct Fio {
     var firstName: String
@@ -57,16 +62,6 @@ public struct Masters {
     var telephone: Int64
 }
 
-//extension UIBarButtonItem {
-//
-//    var frame: CGRect? {
-//        guard let view = self.value(forKey: "view") as? UIView else {
-//            return nil
-//        }
-//        return view.frame
-//    }
-//
-//}
 
 extension Date {
     var convertToString: String{

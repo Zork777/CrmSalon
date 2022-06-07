@@ -58,6 +58,12 @@ class TestUiForm {
         self.app.tables.cells.staticTexts[phoneNumber].tap()
     }
     
+    func fillTestDataInBase(){
+        self.app.navigationBars["CrmSalon.View"].buttons["Item"].tap()
+        self.app/*@START_MENU_TOKEN@*/.staticTexts["Add data in base"]/*[[".buttons[\"Add data in base\"].staticTexts[\"Add data in base\"]",".staticTexts[\"Add data in base\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Back"].tap()
+    }
+    
     func deleteAll(){
         self.app.navigationBars["CrmSalon.View"].buttons["Item"].tap()
         self.app/*@START_MENU_TOKEN@*/.staticTexts["Clear data base"]/*[[".buttons[\"Clear data base\"].staticTexts[\"Clear data base\"]",".staticTexts[\"Clear data base\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
@@ -173,10 +179,39 @@ class CrmSalonUITests: XCTestCase {
     }
     
     func testCalendar() {
-        let testUi = TestUiForm(testClient: testClients[0])
+        let testClient = testClients[0]
+        let testUi = TestUiForm(testClient: testClient)
         testUi.deleteAll()
-        testUi.app.staticTexts["Календарь"].tap()
-    }
-    
+        testUi.fillTestDataInBase()
+        testUi.enterNewContact()
+        testUi.app.staticTexts["Сохранить"].tap()
+        testUi.app.navigationBars["UIView"].buttons["Back"].tap()
+        testUi.checkNewContact(phoneNumber: testClient.telephone)
+        let staticText = testUi.app/*@START_MENU_TOKEN@*/.staticTexts["▶︎"]/*[[".buttons[\"▶︎\"].staticTexts[\"▶︎\"]",".staticTexts[\"▶︎\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        staticText.tap()
+        staticText.tap()
+        testUi.app.collectionViews.cells.otherElements.containing(.staticText, identifier:"11:30 - 12:00").element.tap()
 
+        let elementsQuery = testUi.app.sheets.scrollViews.otherElements
+        elementsQuery.buttons["OK"].tap()
+
+        let crmsalonViewcalendarNavigationBar = testUi.app.navigationBars["CrmSalon.ViewCalendar"]
+        crmsalonViewcalendarNavigationBar.buttons["Save"].tap()
+
+        let backButton = crmsalonViewcalendarNavigationBar.buttons["Back"]
+        backButton.tap()
+
+        testUi.app.buttons["Календарь"].tap()
+        staticText.tap()
+        staticText.tap()
+        
+        let cellsQuery = testUi.app.collectionViews.cells
+        cellsQuery.otherElements.containing(.staticText, identifier:"11:30 - 12:00").staticTexts[testClient.fio.firstName].tap()
+        
+        
+        
+        testUi.app.staticTexts["Клиент: \(testClient.fio.firstName + " " + testClient.fio.lastName)"].tap()
+        testUi.app.staticTexts["Телефон: \(testClient.telephone)"].tap()
+        testUi.app.staticTexts["Услуга: Маникюр"]
+    }
 }

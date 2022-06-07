@@ -17,6 +17,7 @@ enum ValidationError: LocalizedError {
     case wrongPhoneNumber
     case failedSavingInCoreData
     case failedDeleteInCoreData
+    case failedSaveOrder
     
     var errorDescription: String? {
         switch self {
@@ -38,6 +39,8 @@ enum ValidationError: LocalizedError {
             return "failed save in Core Data"
         case .failedDeleteInCoreData:
             return "failed delete in Core Data"
+        case .failedSaveOrder:
+            return "failed save Order"
         }
     }
 }

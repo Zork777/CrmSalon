@@ -174,14 +174,14 @@ class CrmSalonTests: XCTestCase {
         saveServices(services: [testService])
         saveMasters(masters: [testMaster])
         saveClients(clients: [testClient])
-        _ = saveOrders(days: [Date()])
+        _ = saveOrders(date: [Date()])
         
         let base = BaseCoreData()
         if let fetchResult = try? base.fetchContext(base: Bases.clients.rawValue, predicate: predicateName).first {
             let clientObject = fetchResult as! EntityClients
-            let orderObject = clientObject.clientToOrder
-            if  let masterObject = orderObject?.orderToMaster,
-                let serviceObject = orderObject?.orderToService{
+            let orderObject = clientObject.clientToOrder?.allObjects.first as! EntityOrders
+            if  let masterObject = orderObject.orderToMaster,
+                let serviceObject = orderObject.orderToService{
                 client = Client(fio: Fio(firstName: clientObject.firstName!,
                                          lastName: clientObject.lastName!),
                                 telephone: Int(clientObject.phone))
@@ -190,7 +190,7 @@ class CrmSalonTests: XCTestCase {
                                 telephone: Int(masterObject.phone))
                 service = serviceObject.service ?? ""
                 print ("Client-", client.fio.firstName, "-", client.telephone)
-                print ("date-", orderObject?.date as Any)
+                print ("date-", orderObject.date as Any)
                 print ("Master-", master.fio.firstName, "-", master.telephone)
                 print ("Service-", service)
                 XCTAssertEqual(testClient.telephone, client.telephone)
@@ -212,7 +212,7 @@ class CrmSalonTests: XCTestCase {
         saveServices(services: [testService])
         saveMasters(masters: [testMaster])
         saveClients(clients: [testClient])
-        saveOrders(days: [testDate])
+        _ = saveOrders(date: [testDate])
         
         let base = BaseCoreData()
         if let fetchResults = base.getOrdersInDate(date: testDate){
@@ -246,7 +246,7 @@ class CrmSalonTests: XCTestCase {
         saveServices(services: [testService])
         saveMasters(masters: [testMaster])
         saveClients(clients: clients)
-        countOrders = saveOrders(days: [testDate])
+        countOrders = saveOrders(date: [testDate])
         
         let base = BaseCoreData()
         if let fetchResults = base.getOrdersInDate(date: testDate){
@@ -269,5 +269,70 @@ class CrmSalonTests: XCTestCase {
         else{
             XCTAssert(false, "error fetch")
         }
+    }
+    
+    func testSaveOneOrder() {
+        let date = Date().stripTime()
+        deleteAllCoreBases()
+        deleteAllContactClient()
+        saveServices(services: [testService])
+        saveMasters(masters: [testMaster])
+        saveClients(clients: [testClient])
+        
+        let base = BaseCoreData()
+        do {
+            let client = try base.fetchContext(base: Bases.clients.rawValue, predicate: nil)[0] as! EntityClients
+            let service = try base.fetchContext(base: Bases.services.rawValue, predicate: nil)[0] as! EntityServices
+            let master = try base.fetchContext(base: Bases.masters.rawValue, predicate: nil)[0] as! EntityMasters
+            let fetchResults = base.saveOrders(date: date, time: [1,2,3], client: client, service: service, master: master)
+
+            XCTAssertEqual(fetchResults, 1)
+            
+            let order = base.getOrdersInDate(date: date)![0] as! EntityOrders
+            XCTAssertEqual(order.orderToClient?.phone, client.phone)
+        }
+        catch{
+            XCTAssert(false, "error fetch")
+        }
+    }
+    
+    func testSaveMoreOrderToOneClient() {
+        let date = Date().stripTime()
+        let masters = generateClient()[0...1]
+        deleteAllCoreBases()
+        deleteAllContactClient()
+        saveServices(services: [Services.manicure, Services.pedicure])
+        saveMasters(masters: masters)
+        saveClients(clients: [testClient])
+        
+        let base = BaseCoreData()
+        for n in (0...1){
+            do {
+                let client = try base.fetchContext(base: Bases.clients.rawValue, predicate: nil)[0] as! EntityClients
+                let service = try base.fetchContext(base: Bases.services.rawValue, predicate: nil)[n] as! EntityServices
+                let master = try base.fetchContext(base: Bases.masters.rawValue, predicate: nil)[n] as! EntityMasters
+                let fetchResults = base.saveOrders(date: date, time: n == 0 ? [1,2,3] : [6,7],
+                                                   client: client, service: service, master: master)
+
+                XCTAssertEqual(fetchResults, 1)
+                
+                let order = base.getOrdersInDate(date: date)![n] as! EntityOrders
+                XCTAssertEqual(order.orderToClient?.phone, client.phone)
+                XCTAssertEqual(order.orderToMaster!.phone, Int64(masters[n].telephone))
+            }
+            catch{
+                XCTAssert(false, "error fetch")
+            }
+        }
+    }
+    
+    func testFindClientInCoreBase() {
+        deleteAllCoreBases()
+        deleteAllContactClient()
+        saveClients(clients: [testClient])
+        
+        let base = BaseCoreData()
+        let fetchResults = base.findClientByPhone(phone: String(testClient.telephone))
+        XCTAssertEqual(fetchResults!.phone, Int64(testClient.telephone))
     }
 }

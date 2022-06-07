@@ -4,7 +4,7 @@
         <attribute name="firstName" attributeType="String"/>
         <attribute name="lastName" optional="YES" attributeType="String"/>
         <attribute name="phone" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="clientToOrder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EntityOrders" inverseName="orderToClient" inverseEntity="EntityOrders"/>
+        <relationship name="clientToOrder" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EntityOrders" inverseName="orderToClient" inverseEntity="EntityOrders"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="phone"/>
@@ -36,9 +36,9 @@
         <relationship name="serviceToOrder" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EntityOrders" inverseName="orderToService" inverseEntity="EntityOrders"/>
     </entity>
     <elements>
-        <element name="EntityClients" positionX="-327.43359375" positionY="2.68359375" width="128" height="89"/>
-        <element name="EntityMasters" positionX="-309.484375" positionY="136.19921875" width="146.5703125" height="89"/>
-        <element name="EntityOrders" positionX="-75.4921875" positionY="7.55859375" width="128" height="134"/>
+        <element name="EntityClients" positionX="-354.82421875" positionY="-13.70703125" width="128" height="103"/>
+        <element name="EntityMasters" positionX="-358.1328125" positionY="186.33203125" width="146.5703125" height="89"/>
+        <element name="EntityOrders" positionX="-49.23046875" positionY="2.26953125" width="128" height="134"/>
         <element name="EntityServices" positionX="108.90234375" positionY="149.1328125" width="137.1015625" height="59"/>
     </elements>
 </model>

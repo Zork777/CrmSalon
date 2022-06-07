@@ -2,7 +2,7 @@
 //  EntityMasters+CoreDataProperties.swift
 //  CrmSalon
 //
-//  Created by Евгений Захаров on 07.05.2022.
+//  Created by Евгений Захаров on 05.06.2022.
 //
 //
 

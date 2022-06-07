@@ -2,7 +2,7 @@
 //  EntityClients+CoreDataProperties.swift
 //  CrmSalon
 //
-//  Created by Евгений Захаров on 07.05.2022.
+//  Created by Евгений Захаров on 05.06.2022.
 //
 //
 
@@ -19,7 +19,24 @@ extension EntityClients {
     @NSManaged public var firstName: String?
     @NSManaged public var lastName: String?
     @NSManaged public var phone: Int64
-    @NSManaged public var clientToOrder: EntityOrders?
+    @NSManaged public var clientToOrder: NSSet?
+
+}
+
+// MARK: Generated accessors for clientToOrder
+extension EntityClients {
+
+    @objc(addClientToOrderObject:)
+    @NSManaged public func addToClientToOrder(_ value: EntityOrders)
+
+    @objc(removeClientToOrderObject:)
+    @NSManaged public func removeFromClientToOrder(_ value: EntityOrders)
+
+    @objc(addClientToOrder:)
+    @NSManaged public func addToClientToOrder(_ values: NSSet)
+
+    @objc(removeClientToOrder:)
+    @NSManaged public func removeFromClientToOrder(_ values: NSSet)
 
 }
 

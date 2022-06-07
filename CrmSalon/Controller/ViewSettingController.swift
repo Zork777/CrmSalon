@@ -93,17 +93,18 @@ class ViewSettingController: UIViewController, UITableViewDataSource {
                 for object in fetchResult{
                     let firstName = object.value(forKey: "firstName") as! String
                     let lastName = object.value(forKey: "lastName") as! String
-                    print (object)
                     var cell = Cell(title: firstName + " " + lastName,
                                      subTitle: String(object.value(forKey: "phone") as! Int))
                     if baseName.rawValue == Bases.clients.rawValue {
-                        if let order = object.value(forKey: "clientToOrder") as? EntityOrders {
-                            cell.title = cell.title + " Order-" + (order.date?.convertToString)!
+                        let object = object as! EntityClients
+                        var ordersDate = ""
+                        for order in object.clientToOrder!.allObjects{
+                            ordersDate = ordersDate + ((order as! EntityOrders).date?.convertToString ?? "") + ", "
                         }
-                        else{
-                            cell.title = cell.title + " Order- nothing"
-                        }
-                                            }
+                        
+                        cell.title = cell.title + (ordersDate.isEmpty ? " Order- nothing" : " Order- " + ordersDate)
+                        
+                    }
                     cells.append(cell)
                 }
                 

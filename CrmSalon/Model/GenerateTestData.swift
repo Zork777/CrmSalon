@@ -29,7 +29,7 @@ func generateClient() -> [Client]{
     let data = String(data: asset.data, encoding: .utf8)
     for dataRow in data!.components(separatedBy: "\r\n") {
         let clientData = dataRow.components(separatedBy: ";")
-        clients.append(Client(fio: Fio(firstName: clientData[0], lastName: clientData[1]),
+        clients.append(Client(fio: Fio(firstName: clientData[1], lastName: clientData[0]),
                               telephone: Int(clearStringPhoneNumber(phoneNumberString: clientData[2])) ?? 0))
     }
     
@@ -107,7 +107,7 @@ func saveClients(clients: ArraySlice<Client>) {
     }
 }
 
-func saveOrders(days: [Date]) -> Int{
+func saveOrders(date: [Date]) -> Int{
     var countOrder = 0
     let base = BaseCoreData()
     let clients = try! base.fetchContext(base: Bases.clients.rawValue, predicate: nil)
@@ -121,13 +121,13 @@ func saveOrders(days: [Date]) -> Int{
         let master = masters.randomElement() as! EntityMasters
         let service = services.randomElement() as! EntityServices
         order.time = Data(getSequenceRandom())
-        order.date = days.randomElement()
+        order.date = date.randomElement()
         order.active = true
         order.price = Int16(Int.random(in: 5...15)*100)
         order.orderToClient = client
         order.orderToMaster = master
         order.orderToService = service
-        client.clientToOrder = order
+        client.clientToOrder = client.clientToOrder?.adding(order) as NSSet?
         do {
             try base.saveContext()
             countOrder+=1
@@ -139,10 +139,6 @@ func saveOrders(days: [Date]) -> Int{
     return countOrder
 }
 
-//func getRandomClient(base: BaseCoreData) -> NSManagedObject {
-//    let clients = try! base.fetchContext(base: Bases.clients.rawValue, predicate: nil)
-//    return clients.randomElement()!
-//}
 
 func getSequenceRandom() -> [UInt8]{
     let timeIntervalMax = timeShift().count
@@ -178,6 +174,6 @@ func mainGenerateTestData(){
     saveMasters(masters: masters)
     saveClients(clients: clients)
     let today = Date().stripTime()
-    countOrders = saveOrders(days: [today.yesterday, today, today.tomorrow])
+    countOrders = saveOrders(date: [today.yesterday, today, today.tomorrow])
     print ("create orders-", countOrders)
 }

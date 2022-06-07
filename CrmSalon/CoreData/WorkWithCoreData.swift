@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 
+
 class BaseCoreData {
     let persistentContainer: NSPersistentContainer
     let context: NSManagedObjectContext
@@ -39,6 +40,32 @@ class BaseCoreData {
               }
           }
       }
+    
+    func saveOrders(date: Date?, time: [UInt8], client: EntityClients?, service: EntityServices?, master: EntityMasters?) -> Int{
+
+        var countOrder = 0
+        if date == nil || time.isEmpty || client == nil || service == nil || master == nil { return 0}
+        
+        let order = self.addRecord(base: Bases.orders.rawValue) as! EntityOrders
+        order.time = Data(time)
+        order.date = date
+        order.active = true
+        order.price = Int16(Int.random(in: 5...15)*100)
+        order.orderToClient = client
+        order.orderToMaster = master
+        order.orderToService = service
+        client!.clientToOrder = client!.clientToOrder?.adding(order) as NSSet?
+        do {
+//            print (client, service, master, date, time)
+            try self.saveContext()
+            countOrder+=1
+        }
+        catch{
+            showMessage(message: "Error save in base Orders")
+        }
+        
+        return countOrder
+    }
     
     func addRecord (base: String) -> NSObject{
         return NSEntityDescription.insertNewObject(forEntityName: base, into: context)
@@ -79,6 +106,17 @@ class BaseCoreData {
             return nil
         }
     }
+    
+    func findClientByPhone(phone: String) -> EntityClients?{
+        let predicate =  NSPredicate(format: "phone == %@", phone)
+        if let fetchResults = try? fetchContext(base: Bases.clients.rawValue, predicate: predicate){
+            return fetchResults.first as? EntityClients
+        }
+        else{
+            return nil
+        }
+    }
+    
 }
 
 
