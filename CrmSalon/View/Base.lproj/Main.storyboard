@@ -651,15 +651,8 @@
                             <constraint firstItem="mUK-fh-y7l" firstAttribute="leading" secondItem="ZmN-uZ-Dpc" secondAttribute="leading" constant="16" id="vuc-q1-WXB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="glN-uB-ROT">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" style="done" systemItem="save" id="41D-Vr-faw">
-                            <connections>
-                                <action selector="buttonSaveOrder:" destination="D8g-tO-lO0" id="4BH-zz-VcU"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="glN-uB-ROT"/>
                     <connections>
-                        <outlet property="buttonSave" destination="41D-Vr-faw" id="BX2-en-JGF"/>
                         <outlet property="collectionViewCalendar" destination="1XN-Uf-ipF" id="eHe-cU-E8P"/>
                         <outlet property="labelDate" destination="xQ0-LS-rmN" id="L4Z-gD-J7r"/>
                         <outlet property="labelFio" destination="Mle-D2-rbA" id="dRJ-Lj-eW8"/>

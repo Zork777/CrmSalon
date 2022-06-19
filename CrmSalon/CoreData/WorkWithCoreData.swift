@@ -67,6 +67,16 @@ class BaseCoreData {
         return countOrder
     }
     
+    func deleteObject(object: NSManagedObject) throws{
+        do{
+            context.delete(object)
+            try context.save()
+        }
+    catch {
+        throw ValidationError.failedDeleteInCoreData
+    }
+    }
+    
     func addRecord (base: String) -> NSObject{
         return NSEntityDescription.insertNewObject(forEntityName: base, into: context)
     }
