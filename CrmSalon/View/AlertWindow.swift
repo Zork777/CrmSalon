@@ -8,6 +8,16 @@
 import Foundation
 import UIKit
 
+func dialogMessage(message: String, funcOk: @escaping () -> (), funcCancel: @escaping ()->()){
+    let dialog = UIAlertController(title: "Внимание", message: message, preferredStyle: .actionSheet)
+    let actionOk = UIAlertAction(title: "OK", style: .default, handler: {_ in funcOk() })
+    let actionCancel = UIAlertAction(title: "Отмена", style: .cancel, handler: {_ in funcCancel() })
+    dialog.addAction(actionCancel)
+    dialog.addAction(actionOk)
+    let vc = UIApplication.topViewController()
+    vc?.present(dialog, animated: true)
+}
+
 func showMessage(message: String) {
     let dialog = UIAlertController(title: "alert", message: message, preferredStyle: .alert)
     let action = UIAlertAction(title: "OK", style: .default)

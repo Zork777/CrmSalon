@@ -42,6 +42,12 @@ struct OrderForSave {
     var master: EntityMasters?
     var service: EntityServices?
     var client: EntityClients?
+    
+    mutating func clear(){
+        master = nil
+        service = nil
+        time.removeAll()
+    }
 }
 
 
@@ -126,7 +132,7 @@ let allContacts = { () -> [CNContact] in
 
 func searchForContactUsingPhoneNumber(phoneNumber: String) -> [CNContact] {
     
-    /**
+    /*
      Поиск клиента в clientsBase по номеру телефона
     */
     
