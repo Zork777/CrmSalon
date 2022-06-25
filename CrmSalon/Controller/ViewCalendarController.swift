@@ -69,6 +69,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     
     var saveButton: UIBarButtonItem?
     var cancelButton: UIBarButtonItem?
+    var undeleteButton: UIBarButtonItem?
 
     
     class BarButtonDelete: UIBarButtonItem{
@@ -104,6 +105,10 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
         selectCellWithOrder.removeAll() //снимаем выделения со всех ячеек
         orderForSave.clear() //обнуляем ордер для записи
         reloadCell()
+    }
+    
+    @objc func funcButtonUndelete() {
+        
     }
     
     @objc func funcButtonCancel() {
@@ -173,6 +178,8 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
         
         saveButton = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(funcButtonSaveOrder))
         cancelButton = UIBarButtonItem(title: "Отмена", style: .plain, target: self, action: #selector(funcButtonCancel))
+        undeleteButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.trash, target: self, action: #selector(funcButtonUndelete))
+        navigationItem.rightBarButtonItems = [undeleteButton!]
     }
     
     override func didMove(toParent parent: UIViewController?) {
@@ -193,7 +200,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
             selectCellWithOrder.removeAll()
             selectOrderForMove = nil
             collectionView.reloadItems(at: [indexPath])
-            navigationItem.rightBarButtonItems = nil
+            navigationItem.rightBarButtonItems = [undeleteButton!]
         }
     }
     
@@ -449,7 +456,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
         alert.setValue(vc, forKey: "ContentViewController")
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler:{ (UIAlertAction) in
             
-            self.navigationItem.rightBarButtonItems = nil
+            self.navigationItem.rightBarButtonItems = [self.undeleteButton!]
         }))
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(UIAlertAction) in
@@ -488,7 +495,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     func reloadCell(){
         ordersTable = loadOrdersInDay(date: dateForLabel)
         collectionViewCalendar.reloadData()
-        navigationItem.rightBarButtonItems = nil
+        navigationItem.rightBarButtonItems = [undeleteButton!]
     }
 
     func orderSave(){
