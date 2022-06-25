@@ -9,9 +9,12 @@ import Foundation
 import UIKit
 
 func dialogMessage(message: String, funcOk: @escaping () -> (), funcCancel: @escaping ()->()){
-    let dialog = UIAlertController(title: "Внимание", message: message, preferredStyle: .actionSheet)
+    let dialog = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
     let actionOk = UIAlertAction(title: "OK", style: .default, handler: {_ in funcOk() })
     let actionCancel = UIAlertAction(title: "Отмена", style: .cancel, handler: {_ in funcCancel() })
+    let messageFont  = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18)]
+    let messageAttrString = NSMutableAttributedString(string: message, attributes: messageFont)
+    dialog.setValue(messageAttrString, forKey: "attributedMessage")
     dialog.addAction(actionCancel)
     dialog.addAction(actionOk)
     let vc = UIApplication.topViewController()

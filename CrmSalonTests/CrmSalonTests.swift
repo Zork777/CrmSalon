@@ -296,7 +296,26 @@ class CrmSalonTests: XCTestCase {
         }
     }
     
+    func testMarkDeleteOrder() {
+        let date = Date().stripTime()
+        let base = BaseCoreData()
+        
+        testSaveOneOrder()
+        let order = base.getOrdersInDate(date: date)![0] as! EntityOrders
+        do{
+            try base.deleteOrder(order: order)
+        }
+        catch{
+            XCTAssert(false, "error mark delete order")
+        }
+        let orderCheck = base.getOrdersInDate(date: date)?.first as? EntityOrders
+        XCTAssertNil(orderCheck)
+    }
+    
     func testSaveMoreOrderToOneClient() {
+        /*
+         сохраняем больше одного ордера для одного клиента
+         */
         let date = Date().stripTime()
         let masters = generateClient()[0...1]
         deleteAllCoreBases()
@@ -318,7 +337,7 @@ class CrmSalonTests: XCTestCase {
                 
                 let order = base.getOrdersInDate(date: date)![n] as! EntityOrders
                 XCTAssertEqual(order.orderToClient?.phone, client.phone)
-                XCTAssertEqual(order.orderToMaster!.phone, Int64(masters[n].telephone))
+                XCTAssertEqual(order.orderToMaster!.phone, Int64(masters.reversed()[n].telephone)) //переворачиваем массив т.к. запись в базу идет с конца
             }
             catch{
                 XCTAssert(false, "error fetch")

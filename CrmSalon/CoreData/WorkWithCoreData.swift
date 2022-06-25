@@ -56,7 +56,6 @@ class BaseCoreData {
         order.orderToService = service
         client!.clientToOrder = client!.clientToOrder?.adding(order) as NSSet?
         do {
-//            print (client, service, master, date, time)
             try self.saveContext()
             countOrder+=1
         }
@@ -65,6 +64,21 @@ class BaseCoreData {
         }
         
         return countOrder
+    }
+    
+    
+    func deleteOrder(order: NSManagedObject) throws{
+    /*
+     Помечаем, что ордер удален.
+     */
+        let order = order as! EntityOrders
+        order.active = false
+        do{
+            try saveContext()
+        }
+        catch{
+            throw ValidationError.failedMarkOrderForDelete
+        }
     }
     
     func deleteObject(object: NSManagedObject) throws{
@@ -108,7 +122,7 @@ class BaseCoreData {
     }
     
     func getOrdersInDate(date: Date) -> [NSManagedObject]?{
-        let predicate =  NSPredicate(format: "date == %@", date as NSDate)
+        let predicate =  NSPredicate(format: "date == %@ && active == true", date as NSDate)
         if let fetchResults = try? fetchContext(base: Bases.orders.rawValue, predicate: predicate){
             return fetchResults
         }
