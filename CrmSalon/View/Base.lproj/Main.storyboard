@@ -191,6 +191,40 @@
             </objects>
             <point key="canvasLocation" x="1024.6376811594205" y="47.544642857142854"/>
         </scene>
+        <!--ViewUndeleteController-->
+        <scene sceneID="fhM-7P-rNH">
+            <objects>
+                <viewController title="ViewUndeleteController" id="8r8-y5-Wqd" customClass="ViewUndeleteController" customModule="CrmSalon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="q7Q-Cc-JmC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Корзина" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpu-0A-kp6">
+                                <rect key="frame" x="16" y="52" width="142" height="41"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoSalon" translatesAutoresizingMaskIntoConstraints="NO" id="3kZ-hg-QJb">
+                                <rect key="frame" x="50.333333333333343" y="624" width="313.33333333333326" height="112"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="FIZ-1g-0Fj"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bpu-0A-kp6" firstAttribute="top" secondItem="FIZ-1g-0Fj" secondAttribute="top" constant="8" id="5nQ-dB-Uqt"/>
+                            <constraint firstItem="3kZ-hg-QJb" firstAttribute="bottom" secondItem="FIZ-1g-0Fj" secondAttribute="bottom" id="Ba8-bA-FMZ"/>
+                            <constraint firstItem="3kZ-hg-QJb" firstAttribute="centerX" secondItem="q7Q-Cc-JmC" secondAttribute="centerX" id="oCr-un-gNK"/>
+                            <constraint firstItem="FIZ-1g-0Fj" firstAttribute="trailing" secondItem="bpu-0A-kp6" secondAttribute="trailing" constant="256" id="rsU-Pj-PTM"/>
+                            <constraint firstItem="bpu-0A-kp6" firstAttribute="leading" secondItem="FIZ-1g-0Fj" secondAttribute="leading" constant="16" id="tP7-ef-U4I"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="PYD-4p-Ndr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ndj-NL-BDF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2868" y="451"/>
+        </scene>
         <!--View Setting Controller-->
         <scene sceneID="udQ-Ed-BE3">
             <objects>
@@ -661,6 +695,7 @@
                         <outlet property="labelService" destination="awT-rH-LBX" id="b13-YG-9Rn"/>
                         <outlet property="labelTitleView" destination="mUK-fh-y7l" id="BfL-TE-43Z"/>
                         <outlet property="logoSalon" destination="gMN-kp-Otp" id="8HZ-Ko-b1k"/>
+                        <segue destination="8r8-y5-Wqd" kind="show" identifier="toUndelete" id="duK-kx-QMJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xHK-gU-5oQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

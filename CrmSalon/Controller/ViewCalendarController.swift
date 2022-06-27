@@ -81,6 +81,9 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
 //    }
 //
     @objc func buttonDeleteOrder(sender: BarButtonDelete) {
+        /*
+         удаление выбранного ордера
+         */
         do{
 //            try base.deleteObject(object: sender.order!) // удаление навсегда ордера
             try base.deleteOrder(order: sender.order!) //помечаем что удален
@@ -108,7 +111,8 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     @objc func funcButtonUndelete() {
-       print ("undelete")
+        self .performSegue(withIdentifier: "toUndelete", sender: self)
+        print ("undelete")
     }
     
     @objc func funcButtonCancel() {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9904627C286A2D9F004351B3 /* ViewUndeleteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904627B286A2D9F004351B3 /* ViewUndeleteController.swift */; };
 		99076ED12809EE85001D72B2 /* AlertWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99076ED02809EE85001D72B2 /* AlertWindow.swift */; };
 		991F2EEC28440AE2001FEE42 /* ViewClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F2EEB28440AE2001FEE42 /* ViewClientController.swift */; };
 		996BE9AF27F5E46700AC29CD /* ClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996BE9AE27F5E46700AC29CD /* ClientTableViewCell.swift */; };
@@ -67,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9904627B286A2D9F004351B3 /* ViewUndeleteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewUndeleteController.swift; path = CrmSalon/View/ViewUndeleteController.swift; sourceTree = SOURCE_ROOT; };
 		99076ED02809EE85001D72B2 /* AlertWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindow.swift; sourceTree = "<group>"; };
 		991F2EEB28440AE2001FEE42 /* ViewClientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewClientController.swift; sourceTree = "<group>"; };
 		995D47132825B41E0029F2DB /* DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 		99F3776527EDEFF70086A1BF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				9904627B286A2D9F004351B3 /* ViewUndeleteController.swift */,
 				99F3773727EDEFB10086A1BF /* ViewController.swift */,
 				996BE9B227F640D100AC29CD /* ViewCreateNewClient.swift */,
 				99D9DF6327FA1B0F00AE8D5E /* ViewCalendarController.swift */,
@@ -426,6 +429,7 @@
 				9975E3E8284D21F2006D7205 /* EntityMasters+CoreDataClass.swift in Sources */,
 				99D9DF6827FB002600AE8D5E /* ViewCalendarCollection.swift in Sources */,
 				99D85B5F2807468D00426DCF /* Error.swift in Sources */,
+				9904627C286A2D9F004351B3 /* ViewUndeleteController.swift in Sources */,
 				99D9DF6427FA1B0F00AE8D5E /* ViewCalendarController.swift in Sources */,
 				99D9DF6B27FB013E00AE8D5E /* CalendarCollectionViewCell.swift in Sources */,
 				99076ED12809EE85001D72B2 /* AlertWindow.swift in Sources */,
