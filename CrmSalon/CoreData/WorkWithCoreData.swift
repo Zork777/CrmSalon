@@ -131,6 +131,16 @@ class BaseCoreData {
         }
     }
     
+    func getOrdersDelete() -> [NSManagedObject]{
+        let predicate =  NSPredicate(format: "active == false")
+        if let fetchResults = try? fetchContext(base: Bases.orders.rawValue, predicate: predicate){
+            return fetchResults
+        }
+        else{
+            return []
+        }
+    }
+    
     func findClientByPhone(phone: String) -> EntityClients?{
         let predicate =  NSPredicate(format: "phone == %@", phone)
         if let fetchResults = try? fetchContext(base: Bases.clients.rawValue, predicate: predicate){

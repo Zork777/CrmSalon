@@ -74,12 +74,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-//
-//    func updateSearchResults(for searchController: UISearchController) {
-//        guard let textSearch = searchController.searchBar.text else {return}
-//        print (textSearch)
-//    }
-    
 }
 
 extension ViewController: UISearchBarDelegate {

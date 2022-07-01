@@ -35,10 +35,6 @@ class ViewSettingController: UIViewController, UITableViewDataSource {
     }
     
     @IBAction func buttonAddBase(_ sender: Any) {
-//        saveServices(services: Services.allCases)
-//        saveMasters(masters: generateClient()[...2])
-//        saveClients(clients: generateClient()[3...maxCountClientsForTest])
-//        saveOrders(days: [15, 16, 17])
         mainGenerateTestData()
     }
     
