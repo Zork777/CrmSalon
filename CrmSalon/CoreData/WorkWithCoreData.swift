@@ -67,12 +67,12 @@ class BaseCoreData {
     }
     
     
-    func deleteOrder(order: NSManagedObject) throws{
+    func deleteUndeleteOrder(order: NSManagedObject, orderIsActive: Bool) throws{
     /*
      Помечаем, что ордер удален.
      */
         let order = order as! EntityOrders
-        order.active = false
+        order.active = orderIsActive
         do{
             try saveContext()
         }

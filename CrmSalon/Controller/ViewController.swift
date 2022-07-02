@@ -44,9 +44,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let destination = segue.destination as? ViewClientController {
-//            destination.textForLabelClientName = selectClientPhone
-//        }
         if let destination = segue.destination as? ViewCalendarController {
             destination.selectClientPhone = selectClientPhone
         }

@@ -22,7 +22,7 @@ func dialogMessage(message: String, funcOk: @escaping () -> (), funcCancel: @esc
 }
 
 func showMessage(message: String) {
-    let dialog = UIAlertController(title: "alert", message: message, preferredStyle: .alert)
+    let dialog = UIAlertController(title: "", message: message, preferredStyle: .alert)
     let action = UIAlertAction(title: "OK", style: .default)
     dialog.addAction(action)
     let vc = UIApplication.topViewController()

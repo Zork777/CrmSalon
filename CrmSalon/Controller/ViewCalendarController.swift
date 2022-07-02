@@ -80,13 +80,17 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
 //        var function: (()->())? = nil
 //    }
 //
+    //    @objc func buttonEditOrder(sender: BarButtonEdit){
+    //        sender.function!()
+    //    }
+    
     @objc func buttonDeleteOrder(sender: BarButtonDelete) {
         /*
          удаление выбранного ордера
          */
         do{
 //            try base.deleteObject(object: sender.order!) // удаление навсегда ордера
-            try base.deleteOrder(order: sender.order!) //помечаем что удален
+            try base.deleteUndeleteOrder(order: sender.order!, orderIsActive: false) //помечаем что удален
             if !selectClient {selectCellWithOrder.removeAll()} //удаление всех выделенных ячеек при заходе через календарь
             reloadCell()
             animationSaveFinish(view: view, text: "Удалено")
@@ -99,9 +103,6 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
-//    @objc func buttonEditOrder(sender: BarButtonEdit){
-//        sender.function!()
-//    }
     
     @objc func funcButtonSaveOrder() {
         orderSave()
@@ -112,7 +113,6 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     
     @objc func funcButtonUndelete() {
         self .performSegue(withIdentifier: "toUndelete", sender: self)
-        print ("undelete")
     }
     
     @objc func funcButtonCancel() {
@@ -191,7 +191,10 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print ("view did appear")
+        selectCellWithOrder.removeAll() //снимаем выделения со всех ячеек
+        orderForSave.clear() //обнуляем ордер для записи
+        selectOrderForMove = nil
+        reloadCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
