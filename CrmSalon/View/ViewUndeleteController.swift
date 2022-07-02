@@ -36,7 +36,6 @@ class ViewUndeleteController: UIViewController, UITableViewDataSource {
         sections = prepareDictForCell(orders: base.getOrdersDelete().map{$0 as! EntityOrders})
         sectionDate = sections.keys.sorted()
         tableView.dataSource = self
-
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
