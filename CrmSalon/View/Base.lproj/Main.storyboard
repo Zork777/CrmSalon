@@ -377,8 +377,8 @@
         <!--Новый клиент-->
         <scene sceneID="zHu-Ae-Knc">
             <objects>
-                <viewController title="Новый клиент" id="Bxi-cs-NFD" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="9gl-PH-rvJ" customClass="ViewCreateNewClient" customModule="CrmSalon" customModuleProvider="target">
+                <viewController title="Новый клиент" id="Bxi-cs-NFD" customClass="ViewCreateNewClient" customModule="CrmSalon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9gl-PH-rvJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -441,7 +441,7 @@
                                     </attributedString>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="buttonSaveNewClient:" destination="9gl-PH-rvJ" eventType="touchUpInside" id="ZNb-7V-VeK"/>
+                                    <action selector="buttonSaveNewClient:" destination="Bxi-cs-NFD" eventType="touchUpInside" id="ynW-sw-RId"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBG-jh-1fo">
@@ -464,6 +464,10 @@
                                     </attributedString>
                                     <color key="baseBackgroundColor" red="0.25098039220000001" green="0.75294117650000003" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="buttonGotoCalendar:" destination="Bxi-cs-NFD" eventType="touchUpInside" id="Vd2-ob-P7n"/>
+                                    <segue destination="D8g-tO-lO0" kind="show" identifier="GotoClientToCalendar" id="rMU-DC-oUf"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4fU-eL-6zD"/>
@@ -489,18 +493,18 @@
                             <constraint firstItem="g6a-96-4ad" firstAttribute="trailing" secondItem="TQT-tq-rky" secondAttribute="trailing" id="rtf-2q-ZS5"/>
                             <constraint firstItem="4fU-eL-6zD" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kBg-zJ-jBt" secondAttribute="trailing" symbolic="YES" id="wmq-ay-LIQ"/>
                         </constraints>
-                        <connections>
-                            <outlet property="buttonSave" destination="PED-Y5-cVj" id="Vhl-U6-Jbu"/>
-                            <outlet property="firstName" destination="TQT-tq-rky" id="DMl-d4-z2n"/>
-                            <outlet property="lastName" destination="8qe-ip-kfo" id="EJV-vg-18j"/>
-                            <outlet property="phoneNumber" destination="g6a-96-4ad" id="Uhl-We-buV"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="Ijo-j6-NTV"/>
+                    <connections>
+                        <outlet property="buttonSave" destination="PED-Y5-cVj" id="jQ8-XD-fAK"/>
+                        <outlet property="firstName" destination="TQT-tq-rky" id="OtQ-HX-aV7"/>
+                        <outlet property="lastName" destination="8qe-ip-kfo" id="YeS-wO-BgH"/>
+                        <outlet property="phoneNumber" destination="g6a-96-4ad" id="txr-ne-YCB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gw5-sU-A2f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1949" y="-197"/>
+            <point key="canvasLocation" x="2651" y="-453"/>
         </scene>
         <!--ViewClientController-->
         <scene sceneID="bC9-op-aFo">
@@ -728,6 +732,9 @@
             <point key="canvasLocation" x="1936.2318840579712" y="450.81521739130437"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="rMU-DC-oUf"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="logoSalon" width="313.33334350585938" height="112"/>

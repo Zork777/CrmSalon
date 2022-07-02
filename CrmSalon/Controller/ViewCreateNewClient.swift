@@ -7,25 +7,58 @@
 
 import UIKit
 
-class ViewCreateNewClient: UIView {
+class ViewCreateNewClient: UIViewController {
     let lineCoordinate = DrawLineCoordinate()
-    @IBOutlet weak var lastName: UITextField!
-    @IBOutlet weak var firstName: UITextField!
+    var selectClientPhone = ""
+    
     @IBOutlet weak var phoneNumber: UITextField!
+    @IBOutlet weak var firstName: UITextField!
+    @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var buttonSave: UIButton!
     
+    var saved: Bool = false {
+        didSet {
+            buttonSave.isEnabled = !saved
+            buttonSave.alpha = saved ? 0.3 : 1
+        }
+    }
+    
+    
+    
+    @IBAction func buttonGotoCalendar(_ sender: Any) {
+        if !saved {saveClient()} //пропускаем запись если уже записано
+        clearForm()
+    }
+    
     @IBAction func buttonSaveNewClient(_ sender: Any) {
-        
-        if !phoneNumber.text!.isEmpty && !firstName.text!.isEmpty {
+        saveClient()
+    }
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? ViewCalendarController {
+            destination.selectClientPhone = selectClientPhone
+        }
+    }
+    
+    func saveClient() {
+        if !phoneNumber.text!.isEmpty && !firstName.text!.isEmpty{
             do {
                 let stringPhoneNumber = try checkPhoneNumber(PhoneNumber: clearStringPhoneNumber(phoneNumberString: phoneNumber.text ?? ""))
                 let client = Client(fio: Fio(firstName: firstName.text ?? "", lastName: lastName.text ?? ""),
                                     telephone: Int(stringPhoneNumber)!)
                 let newClient = try saveNewClient(client: client)[0] //save in adress book
                 saveClients(clients: [client]) //save in core base
-                animationSaveFinish(view: self, text: "Сохранено")
+                animationSaveFinish(view: view, text: "Сохранено")
                 clientsBase.append(newClient)
-                
+                selectClientPhone = stringPhoneNumber
+                saved = true
                 
             }
             catch ValidationError.failedSavingContact{
@@ -52,11 +85,11 @@ class ViewCreateNewClient: UIView {
             showMessage(message: ValidationError.userPhoneName.errorDescription!)
         }
     }
-
-    override func didAddSubview(_ subview: UIView) {
-
-        self.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
-        
-    }
     
+    func clearForm(){
+        firstName.text = ""
+        lastName.text = ""
+        phoneNumber.text = ""
+        saved = false
+    }
 }

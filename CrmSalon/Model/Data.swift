@@ -89,6 +89,15 @@ extension Date {
     }
 }
 
+extension String {
+    func toDate() -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/YY"
+        let date = dateFormatter.date(from: self)
+        return date
+    }
+}
+
 let keysToFetch: [CNKeyDescriptor] = [
     CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
     CNContactPhoneNumbersKey as CNKeyDescriptor,

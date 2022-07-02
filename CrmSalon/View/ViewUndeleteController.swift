@@ -22,6 +22,7 @@ class ViewUndeleteController: UIViewController, UITableViewDataSource, UITableVi
     struct OrderPosition{
         var section: Int
         var position: Int
+        var indexRow: IndexPath
     }
     
     
@@ -32,8 +33,8 @@ class ViewUndeleteController: UIViewController, UITableViewDataSource, UITableVi
     
     let base = BaseCoreData()
     var orders = [Cell]()
-    var sections :[String : [Cell]] = [:]
-    var sectionDate = [String]()
+    var sections :[Date : [Cell]] = [:]
+    var sectionDate = [Date]()
     var selectOrder: OrderPosition?
     
     var undeleteButton: UIBarButtonItem?
@@ -59,11 +60,15 @@ class ViewUndeleteController: UIViewController, UITableViewDataSource, UITableVi
             //секция пустая, удаляем
             sections.removeValue(forKey: keyData)
             sectionDate.remove(at: selectOrder!.section)
+            let indexSet = IndexSet([selectOrder!.section])
+            tableView.deleteSections(indexSet, with: .automatic)
+        }
+        else{
+            tableView.deleteRows(at: [selectOrder!.indexRow], with: .automatic)
         }
         
         animationSaveFinish(view: view, text: "Востановлен")
         selectOrder = nil
-        tableView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -71,7 +76,7 @@ class ViewUndeleteController: UIViewController, UITableViewDataSource, UITableVi
         view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
         
         sections = prepareDictForCell(orders: base.getOrdersDelete().map{$0 as! EntityOrders}) //собираем данные для cells
-        sectionDate = sections.keys.sorted() //храним даты для группировки
+        sectionDate = sections.keys.reversed()
         
         undeleteButton = UIBarButtonItem(title: "Восстановить", style: .plain, target: self, action: #selector(funcButtonUndelete))
         navigationItem.rightBarButtonItems = [undeleteButton!]
@@ -80,7 +85,7 @@ class ViewUndeleteController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionDate[section]
+        return sectionDate[section].convertToString
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -92,8 +97,8 @@ class ViewUndeleteController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectOrder = OrderPosition(section: indexPath.section, position: indexPath.row)
-        print ("select", sectionDate[indexPath.section])
+        selectOrder = OrderPosition(section: indexPath.section, position: indexPath.row, indexRow: indexPath)
+        
     }
     
     
@@ -108,15 +113,15 @@ class ViewUndeleteController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
-    func prepareDictForCell(orders: [EntityOrders]) -> [String : [Cell]]{
+    func prepareDictForCell(orders: [EntityOrders]) -> [Date : [Cell]]{
         /*
          функция собирает данные для отображения в таблице. Группирует по дате
          */
-        var sections :[String : [Cell]] = [:]
+        var sections :[Date : [Cell]] = [:]
         for order in orders {
             let client = (order.orderToClient?.firstName ?? "") + " " + (order.orderToClient?.lastName ?? "")
             let master = (order.orderToMaster?.firstName ?? "") + " " + (order.orderToMaster?.lastName ?? "")
-            let date = order.date!.convertToString
+            let date = order.date!
             let cell = Cell(title: client,
                             subTitle: "мастер-" + master + " услуга-" + (order.orderToService?.service ?? "") + " цена-" + String(order.price),
                             order: order)
