@@ -83,7 +83,7 @@ extension Date {
     }
     
     func stripTime() -> Date {
-        let components = Calendar.current.dateComponents([.year, .month, .day], from: self)
+        let components = Calendar.current.dateComponents([.day, .month, .year], from: self)
         let date = Calendar.current.date(from: components)
         return date!
     }
