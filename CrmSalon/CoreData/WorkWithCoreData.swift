@@ -41,6 +41,19 @@ class BaseCoreData {
           }
       }
     
+    func saveClient(client: Client) {
+        let baseIdent = self.addRecord(base: Bases.clients.rawValue) as! EntityClients
+        baseIdent.lastName = client.fio.lastName
+        baseIdent.firstName = client.fio.firstName
+        baseIdent.phone = client.telephone
+        do {
+            try self.saveContext()
+        }
+        catch{
+            showMessage(message: "Error save in base Clients")
+        }
+    }
+    
     func saveOrders(date: Date?, time: [UInt8], client: EntityClients?, service: EntityServices?, master: EntityMasters?) -> Int{
 
         var countOrder = 0

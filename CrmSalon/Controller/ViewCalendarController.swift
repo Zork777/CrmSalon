@@ -13,6 +13,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     
 
     var selectClientPhone: String?
+    var animateSaveNewClient = false
     var selectClient = false
     var selectOrderForMove: Int?
     var orderForSave = OrderForSave()
@@ -151,6 +152,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if animateSaveNewClient {animationSaveFinish(view: view, text: "Новый клиент!")}// воспроизведение анимации записи, если был переход от нового клиента
         view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
         labelConfig(label: labelFio)
         labelConfig(label: labelMaster)

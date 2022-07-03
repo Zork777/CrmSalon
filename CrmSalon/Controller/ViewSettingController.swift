@@ -106,7 +106,7 @@ class ViewSettingController: UIViewController, UITableViewDataSource {
                     let firstName = object.value(forKey: "firstName") as! String
                     let lastName = object.value(forKey: "lastName") as! String
                     var cell = Cell(title: firstName + " " + lastName,
-                                     subTitle: String(object.value(forKey: "phone") as! Int))
+                                    subTitle: object.value(forKey: "phone") as! String)
                     if baseName.rawValue == Bases.clients.rawValue {
                         let object = object as! EntityClients
                         var ordersDate = ""

@@ -50,7 +50,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let base = BaseCoreData()
                 if base.findClientByPhone(phone: clientPhone) == nil {
                 //клиент в core не найден, нужно сохранить в core
-                
+                    base.saveClient(client: selectClientPhone!)
+                    destination.animateSaveNewClient = true
                 }
             }
         }
