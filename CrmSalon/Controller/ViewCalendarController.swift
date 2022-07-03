@@ -173,6 +173,13 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
                 labelTitleView.text = clientTable.firstName
                 selectClient = true
                 orderForSave.client = clientTable
+                
+                if mastersTable.isEmpty || servicesTable.isEmpty {
+                    //если нет мастеров или услуг отменяем возможность создавать ордер
+                    selectClient = false
+                    showMessage(message: "Нет мастеров и услуг.\nНеобходимо создать.\nЗапись отключена!")
+                }
+                
             }
         }
         

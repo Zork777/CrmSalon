@@ -76,7 +76,7 @@ class ViewUndeleteController: UIViewController, UITableViewDataSource, UITableVi
         view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
         
         sections = prepareDictForCell(orders: base.getOrdersDelete().map{$0 as! EntityOrders}) //собираем данные для cells
-        sectionDate = sections.keys.reversed()
+        sectionDate = sections.keys.sorted().reversed() //по другому сортировка по убыванию не хотела работать
         
         undeleteButton = UIBarButtonItem(title: "Восстановить", style: .plain, target: self, action: #selector(funcButtonUndelete))
         navigationItem.rightBarButtonItems = [undeleteButton!]

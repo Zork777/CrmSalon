@@ -259,31 +259,76 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Настройки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pEu-t2-mMR">
-                                <rect key="frame" x="16" y="44" width="183" height="41"/>
+                                <rect key="frame" x="16" y="44" width="183" height="40.666666666666657"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-9D-JeS">
-                                <rect key="frame" x="16" y="115" width="125" height="31"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Clear data base"/>
-                                <connections>
-                                    <action selector="buttonClearBase:" destination="Wno-30-ccV" eventType="touchUpInside" id="e9w-FO-nAQ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQp-z9-uXq">
-                                <rect key="frame" x="249" y="115" width="149" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Add data in base"/>
-                                <connections>
-                                    <action selector="buttonAddBase:" destination="Wno-30-ccV" eventType="touchUpInside" id="lgF-DH-Mce"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qFh-uZ-eJf">
+                                <rect key="frame" x="16" y="114.66666666666669" width="382" height="28"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-9D-JeS">
+                                        <rect key="frame" x="0.0" y="0.0" width="122" height="28"/>
+                                        <buttonConfiguration key="configuration" style="filled" titleAlignment="automatic">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Clear data base">
+                                                    <attributes>
+                                                        <font key="NSFont" size="12" name="Helvetica"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="buttonClearBase:" destination="Wno-30-ccV" eventType="touchUpInside" id="e9w-FO-nAQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ru-d6-ADZ">
+                                        <rect key="frame" x="130" y="0.0" width="122" height="28"/>
+                                        <menu key="menu" id="Uhd-GJ-tvU">
+                                            <menuOptions key="menuOptions" displayInline="YES"/>
+                                            <children>
+                                                <command title="Clients" id="45p-8k-HTt"/>
+                                                <command title="Orders" id="wwd-k8-Jf4"/>
+                                                <command title="Masters" id="f0r-EO-qtS"/>
+                                                <command title="Services" id="I07-nE-4oq"/>
+                                            </children>
+                                        </menu>
+                                        <buttonConfiguration key="configuration" style="filled">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Read base">
+                                                    <attributes>
+                                                        <font key="NSFont" size="12" name="Helvetica"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </buttonConfiguration>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQp-z9-uXq">
+                                        <rect key="frame" x="260" y="0.0" width="122" height="28"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Add data in base">
+                                                    <attributes>
+                                                        <font key="NSFont" size="12" name="Helvetica"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="buttonAddBase:" destination="Wno-30-ccV" eventType="touchUpInside" id="lgF-DH-Mce"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoSalon" translatesAutoresizingMaskIntoConstraints="NO" id="2hV-qo-ZQZ">
                                 <rect key="frame" x="50.333333333333343" y="624" width="313.33333333333326" height="112"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bCI-1w-zUO">
-                                <rect key="frame" x="16" y="162" width="382" height="454"/>
+                                <rect key="frame" x="16" y="142" width="382" height="474"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="6UC-Hw-2xJ" detailTextLabel="mC0-vc-lZR" style="IBUITableViewCellStyleSubtitle" id="k6w-DC-LRx">
@@ -315,19 +360,26 @@
                                     <outlet property="dataSource" destination="Wno-30-ccV" id="Esi-Xm-41U"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ru-d6-ADZ">
-                                <rect key="frame" x="149" y="115" width="92" height="31"/>
-                                <menu key="menu" id="Uhd-GJ-tvU">
-                                    <menuOptions key="menuOptions" displayInline="YES"/>
-                                    <children>
-                                        <command title="Clients" id="45p-8k-HTt"/>
-                                        <command title="Orders" id="wwd-k8-Jf4"/>
-                                        <command title="Masters" id="f0r-EO-qtS"/>
-                                        <command title="Services" id="I07-nE-4oq"/>
-                                    </children>
-                                </menu>
-                                <buttonConfiguration key="configuration" style="filled" title="Read base"/>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="vvL-Lm-n0F">
+                                <rect key="frame" x="16" y="114.66666666666669" width="382" height="48"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0so-Xt-xMs">
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="48"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Адресная книга"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXc-i3-3bF">
+                                        <rect key="frame" x="136" y="0.0" width="110" height="48"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Мастера"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xez-xg-BQ1">
+                                        <rect key="frame" x="272" y="0.0" width="110" height="48"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Услуги"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CIo-YD-fPB">
                                 <rect key="frame" x="263" y="76" width="135" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -341,22 +393,21 @@
                         <viewLayoutGuide key="safeArea" id="IRB-qt-0A8"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="qFh-uZ-eJf" secondAttribute="trailing" constant="16" id="0Ci-TF-BX2"/>
                             <constraint firstItem="IRB-qt-0A8" firstAttribute="trailing" secondItem="bCI-1w-zUO" secondAttribute="trailing" constant="16" id="0bi-zl-VJg"/>
-                            <constraint firstItem="LK7-9D-JeS" firstAttribute="top" secondItem="pEu-t2-mMR" secondAttribute="bottom" constant="30" id="8PT-uU-ZD1"/>
-                            <constraint firstItem="bCI-1w-zUO" firstAttribute="top" secondItem="LK7-9D-JeS" secondAttribute="bottom" constant="16" id="BAP-r8-0aT"/>
+                            <constraint firstItem="bCI-1w-zUO" firstAttribute="top" secondItem="qFh-uZ-eJf" secondAttribute="bottom" constant="-0.66666666666668561" id="4rv-GV-RLN"/>
+                            <constraint firstItem="vvL-Lm-n0F" firstAttribute="top" secondItem="pEu-t2-mMR" secondAttribute="bottom" constant="30" id="7lD-VC-iDJ"/>
+                            <constraint firstItem="qFh-uZ-eJf" firstAttribute="top" secondItem="pEu-t2-mMR" secondAttribute="bottom" constant="30" id="Eyz-Mg-jrp"/>
                             <constraint firstItem="bCI-1w-zUO" firstAttribute="leading" secondItem="IRB-qt-0A8" secondAttribute="leading" constant="16" id="J1V-tB-Asg"/>
-                            <constraint firstItem="5ru-d6-ADZ" firstAttribute="top" secondItem="LK7-9D-JeS" secondAttribute="top" id="OkU-dA-zAZ"/>
-                            <constraint firstItem="LK7-9D-JeS" firstAttribute="leading" secondItem="IRB-qt-0A8" secondAttribute="leading" constant="16" id="UgY-zR-bRU"/>
+                            <constraint firstItem="vvL-Lm-n0F" firstAttribute="leading" secondItem="IRB-qt-0A8" secondAttribute="leading" constant="16" id="Lea-zV-cbS"/>
                             <constraint firstItem="pEu-t2-mMR" firstAttribute="top" secondItem="IRB-qt-0A8" secondAttribute="top" id="aqe-vy-TZE"/>
-                            <constraint firstItem="5ru-d6-ADZ" firstAttribute="leading" secondItem="LK7-9D-JeS" secondAttribute="trailing" constant="8" symbolic="YES" id="dXM-Z4-uNY"/>
                             <constraint firstItem="2hV-qo-ZQZ" firstAttribute="firstBaseline" secondItem="bCI-1w-zUO" secondAttribute="baseline" constant="8" symbolType="layoutAnchor" id="gdc-MJ-M94"/>
                             <constraint firstItem="IRB-qt-0A8" firstAttribute="trailing" secondItem="pEu-t2-mMR" secondAttribute="trailing" constant="215" id="hM7-zO-Tdy"/>
                             <constraint firstItem="2hV-qo-ZQZ" firstAttribute="bottom" secondItem="IRB-qt-0A8" secondAttribute="bottom" id="jZx-gx-KuF"/>
-                            <constraint firstItem="vQp-z9-uXq" firstAttribute="top" secondItem="LK7-9D-JeS" secondAttribute="top" id="o65-CD-bJn"/>
                             <constraint firstItem="pEu-t2-mMR" firstAttribute="leading" secondItem="IRB-qt-0A8" secondAttribute="leading" constant="16" id="sn8-9b-sFv"/>
+                            <constraint firstItem="qFh-uZ-eJf" firstAttribute="leading" secondItem="IRB-qt-0A8" secondAttribute="leading" constant="16" id="t7T-fP-Lea"/>
                             <constraint firstItem="2hV-qo-ZQZ" firstAttribute="centerX" secondItem="xv8-0b-btZ" secondAttribute="centerX" id="tlp-Vn-9iT"/>
-                            <constraint firstItem="IRB-qt-0A8" firstAttribute="trailing" secondItem="vQp-z9-uXq" secondAttribute="trailing" constant="16" id="uRc-Ed-m5f"/>
-                            <constraint firstItem="vQp-z9-uXq" firstAttribute="leading" secondItem="5ru-d6-ADZ" secondAttribute="trailing" constant="8.0000000000000568" id="uSC-HF-Rit"/>
+                            <constraint firstAttribute="trailing" secondItem="vvL-Lm-n0F" secondAttribute="trailing" constant="16" id="trB-iR-Iyx"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -364,9 +415,17 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="nrA-wY-FxT"/>
+                    <navigationItem key="navigationItem" id="nrA-wY-FxT">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="bookmarks" id="kQC-9Z-H11">
+                            <connections>
+                                <action selector="buttonOpenWorkBase:" destination="Wno-30-ccV" id="8q9-Lx-RHu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="buttonDownReadBase" destination="5ru-d6-ADZ" id="Bh5-8y-U8O"/>
+                        <outlet property="stackButtonGenerate" destination="qFh-uZ-eJf" id="8tg-F9-uaY"/>
+                        <outlet property="stackButtonSetting" destination="vvL-Lm-n0F" id="Y1W-s5-WYy"/>
                         <outlet property="tableView" destination="bCI-1w-zUO" id="Wjb-ei-82a"/>
                     </connections>
                 </viewController>

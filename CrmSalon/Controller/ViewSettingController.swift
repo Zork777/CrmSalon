@@ -10,6 +10,14 @@ import CoreData
 import Contacts
 
 class ViewSettingController: UIViewController, UITableViewDataSource {
+    
+    var hideButtonWorkBase = true {
+        didSet{
+            stackButtonGenerate.isHidden = hideButtonWorkBase
+            stackButtonSetting.isHidden = !hideButtonWorkBase
+            stackButtonGenerate.alpha = hideButtonWorkBase ? 0 : 1
+        }
+    }
 
     struct Cell{
         var title: String
@@ -19,8 +27,14 @@ class ViewSettingController: UIViewController, UITableViewDataSource {
     var cells = [Cell]()
     let lineCoordinate = DrawLineCoordinate()
     
+    @IBAction func buttonOpenWorkBase(_ sender: UIBarButtonItem) {
+        hideButtonWorkBase = !hideButtonWorkBase
+    }
     
+    @IBOutlet weak var stackButtonSetting: UIStackView!
+    @IBOutlet weak var stackButtonGenerate: UIStackView!
     @IBOutlet weak var buttonDownReadBase: UIButton!
+    
     
     @IBAction func buttonClearBase(_ sender: Any) {
         deleteAllCoreBases()
@@ -41,6 +55,8 @@ class ViewSettingController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        hideButtonWorkBase = true
         configButtonReadBase()
         tableView.dataSource = self
         view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))

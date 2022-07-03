@@ -15,13 +15,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var searchClients = [Client]()
     var searching = false
     let lineCoordinate = DrawLineCoordinate()
-    var selectClientPhone = ""
+    var selectClientPhone: Client?
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tblView: UITableView!
     
     @IBAction func buttonGotoCalendare(_ sender: Any) {
-        selectClientPhone = ""
+        selectClientPhone = nil
     }
     
     @IBAction func buttonCreateNewClient(_ sender: Any) {
@@ -45,7 +45,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ViewCalendarController {
-            destination.selectClientPhone = selectClientPhone
+            if let selectClientPhone = selectClientPhone?.telephone {
+                destination.selectClientPhone = String(selectClientPhone)
+                let base = BaseCoreData()
+                if base.findClientByPhone(phone: String(selectClientPhone)) == nil {
+                //клиент в core не найден, нужно сохранить в core
+                
+                }
+            }
         }
     }
     
@@ -56,7 +63,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        performSegue(withIdentifier: "gotoClient", sender: nil)
         
         let cell = tableView.cellForRow(at: indexPath) as! ClientTableViewCell
-        selectClientPhone = cell.phoneNumber.text ?? ""
+        selectClientPhone?.telephone = Int(from: cell.phoneNumber.text ?? 0)
         performSegue(withIdentifier: "gotoCalendar", sender: nil)
     }
     
