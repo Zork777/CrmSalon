@@ -30,7 +30,7 @@ func generateClient() -> [Client]{
     for dataRow in data!.components(separatedBy: "\r\n") {
         let clientData = dataRow.components(separatedBy: ";")
         clients.append(Client(fio: Fio(firstName: clientData[1], lastName: clientData[0]),
-                              telephone: Int(clearStringPhoneNumber(phoneNumberString: clientData[2])) ?? 0))
+                              telephone: clearStringPhoneNumber(phoneNumberString: clientData[2])))
     }
     
     return clients
@@ -81,7 +81,7 @@ func saveMasters(masters: ArraySlice<Client>) {
         let baseIdent = base.addRecord(base: Bases.masters.rawValue) as! EntityMasters
         baseIdent.lastName = master.fio.lastName
         baseIdent.firstName = master.fio.firstName
-        baseIdent.phone = Int64(master.telephone)
+        baseIdent.phone = master.telephone
     }
     do {
         try base.saveContext()
@@ -97,7 +97,7 @@ func saveClients(clients: ArraySlice<Client>) {
         let baseIdent = base.addRecord(base: Bases.clients.rawValue) as! EntityClients
         baseIdent.lastName = client.fio.lastName
         baseIdent.firstName = client.fio.firstName
-        baseIdent.phone = Int64(client.telephone)
+        baseIdent.phone = client.telephone
     }
     do {
         try base.saveContext()

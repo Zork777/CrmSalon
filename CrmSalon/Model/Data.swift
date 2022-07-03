@@ -60,12 +60,7 @@ struct Fio {
 
 public struct Client {
     var fio: Fio
-    var telephone: Int
-}
-
-public struct Masters {
-    var fio: Fio
-    var telephone: Int64
+    var telephone: String
 }
 
 
@@ -174,7 +169,7 @@ func saveContactToBook(client: Client) throws -> Bool{
     contact.familyName = client.fio.lastName
     contact.phoneNumbers = [CNLabeledValue(
                                 label: CNLabelPhoneNumberMain,
-                                value: CNPhoneNumber(stringValue: String(client.telephone)))]
+                                value: CNPhoneNumber(stringValue: client.telephone))]
     let store = CNContactStore()
     let saveRequest = CNSaveRequest()
     saveRequest.add(contact, toContainerWithIdentifier: nil)
@@ -190,21 +185,21 @@ func saveContactToBook(client: Client) throws -> Bool{
 
 func saveNewClient(client: Client) throws -> [CNContact]{
     var clientSaveToBase: [CNContact]
-    let checkContactInBook = try getSomeContact(phoneNumber: String(client.telephone)).isEmpty
+    let checkContactInBook = try getSomeContact(phoneNumber: client.telephone).isEmpty
     if !checkContactInBook {
-        throw ValidationError.foundSameContactInBook(String(client.telephone))
+        throw ValidationError.foundSameContactInBook(client.telephone)
     }
     else {
         if try saveContactToBook(client: client){
-            clientSaveToBase = try getSomeContact(phoneNumber: String(client.telephone))
+            clientSaveToBase = try getSomeContact(phoneNumber: client.telephone)
             switch clientSaveToBase.count {
             case 0:
-                throw ValidationError.wrongSaveInBook(String(client.telephone))
+                throw ValidationError.wrongSaveInBook(client.telephone)
             case 1:
                 print("client saved")
                 return clientSaveToBase
             default:
-                throw ValidationError.foundSameContactInBook(String(client.telephone))
+                throw ValidationError.foundSameContactInBook(client.telephone)
             }
         }
     }
@@ -249,7 +244,7 @@ func getFioPhoneClient(contacts: [CNContact]) -> [Client]{
     
     for contact in contacts {
         clients.append(Client(fio: Fio(firstName: contact.givenName, lastName: contact.familyName),
-                              telephone: Int(clearStringPhoneNumber(phoneNumberString: contact.phoneNumbers[0].value.stringValue)) ?? 0))
+                              telephone: clearStringPhoneNumber(phoneNumberString: contact.phoneNumbers[0].value.stringValue)))
     }
     return clients
 }

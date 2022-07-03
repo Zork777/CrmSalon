@@ -2,7 +2,7 @@
 //  EntityClients+CoreDataProperties.swift
 //  CrmSalon
 //
-//  Created by Евгений Захаров on 05.06.2022.
+//  Created by Евгений Захаров on 03.07.2022.
 //
 //
 
@@ -18,7 +18,7 @@ extension EntityClients {
 
     @NSManaged public var firstName: String?
     @NSManaged public var lastName: String?
-    @NSManaged public var phone: Int64
+    @NSManaged public var phone: String?
     @NSManaged public var clientToOrder: NSSet?
 
 }

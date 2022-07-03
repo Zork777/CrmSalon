@@ -52,7 +52,7 @@ class ViewCreateNewClient: UIViewController {
             do {
                 let stringPhoneNumber = try checkPhoneNumber(PhoneNumber: clearStringPhoneNumber(phoneNumberString: phoneNumber.text ?? ""))
                 let client = Client(fio: Fio(firstName: firstName.text ?? "", lastName: lastName.text ?? ""),
-                                    telephone: Int(stringPhoneNumber)!)
+                                    telephone: stringPhoneNumber)
                 let newClient = try saveNewClient(client: client)[0] //save in adress book
                 saveClients(clients: [client]) //save in core base
                 animationSaveFinish(view: view, text: "Сохранено")

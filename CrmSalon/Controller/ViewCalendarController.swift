@@ -169,7 +169,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
         if let receivedText = selectClientPhone, !receivedText.isEmpty {
             if let clientTable = base.findClientByPhone(phone: receivedText) {
                 labelFio.text = (clientTable.firstName ?? "") + " " + (clientTable.lastName ?? "")
-                labelPhoneNumber.text = String(clientTable.phone)
+                labelPhoneNumber.text = clientTable.phone
                 labelTitleView.text = clientTable.firstName
                 selectClient = true
                 orderForSave.client = clientTable
@@ -237,7 +237,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
             cellText.clientName = order.orderToClient?.firstName ?? ""
             cellText.service = order.orderToService?.service ?? ""
             cellText.masterName = order.orderToMaster?.lastName ?? ""
-            if order.orderToClient!.phone == Int(selectClientPhone ?? "0") ?? 0 {
+            if order.orderToClient!.phone == selectClientPhone{
                 cell.backgroundColor = UIColor(named: "BackgroundLabel")
 //                cell.layer.borderColor = UIColor.red.cgColor
 //                cell.layer.borderWidth = 2
@@ -294,7 +294,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
             
 
             labelFio.text = "Клиент: " + clientName + " " + (order.orderToClient?.lastName ?? "")
-            labelPhoneNumber.text = "Телефон: " + String(order.orderToClient!.phone)
+            labelPhoneNumber.text = "Телефон: " + order.orderToClient!.phone!
             labelMaster.text = "Мастер: " + (order.orderToMaster?.firstName ?? "") + " " + masterName
             labelService.text = "Услуга: " + service
             let deleteButton = BarButtonDelete(title: "Удалить", style: .plain, target: self, action: #selector(buttonDeleteOrder(sender:)))

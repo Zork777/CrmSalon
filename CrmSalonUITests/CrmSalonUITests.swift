@@ -60,12 +60,14 @@ class TestUiForm {
     
     func fillTestDataInBase(){
         self.app.navigationBars["CrmSalon.View"].buttons["Item"].tap()
+        self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Bookmarks"].tap()
         self.app/*@START_MENU_TOKEN@*/.staticTexts["Add data in base"]/*[[".buttons[\"Add data in base\"].staticTexts[\"Add data in base\"]",".staticTexts[\"Add data in base\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Back"].tap()
     }
     
     func deleteAll(){
         self.app.navigationBars["CrmSalon.View"].buttons["Item"].tap()
+        self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Bookmarks"].tap()
         self.app/*@START_MENU_TOKEN@*/.staticTexts["Clear data base"]/*[[".buttons[\"Clear data base\"].staticTexts[\"Clear data base\"]",".staticTexts[\"Clear data base\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Back"].tap()
     }
@@ -143,9 +145,10 @@ class CrmSalonUITests: XCTestCase {
         testUi.deleteAll()
         testUi.enterNewContact()
         testUi.app.staticTexts["Сохранить"].tap()
-        testUi.app.navigationBars["UIView"].buttons["Back"].tap()
+        testUi.app.navigationBars["CrmSalon.ViewCreateNewClient"].buttons["Back"].tap()
         //check new client in adress book
         testUi.checkNewContact(phoneNumber: String(testClients[0].telephone))
+        
     }
     
     
@@ -154,9 +157,11 @@ class CrmSalonUITests: XCTestCase {
         testUi.deleteAll()
         testUi.enterNewContact()
         testUi.app.staticTexts["Сохранить"].tap()
+        testUi.app.navigationBars["CrmSalon.ViewCreateNewClient"].buttons["Back"].tap()
+        testUi.enterNewContact()
         testUi.app.staticTexts["Сохранить"].tap()
-        testUi.app.alerts["alert"].scrollViews.otherElements.buttons["OK"].tap()
-        testUi.app.navigationBars["UIView"].buttons["Back"].tap()
+        testUi.app.alerts.scrollViews.otherElements.buttons["OK"].tap()
+        testUi.app.navigationBars["CrmSalon.ViewCreateNewClient"].buttons["Back"].tap()
     }
     
     func testEnterBadNewClient() throws{
@@ -169,12 +174,19 @@ class CrmSalonUITests: XCTestCase {
             
             switch n{
             case 0,4: //good client
-                testUi.app.navigationBars["UIView"].buttons["Back"].tap()
+                testUi.app.navigationBars["CrmSalon.ViewCreateNewClient"].buttons["Back"].tap()
                 testUi.checkNewContact(phoneNumber: testClient.telephone)
             
             default:
-                testUi.app.alerts["alert"].scrollViews.otherElements.buttons["OK"].tap()
+                testUi.app.alerts.scrollViews.otherElements.buttons["OK"].tap()
+                
+                let app = XCUIApplication()
+                app.textFields["Телефон"].tap()
+                app.buttons["Сохранить"].tap()
+                app.alerts.scrollViews.otherElements.buttons["OK"].tap()
+                
             }
+                                    
         }
     }
     
@@ -185,18 +197,18 @@ class CrmSalonUITests: XCTestCase {
         testUi.fillTestDataInBase()
         testUi.enterNewContact()
         testUi.app.staticTexts["Сохранить"].tap()
-        testUi.app.navigationBars["UIView"].buttons["Back"].tap()
+        testUi.app.navigationBars["CrmSalon.ViewCreateNewClient"].buttons["Back"].tap()
         testUi.checkNewContact(phoneNumber: testClient.telephone)
         let staticText = testUi.app/*@START_MENU_TOKEN@*/.staticTexts["▶︎"]/*[[".buttons[\"▶︎\"].staticTexts[\"▶︎\"]",".staticTexts[\"▶︎\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         staticText.tap()
         staticText.tap()
         testUi.app.collectionViews.cells.otherElements.containing(.staticText, identifier:"11:30 - 12:00").element.tap()
-
+        
         let elementsQuery = testUi.app.sheets.scrollViews.otherElements
         elementsQuery.buttons["OK"].tap()
 
         let crmsalonViewcalendarNavigationBar = testUi.app.navigationBars["CrmSalon.ViewCalendar"]
-        crmsalonViewcalendarNavigationBar.buttons["Save"].tap()
+        crmsalonViewcalendarNavigationBar.buttons["Сохранить"].tap()
 
         let backButton = crmsalonViewcalendarNavigationBar.buttons["Back"]
         backButton.tap()

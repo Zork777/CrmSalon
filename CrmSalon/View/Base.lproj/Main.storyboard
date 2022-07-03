@@ -416,7 +416,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="nrA-wY-FxT">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="bookmarks" id="kQC-9Z-H11">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="bookmarks" id="kQC-9Z-H11">
                             <connections>
                                 <action selector="buttonOpenWorkBase:" destination="Wno-30-ccV" id="8q9-Lx-RHu"/>
                             </connections>

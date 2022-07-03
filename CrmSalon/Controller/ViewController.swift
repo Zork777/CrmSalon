@@ -45,10 +45,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ViewCalendarController {
-            if let selectClientPhone = selectClientPhone?.telephone {
-                destination.selectClientPhone = String(selectClientPhone)
+            if let clientPhone = selectClientPhone?.telephone {
+                destination.selectClientPhone = clientPhone
                 let base = BaseCoreData()
-                if base.findClientByPhone(phone: String(selectClientPhone)) == nil {
+                if base.findClientByPhone(phone: clientPhone) == nil {
                 //клиент в core не найден, нужно сохранить в core
                 
                 }
@@ -58,12 +58,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        let cell = tableView.cellForRow(at: indexPath) as! ClientTableViewCell
-//        selectClientPhone = cell.phoneNumber.text ?? ""
-//        performSegue(withIdentifier: "gotoClient", sender: nil)
-        
-        let cell = tableView.cellForRow(at: indexPath) as! ClientTableViewCell
-        selectClientPhone?.telephone = Int(from: cell.phoneNumber.text ?? 0)
+        selectClientPhone = Client(fio: Fio(firstName: searchClients[indexPath.row].fio.firstName,
+                                            lastName: searchClients[indexPath.row].fio.lastName),
+                                   telephone: searchClients[indexPath.row].telephone)
         performSegue(withIdentifier: "gotoCalendar", sender: nil)
     }
     

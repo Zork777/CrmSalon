@@ -16,7 +16,7 @@ func convertObjectToClient(objects: [NSManagedObject]) -> [Client]{
     for object in objects {
         let firstName = object.value(forKey: "firstName") as! String
         let lastName = object.value(forKey: "lastName") as! String
-        let phone = object.value(forKey: "phone") as! Int
+        let phone = object.value(forKey: "phone") as! String
         clients.append(Client(fio: Fio(firstName: firstName, lastName: lastName), telephone: phone))
     }
     return clients
@@ -24,15 +24,15 @@ func convertObjectToClient(objects: [NSManagedObject]) -> [Client]{
 
 
 class CrmSalonTests: XCTestCase {
-    let testClient = Client(fio: Fio(firstName: "Sergey", lastName: "Ivanov"), telephone: 89885033010)
-    let testMaster = Client(fio: Fio(firstName: "Mariya", lastName: "Masterova"), telephone: 89885033011)
+    let testClient = Client(fio: Fio(firstName: "Sergey", lastName: "Ivanov"), telephone: "89885033010")
+    let testMaster = Client(fio: Fio(firstName: "Mariya", lastName: "Masterova"), telephone: "89885033011")
     let testService = Services.manicure
     
     override func setUp() {
         // delete client in adress book
         do{
-            try deleteContact(phoneNumber: String(testClient.telephone))
-            try deleteContact(phoneNumber: String(testMaster.telephone))}
+            try deleteContact(phoneNumber: testClient.telephone)
+            try deleteContact(phoneNumber: testMaster.telephone)}
         catch{
             print ("error delete")
         }
@@ -57,7 +57,7 @@ class CrmSalonTests: XCTestCase {
     
     func testSearchContactPhone() throws {
         _ = try! saveNewClient(client: testClient)
-        let result = try getSomeContact(phoneNumber: String(testClient.telephone))
+        let result = try getSomeContact(phoneNumber: testClient.telephone)
         XCTAssertEqual (result.count, 1)
     }
     
@@ -73,8 +73,8 @@ class CrmSalonTests: XCTestCase {
         _ = try! saveNewClient(client: testClient)
         _ = try! saveNewClient(client: testMaster)
         deleteAllContactClient()
-        results.append(contentsOf: try getSomeContact(phoneNumber: String(testClient.telephone)))
-        results.append(contentsOf: try getSomeContact(phoneNumber: String(testMaster.telephone)))
+        results.append(contentsOf: try getSomeContact(phoneNumber: testClient.telephone))
+        results.append(contentsOf: try getSomeContact(phoneNumber: testMaster.telephone))
         XCTAssertEqual (results.count, 0)
     }
     
@@ -102,7 +102,7 @@ class CrmSalonTests: XCTestCase {
     }
     
     lazy var predicateName =  NSPredicate(format: "firstName == %@", testClient.fio.firstName)
-    lazy var predicatePhone =  NSPredicate(format: "phone == %lld", testClient.telephone)
+    lazy var predicatePhone =  NSPredicate(format: "phone == %@", testClient.telephone)
     
     func testSaveClientInCoreData() {
         let base = BaseCoreData()
@@ -115,7 +115,7 @@ class CrmSalonTests: XCTestCase {
         let clients = EntityClients(context: base.context)
         clients.firstName = testClient.fio.firstName
         clients.lastName = testClient.fio.lastName
-        clients.phone = Int64(testClient.telephone)
+        clients.phone = testClient.telephone
         XCTAssertNoThrow(try base.saveContext())
         
         let client = convertObjectToClient(objects: try! base.fetchContext(base: Bases.clients.rawValue, predicate: predicatePhone))
@@ -184,10 +184,10 @@ class CrmSalonTests: XCTestCase {
                 let serviceObject = orderObject.orderToService{
                 client = Client(fio: Fio(firstName: clientObject.firstName!,
                                          lastName: clientObject.lastName!),
-                                telephone: Int(clientObject.phone))
+                                telephone: clientObject.phone!)
                 master = Client(fio: Fio(firstName: masterObject.firstName!,
                                          lastName: masterObject.lastName!),
-                                telephone: Int(masterObject.phone))
+                                telephone: masterObject.phone!)
                 service = serviceObject.service ?? ""
                 print ("Client-", client.fio.firstName, "-", client.telephone)
                 print ("date-", orderObject.date as Any)
@@ -225,9 +225,9 @@ class CrmSalonTests: XCTestCase {
                        "\nOrder-", orderObject.date!.convertToString,
                        "\nPrice-", orderObject.price,
                        "\nService-", serviceObject!.service!,
-                       "\nClient-", clientObject!.firstName!, "phone-", clientObject!.phone,
-                       "\nMaster-", masterObject!.firstName!, "phone-", masterObject!.phone)
-                XCTAssertEqual(testClient.telephone, Int(clientObject!.phone))
+                       "\nClient-", clientObject!.firstName!, "phone-", clientObject!.phone!,
+                       "\nMaster-", masterObject!.firstName!, "phone-", masterObject!.phone!)
+                XCTAssertEqual(testClient.telephone, clientObject!.phone)
             }
             
             XCTAssertNotEqual(fetchResults.count, 0)
@@ -259,8 +259,8 @@ class CrmSalonTests: XCTestCase {
                        "\nOrder-", orderObject.date!.convertToString,
                        "\nPrice-", orderObject.price,
                        "\nService-", serviceObject!.service!,
-                       "\nClient-", clientObject!.firstName!, "phone-", clientObject!.phone,
-                       "\nMaster-", masterObject!.firstName!, "phone-", masterObject!.phone)
+                       "\nClient-", clientObject!.firstName!, "phone-", clientObject!.phone!,
+                       "\nMaster-", masterObject!.firstName!, "phone-", masterObject!.phone!)
             }
             print (fetchResults.count, countOrders)
             XCTAssertEqual(fetchResults.count, countOrders)
@@ -303,7 +303,7 @@ class CrmSalonTests: XCTestCase {
         testSaveOneOrder()
         let order = base.getOrdersInDate(date: date)![0] as! EntityOrders
         do{
-            try base.deleteOrder(order: order)
+            try base.deleteUndeleteOrder(order: order, orderIsActive: false)
         }
         catch{
             XCTAssert(false, "error mark delete order")
@@ -336,8 +336,8 @@ class CrmSalonTests: XCTestCase {
                 XCTAssertEqual(fetchResults, 1)
                 
                 let order = base.getOrdersInDate(date: date)![n] as! EntityOrders
-                XCTAssertEqual(order.orderToClient?.phone, client.phone)
-                XCTAssertEqual(order.orderToMaster!.phone, Int64(masters.reversed()[n].telephone)) //переворачиваем массив т.к. запись в базу идет с конца
+                XCTAssertEqual(order.orderToClient!.phone!, client.phone)
+                XCTAssert(order.orderToMaster!.phone! == masters[n].telephone)
             }
             catch{
                 XCTAssert(false, "error fetch")
@@ -351,7 +351,7 @@ class CrmSalonTests: XCTestCase {
         saveClients(clients: [testClient])
         
         let base = BaseCoreData()
-        let fetchResults = base.findClientByPhone(phone: String(testClient.telephone))
-        XCTAssertEqual(fetchResults!.phone, Int64(testClient.telephone))
+        let fetchResults = base.findClientByPhone(phone: testClient.telephone)
+        XCTAssertEqual(fetchResults!.phone, testClient.telephone)
     }
 }
