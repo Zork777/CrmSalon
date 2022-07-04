@@ -56,6 +56,7 @@ struct OrderForSave {
 struct Fio {
     var firstName: String
     var lastName: String
+    var fio: String {firstName + " " + lastName}
 }
 
 public struct Client {
@@ -249,15 +250,18 @@ func getFioPhoneClient(contacts: [CNContact]) -> [Client]{
     return clients
 }
 
-func getAllClientInContact(note: String) throws -> [CNContact]{
+func getAllClientInContact(jobTitle: String?) throws -> [CNContact]{
 
     let contacts = allContacts()
     if contacts.isEmpty {
         throw ValidationError.failedFeatchContact
     }
     else{
-        let contact = contacts.filter({ $0.jobTitle == note })
-        return contact
+            if jobTitle == nil {
+                return contacts
+            } else {
+                return contacts.filter({ $0.jobTitle == jobTitle })
+            }
         }
 }
 

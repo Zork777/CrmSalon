@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 import Contacts
 
-class ViewSettingController: UIViewController, UITableViewDataSource {
+class ViewSettingController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var hideButtonWorkBase = true {
         didSet{
@@ -25,15 +25,71 @@ class ViewSettingController: UIViewController, UITableViewDataSource {
     }
     
     var cells = [Cell]()
-    let lineCoordinate = DrawLineCoordinate()
+    var adminButton: UIBarButtonItem?
+    var addClientInCore: AddClientInCore?
     
-    @IBAction func buttonOpenWorkBase(_ sender: UIBarButtonItem) {
-        hideButtonWorkBase = !hideButtonWorkBase
-    }
+    let lineCoordinate = DrawLineCoordinate()
     
     @IBOutlet weak var stackButtonSetting: UIStackView!
     @IBOutlet weak var stackButtonGenerate: UIStackView!
     @IBOutlet weak var buttonDownReadBase: UIButton!
+    
+    class AddClientInCore: UIBarButtonItem{
+        var client: Client?
+        var indexPath: IndexPath?
+    }
+    
+    @objc func funcAdminButton() {
+        hideButtonWorkBase = !hideButtonWorkBase
+    }
+    
+    @objc func funcAddClientInCore(sender: AddClientInCore) {
+        /*
+         сохраняем выделенного клиента в core
+         */
+        guard let client = sender.client else {return}
+        guard let index = sender.indexPath else {return}
+        let base = BaseCoreData()
+        base.saveClient(client: client)
+        animationSaveFinish(view: view, text: "Сохранен")
+        cells.remove(at: index.row)
+        tableView.deleteRows(at: [index], with: .automatic)
+    }
+    
+    @IBAction func buttonAdressBook(_ sender: Any) {
+        /*читаем адрес бук*/
+        do{
+            let contacts = try getAllClientInContact(jobTitle: nil)
+            let clients = getFioPhoneClient(contacts: contacts)
+            cells.removeAll()
+            for client in clients {
+                cells.append(Cell(title: client.fio.fio, subTitle: client.telephone))
+            }
+            tableView.reloadData()
+        }
+        catch{
+            showMessage(message: error.localizedDescription)
+        }
+    }
+    
+    @IBAction func buttonListMasters(_ sender: Any) {
+        /*
+         читаем из core мастеров
+         */
+        cells.removeAll()
+        
+        tableView.reloadData()
+    }
+    
+    @IBAction func buttonListService(_ sender: Any) {
+        /*
+         читаем из core услуги
+         */
+        cells.removeAll()
+        
+        tableView.reloadData()
+    }
+    
     
     
     @IBAction func buttonClearBase(_ sender: Any) {
@@ -59,7 +115,12 @@ class ViewSettingController: UIViewController, UITableViewDataSource {
         hideButtonWorkBase = true
         configButtonReadBase()
         tableView.dataSource = self
+        tableView.delegate = self
         view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
+        
+        adminButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.bookmarks, target: self, action: #selector(funcAdminButton))
+        addClientInCore = AddClientInCore(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(funcAddClientInCore(sender:)))
+        navigationItem.rightBarButtonItems = [adminButton!]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,6 +129,18 @@ class ViewSettingController: UIViewController, UITableViewDataSource {
         }
         else {
             return cells.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        do {
+            let contact = try getSomeContact(phoneNumber: cells[indexPath.row].subTitle)
+            addClientInCore?.client = getFioPhoneClient(contacts: contact).first
+            addClientInCore?.indexPath = indexPath
+            navigationItem.rightBarButtonItems = [addClientInCore!]
+        }
+        catch{
+            showMessage(message: error.localizedDescription)
         }
     }
     

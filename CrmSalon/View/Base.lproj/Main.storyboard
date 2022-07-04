@@ -367,16 +367,25 @@
                                         <rect key="frame" x="0.0" y="0.0" width="110" height="48"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Адресная книга"/>
+                                        <connections>
+                                            <action selector="buttonAdressBook:" destination="Wno-30-ccV" eventType="touchUpInside" id="peO-p9-djc"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXc-i3-3bF">
                                         <rect key="frame" x="136" y="0.0" width="110" height="48"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Мастера"/>
+                                        <connections>
+                                            <action selector="buttonListMasters:" destination="Wno-30-ccV" eventType="touchUpInside" id="Vmz-09-UQO"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xez-xg-BQ1">
                                         <rect key="frame" x="272" y="0.0" width="110" height="48"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Услуги"/>
+                                        <connections>
+                                            <action selector="buttonListService:" destination="Wno-30-ccV" eventType="touchUpInside" id="J1K-F9-zbz"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -415,13 +424,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="nrA-wY-FxT">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="bookmarks" id="kQC-9Z-H11">
-                            <connections>
-                                <action selector="buttonOpenWorkBase:" destination="Wno-30-ccV" id="8q9-Lx-RHu"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="nrA-wY-FxT"/>
                     <connections>
                         <outlet property="buttonDownReadBase" destination="5ru-d6-ADZ" id="Bh5-8y-U8O"/>
                         <outlet property="stackButtonGenerate" destination="qFh-uZ-eJf" id="8tg-F9-uaY"/>
