@@ -46,6 +46,48 @@ class CrmSalonTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    func testMarkClientToSalon(){
+        /*
+         проверяем работу маркера салона на адресной книге
+         */
+        //Записываем тестового клиента
+        let contact = CNMutableContact()
+        contact.givenName = testClient.fio.firstName
+        contact.familyName = testClient.fio.lastName
+        contact.phoneNumbers = [CNLabeledValue(
+                                    label: CNLabelPhoneNumberMain,
+                                    value: CNPhoneNumber(stringValue: testClient.telephone))]
+        let store = CNContactStore()
+        let saveRequest = CNSaveRequest()
+        saveRequest.add(contact, toContainerWithIdentifier: nil)
+
+        do {
+            try store.execute(saveRequest)
+        } catch {
+            XCTAssertTrue(false, "ошибка записи контакта")
+        }
+        
+        //достаем ранее записанный контакт
+        do{
+            guard let result = try getSomeContact(phoneNumber: testClient.telephone).first else {return}
+            //записываем признак клиента салона
+            try markContactInBook(contact: result)
+            
+            //повторно читаем контакт и проверяем запись признака
+            guard let result = try getSomeContact(phoneNumber: testClient.telephone).first else {return}
+            XCTAssertEqual(result.jobTitle, "Ноготок")
+
+            
+        }
+        catch{
+            XCTAssertTrue(false, "ошибка извлечения контакта")
+        }
+        
+        
+        
+    }
+    
+    
     func testloadAllClients() {
         XCTAssertNotNil(allContacts())
     }
@@ -64,7 +106,7 @@ class CrmSalonTests: XCTestCase {
     func testSearchContactNote() throws {
         _ = try! saveNewClient(client: testClient)
         _ = try! saveNewClient(client: testMaster)
-        let result = try getAllClientInContact(note: "Ноготок")
+        let result = try getAllClientInContact(jobTitle: "Ноготок")
         XCTAssertEqual (result.count, 2)
     }
     

@@ -138,30 +138,54 @@ let allContacts = { () -> [CNContact] in
 func searchForContactUsingPhoneNumber(phoneNumber: String) -> [CNContact] {
     
     /*
-     Поиск клиента в clientsBase по номеру телефона
+     Поиск клиента в clientsBase по номеру телефона. Ограничение! у клиента один номер
     */
     
       var result: [CNContact] = []
 
       for contact in clientsBase {
           if (!contact.phoneNumbers.isEmpty) {
-             let phoneNumberToCompareAgainst = phoneNumber.components(separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "")
-              for phoneNumber in contact.phoneNumbers {
-                  let phoneNumberStruct = phoneNumber.value
-                      let phoneNumberString = phoneNumberStruct.stringValue
-                     let phoneNumberToCompare = clearStringPhoneNumber(phoneNumberString: phoneNumberString)
-//                      if phoneNumberToCompare.prefix(phoneNumberToCompareAgainst.count).contains(phoneNumberToCompareAgainst) { поиск с начала строки
-                      if phoneNumberToCompare.contains(phoneNumberToCompareAgainst) { //поиск с любой части строки
-                          result.append(contact)
-                      }
-                  
-              }
+              let phoneNumberToCompareAgainst = phoneNumber.components(separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "")
+              guard let phoneNumber = contact.phoneNumbers.first else {break}
+              let phoneNumberStruct = phoneNumber.value
+              let phoneNumberString = phoneNumberStruct.stringValue
+              let phoneNumberToCompare = clearStringPhoneNumber(phoneNumberString: phoneNumberString)
+              if phoneNumberToCompare.contains(phoneNumberToCompareAgainst) { //поиск с любой части строки
+                  result.append(contact)}
+//              for phoneNumber in contact.phoneNumbers {
+//                  let phoneNumberStruct = phoneNumber.value
+//                      let phoneNumberString = phoneNumberStruct.stringValue
+//                     let phoneNumberToCompare = clearStringPhoneNumber(phoneNumberString: phoneNumberString)
+////                      if phoneNumberToCompare.prefix(phoneNumberToCompareAgainst.count).contains(phoneNumberToCompareAgainst) { поиск с начала строки
+//                      if phoneNumberToCompare.contains(phoneNumberToCompareAgainst) { //поиск с любой части строки
+//                          result.append(contact)
+//                      }
+//
+//              }
            }
       }
 
       return result
  }
 
+func markContactInBook(contact: CNContact) throws {
+    /*
+     делаем отметку контакта в job что это клиент салона
+     */
+    let mutableContact = contact.mutableCopy() as! CNMutableContact
+    mutableContact.jobTitle = "Ноготок"
+    let store = CNContactStore()
+    let saveRequest = CNSaveRequest()
+    saveRequest.update(mutableContact)
+
+    do {
+        try store.execute(saveRequest)
+    } catch {
+        print (error)
+        print (error.localizedDescription)
+        throw ValidationError.failedSavingContact
+    }
+}
 
 func saveContactToBook(client: Client) throws -> Bool{
     let contact = CNMutableContact()
@@ -250,7 +274,7 @@ func getFioPhoneClient(contacts: [CNContact]) -> [Client]{
     return clients
 }
 
-func getAllClientInContact(jobTitle: String?) throws -> [CNContact]{
+func getAllClientInContact(jobTitle: String? = nil) throws -> [CNContact]{
 
     let contacts = allContacts()
     if contacts.isEmpty {
@@ -258,7 +282,7 @@ func getAllClientInContact(jobTitle: String?) throws -> [CNContact]{
     }
     else{
             if jobTitle == nil {
-                return contacts
+                return contacts.filter({ $0.jobTitle != "Ноготок" })
             } else {
                 return contacts.filter({ $0.jobTitle == jobTitle })
             }

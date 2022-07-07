@@ -32,12 +32,14 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var stackButtonSetting: UIStackView!
     @IBOutlet weak var stackButtonGenerate: UIStackView!
+    @IBOutlet weak var labelSetting: UILabel!
     @IBOutlet weak var buttonDownReadBase: UIButton!
     
     class AddClientInCore: UIBarButtonItem{
         var client: Client?
         var indexPath: IndexPath?
     }
+    
     
     @objc func funcAdminButton() {
         hideButtonWorkBase = !hideButtonWorkBase
@@ -47,8 +49,16 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         /*
          сохраняем выделенного клиента в core
          */
-        guard let client = sender.client else {return}
         guard let index = sender.indexPath else {return}
+        do {
+            let contact = try getSomeContact(phoneNumber: cells[index.row].subTitle)
+            try markContactInBook(contact: contact[0])
+            addClientInCore?.client = getFioPhoneClient(contacts: contact).first
+        }
+        catch{
+            showMessage(message: error.localizedDescription)
+        }
+        guard let client = sender.client else {return}
         let base = BaseCoreData()
         base.saveClient(client: client)
         animationSaveFinish(view: view, text: "Сохранен")
@@ -59,8 +69,9 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func buttonAdressBook(_ sender: Any) {
         /*читаем адрес бук*/
         do{
-            let contacts = try getAllClientInContact(jobTitle: nil)
+            let contacts = try getAllClientInContact()
             let clients = getFioPhoneClient(contacts: contacts)
+            addClientInCore?.client = nil
             cells.removeAll()
             for client in clients {
                 cells.append(Cell(title: client.fio.fio, subTitle: client.telephone))
@@ -109,6 +120,7 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -118,9 +130,14 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         tableView.delegate = self
         view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
         
-        adminButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.bookmarks, target: self, action: #selector(funcAdminButton))
+//        adminButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.bookmarks, target: self, action: #selector(funcAdminButton))
         addClientInCore = AddClientInCore(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(funcAddClientInCore(sender:)))
-        navigationItem.rightBarButtonItems = [adminButton!]
+//        navigationItem.rightBarButtonItems = [adminButton!]
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(funcAdminButton))
+        tap.numberOfTapsRequired = 5
+        labelSetting.isUserInteractionEnabled = true
+        labelSetting.addGestureRecognizer(tap)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -132,20 +149,27 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        print(indexPath.row)
+    }
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        do {
-            let contact = try getSomeContact(phoneNumber: cells[indexPath.row].subTitle)
-            addClientInCore?.client = getFioPhoneClient(contacts: contact).first
-            addClientInCore?.indexPath = indexPath
-            navigationItem.rightBarButtonItems = [addClientInCore!]
-        }
-        catch{
-            showMessage(message: error.localizedDescription)
-        }
+        addClientInCore?.indexPath = indexPath
+        navigationItem.rightBarButtonItems = [addClientInCore!]
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.accessoryType = .none
+        let button = UIButton(type: .contactAdd, primaryAction: UIAction(handler: {_ in
+            self.addClientInCore?.indexPath = indexPath
+            self.funcAddClientInCore(sender: self.addClientInCore!)
+            }))
+        button.sizeToFit()
+        addClientInCore?.indexPath = indexPath
+        cell.accessoryView = button
+        
         cell.textLabel?.text = cells[indexPath.row].title
         cell.detailTextLabel?.text = cells[indexPath.row].subTitle
         return cell

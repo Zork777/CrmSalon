@@ -427,6 +427,7 @@
                     <navigationItem key="navigationItem" id="nrA-wY-FxT"/>
                     <connections>
                         <outlet property="buttonDownReadBase" destination="5ru-d6-ADZ" id="Bh5-8y-U8O"/>
+                        <outlet property="labelSetting" destination="pEu-t2-mMR" id="82R-pn-a2r"/>
                         <outlet property="stackButtonGenerate" destination="qFh-uZ-eJf" id="8tg-F9-uaY"/>
                         <outlet property="stackButtonSetting" destination="vvL-Lm-n0F" id="Y1W-s5-WYy"/>
                         <outlet property="tableView" destination="bCI-1w-zUO" id="Wjb-ei-82a"/>
