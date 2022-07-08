@@ -94,10 +94,18 @@ func saveMasters(masters: ArraySlice<Client>) {
 func saveClients(clients: ArraySlice<Client>) {
     let base = BaseCoreData()
     for client in clients {
-        let baseIdent = base.addRecord(base: Bases.clients.rawValue) as! EntityClients
-        baseIdent.lastName = client.fio.lastName
-        baseIdent.firstName = client.fio.firstName
-        baseIdent.phone = client.telephone
+        switch client.type {
+        case .client, .none:
+            let baseIdent = base.addRecord(base: Bases.clients.rawValue) as! EntityClients
+            baseIdent.lastName = client.fio.lastName
+            baseIdent.firstName = client.fio.firstName
+            baseIdent.phone = client.telephone
+        case .master:
+            let baseIdent = base.addRecord(base: Bases.masters.rawValue) as! EntityMasters
+            baseIdent.lastName = client.fio.lastName
+            baseIdent.firstName = client.fio.firstName
+            baseIdent.phone = client.telephone
+        }
     }
     do {
         try base.saveContext()

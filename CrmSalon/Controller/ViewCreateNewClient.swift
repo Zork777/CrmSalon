@@ -10,11 +10,14 @@ import UIKit
 class ViewCreateNewClient: UIViewController {
     let lineCoordinate = DrawLineCoordinate()
     var selectClientPhone = ""
+    var typeContact: TypeContact?
     
     @IBOutlet weak var phoneNumber: UITextField!
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var buttonSave: UIButton!
+    @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var butonCreateOrder: UIButton!
     
     var saved: Bool = false {
         didSet {
@@ -34,10 +37,37 @@ class ViewCreateNewClient: UIViewController {
         saveClient()
     }
 
+    @objc func funcButtonClose(){
+        dismiss(animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
+        
+        //рисуем линию если открыли через nav
+        if self.navigationController != nil {view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))}
+        else{
+            let closeButton = UIButton(type: .close)
+            closeButton.addTarget(self, action: #selector(funcButtonClose), for: .touchUpInside)
+            view.addSubview(closeButton)
+            closeButton.translatesAutoresizingMaskIntoConstraints = false
+            closeButton.sizeToFit()
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 16).isActive = true
+            closeButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
+        }
+        if let receivedText = typeContact{
+            //изменяем title если был переход setting
+            labelTitle.text = "Новый " + receivedText.rawValue
+        
+            switch receivedText {
+                //выключаем кнопку запись ордера в календаре если записываем мастера.
+            case .master:
+                butonCreateOrder.isEnabled = false
+                butonCreateOrder.alpha = 0.3
+            case .client:
+                break
+            }
+        }
     }
     
     
@@ -52,7 +82,8 @@ class ViewCreateNewClient: UIViewController {
             do {
                 let stringPhoneNumber = try checkPhoneNumber(PhoneNumber: clearStringPhoneNumber(phoneNumberString: phoneNumber.text ?? ""))
                 let client = Client(fio: Fio(firstName: firstName.text ?? "", lastName: lastName.text ?? ""),
-                                    telephone: stringPhoneNumber)
+                                    telephone: stringPhoneNumber,
+                                    type: typeContact)
                 let newClient = try saveNewClient(client: client)[0] //save in adress book
                 saveClients(clients: [client]) //save in core base
                 animationSaveFinish(view: view, text: "Сохранено")

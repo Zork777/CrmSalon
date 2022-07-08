@@ -24,6 +24,15 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         let subTitle: String
     }
     
+    enum WhoButton{
+        case adressBook
+        case master
+        case service
+    }
+    
+    var typeContact: TypeContact?
+    var whoButton: WhoButton?
+    
     var cells = [Cell]()
     var adminButton: UIBarButtonItem?
     var addClientInCore: AddClientInCore?
@@ -43,6 +52,10 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     
     @objc func funcAdminButton() {
         hideButtonWorkBase = !hideButtonWorkBase
+    }
+    
+    @objc func funcGotoNewClient() {
+        performSegue(withIdentifier: "toNewClient", sender: self)
     }
     
     @objc func funcAddClientInCore(sender: AddClientInCore) {
@@ -76,6 +89,8 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
             for client in clients {
                 cells.append(Cell(title: client.fio.fio, subTitle: client.telephone))
             }
+            typeContact = TypeContact.client
+            whoButton = .adressBook
             tableView.reloadData()
         }
         catch{
@@ -87,8 +102,10 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         /*
          читаем из core мастеров
          */
+        typeContact = TypeContact.master
+        whoButton = .master
         cells.removeAll()
-        
+        readBase(baseName: Bases.masters)
         tableView.reloadData()
     }
     
@@ -96,8 +113,9 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         /*
          читаем из core услуги
          */
+        whoButton = .service
         cells.removeAll()
-        
+        readBase(baseName: Bases.services)
         tableView.reloadData()
     }
     
@@ -129,10 +147,9 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         tableView.dataSource = self
         tableView.delegate = self
         view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
-        
-//        adminButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.bookmarks, target: self, action: #selector(funcAdminButton))
         addClientInCore = AddClientInCore(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(funcAddClientInCore(sender:)))
-//        navigationItem.rightBarButtonItems = [adminButton!]
+        let buttonGotoNewClient = UIBarButtonItem (barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(funcGotoNewClient))
+        navigationItem.rightBarButtonItems = [buttonGotoNewClient]
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(funcAdminButton))
         tap.numberOfTapsRequired = 5
@@ -161,18 +178,38 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.accessoryType = .none
-        let button = UIButton(type: .contactAdd, primaryAction: UIAction(handler: {_ in
-            self.addClientInCore?.indexPath = indexPath
-            self.funcAddClientInCore(sender: self.addClientInCore!)
-            }))
-        button.sizeToFit()
-        addClientInCore?.indexPath = indexPath
-        cell.accessoryView = button
+        cell.selectionStyle = .none
+        
+        switch whoButton {
+        case .adressBook:
+            let button = UIButton(type: .contactAdd, primaryAction: UIAction(handler: {_ in
+                self.addClientInCore?.indexPath = indexPath
+                self.funcAddClientInCore(sender: self.addClientInCore!)
+                }))
+            button.sizeToFit()
+            addClientInCore?.indexPath = indexPath
+            cell.accessoryType = .none
+            cell.accessoryView = button
+        case .master:
+            cell.accessoryView = .none
+            break
+        case .service:
+            cell.accessoryView = .none
+            break
+        case .none:
+            break
+        }
+
         
         cell.textLabel?.text = cells[indexPath.row].title
         cell.detailTextLabel?.text = cells[indexPath.row].subTitle
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? ViewCreateNewClient {
+            destination.typeContact = typeContact
+        }
     }
     
     func configButtonReadBase(){
