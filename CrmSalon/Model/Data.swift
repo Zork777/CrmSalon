@@ -104,9 +104,7 @@ let keysToFetch: [CNKeyDescriptor] = [
     CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
     CNContactPhoneNumbersKey as CNKeyDescriptor,
     CNContactJobTitleKey as CNKeyDescriptor]
-//    CNContactImageDataAvailableKey as CNKeyDescriptor,
-//    CNContactThumbnailImageDataKey as CNKeyDescriptor,
-//    CNContactNoteKey as CNKeyDescriptor]
+
 
 var clientsBase = [CNContact]()
 
@@ -158,16 +156,6 @@ func searchForContactUsingPhoneNumber(phoneNumber: String) -> [CNContact] {
               let phoneNumberToCompare = clearStringPhoneNumber(phoneNumberString: phoneNumberString)
               if phoneNumberToCompare.contains(phoneNumberToCompareAgainst) { //поиск с любой части строки
                   result.append(contact)}
-//              for phoneNumber in contact.phoneNumbers {
-//                  let phoneNumberStruct = phoneNumber.value
-//                      let phoneNumberString = phoneNumberStruct.stringValue
-//                     let phoneNumberToCompare = clearStringPhoneNumber(phoneNumberString: phoneNumberString)
-////                      if phoneNumberToCompare.prefix(phoneNumberToCompareAgainst.count).contains(phoneNumberToCompareAgainst) { поиск с начала строки
-//                      if phoneNumberToCompare.contains(phoneNumberToCompareAgainst) { //поиск с любой части строки
-//                          result.append(contact)
-//                      }
-//
-//              }
            }
       }
 
@@ -179,7 +167,26 @@ func markContactInBook(contact: CNContact) throws {
      делаем отметку контакта в job что это клиент салона
      */
     let mutableContact = contact.mutableCopy() as! CNMutableContact
-    mutableContact.jobTitle = "Ноготок"
+    mutableContact.jobTitle = "Ноготок" + contact.jobTitle
+    let store = CNContactStore()
+    let saveRequest = CNSaveRequest()
+    saveRequest.update(mutableContact)
+
+    do {
+        try store.execute(saveRequest)
+    } catch {
+        print (error)
+        print (error.localizedDescription)
+        throw ValidationError.failedSavingContact
+    }
+}
+
+func unmarkContactInBook(contact: CNContact) throws {
+    /*
+     делаем отметку контакта в job что это клиент салона
+     */
+    let mutableContact = contact.mutableCopy() as! CNMutableContact
+    mutableContact.jobTitle = contact.jobTitle.replacingOccurrences(of: "Ноготок", with: "")
     let store = CNContactStore()
     let saveRequest = CNSaveRequest()
     saveRequest.update(mutableContact)
@@ -272,27 +279,21 @@ func getSomeContact(phoneNumber: String) throws -> [CNContact]{
 
 func getFioPhoneClient(contacts: [CNContact]) -> [Client]{
     var clients = [Client]()
-    
     for contact in contacts {
+        let phone = contact.phoneNumbers.first?.value.stringValue ?? "0"
         clients.append(Client(fio: Fio(firstName: contact.givenName, lastName: contact.familyName),
-                              telephone: clearStringPhoneNumber(phoneNumberString: contact.phoneNumbers[0].value.stringValue)))
+                              telephone: clearStringPhoneNumber(phoneNumberString: phone)))
     }
-    return clients
+    return clients.sorted(by: {$0.fio.firstName < $1.fio.firstName})
 }
 
-func getAllClientInContact(jobTitle: String? = nil) throws -> [CNContact]{
+func getAllClientInContact() throws -> [CNContact]{
 
     let contacts = allContacts()
     if contacts.isEmpty {
         throw ValidationError.failedFeatchContact
     }
-    else{
-            if jobTitle == nil {
-                return contacts.filter({ $0.jobTitle != "Ноготок" })
-            } else {
-                return contacts.filter({ $0.jobTitle == jobTitle })
-            }
-        }
+    return contacts
 }
 
 func clearStringPhoneNumber(phoneNumberString: String) -> String{

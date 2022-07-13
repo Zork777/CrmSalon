@@ -51,7 +51,7 @@ func deleteAllCoreBases() {
 
 func deleteAllContactClient() {
     do{
-        let clients = try getAllClientInContact(jobTitle: "Ноготок")
+        let clients = try getAllClientInContact().filter({$0.jobTitle.contains("Ноготок")})
         for client in clients{
             try deleteContact(phoneNumber: client.phoneNumbers[0].value.stringValue)
         }

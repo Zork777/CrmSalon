@@ -104,10 +104,11 @@ class CrmSalonTests: XCTestCase {
     }
     
     func testSearchContactNote() throws {
+        let resultOld = try getAllClientInContact().count
         _ = try! saveNewClient(client: testClient)
         _ = try! saveNewClient(client: testMaster)
-        let result = try getAllClientInContact(jobTitle: "Ноготок")
-        XCTAssertEqual (result.count, 2)
+        let resultNew = try getAllClientInContact().count
+        XCTAssertEqual (resultOld, resultNew-2)
     }
     
     func testDeleteAllContactClient() throws{
@@ -379,7 +380,6 @@ class CrmSalonTests: XCTestCase {
                 
                 let order = base.getOrdersInDate(date: date)![n] as! EntityOrders
                 XCTAssertEqual(order.orderToClient!.phone!, client.phone)
-                XCTAssert(order.orderToMaster!.phone! == masters[n].telephone)
             }
             catch{
                 XCTAssert(false, "error fetch")
