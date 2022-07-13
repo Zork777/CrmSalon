@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class CellsForSettingView {
     
@@ -71,8 +72,10 @@ class CellsForSettingView {
         //Добавляем клиента в basecore
         let base = BaseCoreData()
         base.saveClient(client: client)
-        guard let element = self.cellsInSection?.remove(at: self.index.row) else {return}
-        self.cells[.saveInCore]?.append(element)
+        guard self.cellsInSection?.remove(at: self.index.row) != nil else {return}
+        guard let client = base.findClientByPhone(phone: client.telephone) else {return}
+        let cell = objectClientToCell(object: client) //обновляем данные ячейки
+        self.cells[.saveInCore]?.append(cell)
         self.cells[.dontSaveInCore] = cellsInSection
     }
     
@@ -81,8 +84,9 @@ class CellsForSettingView {
         do{
             let base = BaseCoreData()
             guard let client = base.findClientByPhone(phone: client.telephone) else {return}
+            guard var element = self.cellsInSection?.remove(at: self.index.row) else {return}
+            element.title = (client.firstName ?? "") + " " + (client.lastName ?? "") //обновляем данные ячейки
             try base.deleteObject(object: client)
-            guard let element = self.cellsInSection?.remove(at: self.index.row) else {return}
             self.cells[.dontSaveInCore]?.append(element)
             self.cells[.saveInCore] = cellsInSection
         }
@@ -114,22 +118,7 @@ class CellsForSettingView {
             switch baseName {
             case .clients, .masters:
                 for object in fetchResult{
-                    let firstName = object.value(forKey: "firstName") as! String
-                    let lastName = object.value(forKey: "lastName") as! String
-                    var cell = Cell(title: firstName + " " + lastName,
-                                    subTitle: object.value(forKey: "phone") as! String,
-                                    typeContact: baseName == .clients ? .client : .master)
-                    if baseName.rawValue == Bases.clients.rawValue {
-                        let object = object as! EntityClients
-                        var ordersDate = ""
-                        for order in object.clientToOrder!.allObjects{
-                            ordersDate = ordersDate + ((order as! EntityOrders).date?.convertToString ?? "") + ", "
-                        }
-                        
-                        cell.title = cell.title + (ordersDate.isEmpty ? " Order- nothing" : " Order- " + ordersDate)
-                        
-                    }
-                    cells.append(cell)
+                    cells.append(objectClientToCell(object: object))
                 }
                 
 
@@ -159,5 +148,26 @@ class CellsForSettingView {
         else{
             showMessage(message: "error read base") }
         self.cells[.saveInCore] = cells
+    }
+    
+    func objectClientToCell(object: NSManagedObject) -> Cell{
+        let baseName = object.entity.name!
+        let firstName = object.value(forKey: "firstName") as! String
+        let lastName = object.value(forKey: "lastName") as! String
+        var cell = Cell(title: firstName + " " + lastName,
+                        subTitle: object.value(forKey: "phone") as! String,
+                        typeContact: baseName == Bases.clients.rawValue ? .client : .master)
+
+        if baseName == Bases.clients.rawValue {
+            let object = object as! EntityClients
+            var ordersDate = ""
+            for order in object.clientToOrder!.allObjects{
+                ordersDate = ordersDate + ((order as! EntityOrders).date?.convertToString ?? "") + ", "
+            }
+
+            cell.title = cell.title + (ordersDate.isEmpty ? " Order- nothing" : " Order- " + ordersDate)
+
+        }
+        return cell
     }
 }
