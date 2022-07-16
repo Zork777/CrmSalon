@@ -14,7 +14,6 @@ class CellsForSettingView {
     struct Cell{
         var title: String
         var subTitle: String
-        var typeContact: TypeContact?
     }
     
     enum GroupClient: Int{
@@ -22,24 +21,28 @@ class CellsForSettingView {
         case dontSaveInCore = 1
         }
     
-    var cells: [GroupClient:[Cell]] = [:]
+    var cells: [GroupClient:[Cell]] = [.saveInCore:[], .dontSaveInCore:[]]
     var cellsInSection: [Cell]?
     var index = IndexPath(row: 0, section: 0)
+    var buttonName: Bases
+    
+    let base = BaseCoreData()
     
     init() {
-
+        self.buttonName = Bases.clients
     }
     
     func moveCells(indexOld: IndexPath, toSection: Int, tableView: UITableView){
         let indexNew = IndexPath(row: tableView.numberOfRows(inSection: toSection), section: toSection)
-        tableView.beginUpdates()
-        tableView.moveRow(at: indexOld, to: indexNew)
-        tableView.endUpdates()
-        tableView.reloadRows(at: tableView.indexPathsForVisibleRows!, with: .automatic)
+//        tableView.beginUpdates()
+//        tableView.moveRow(at: indexOld, to: indexNew)
+//        tableView.endUpdates()
+//        tableView.reloadRows(at: tableView.indexPathsForVisibleRows!, with: .automatic)
+        tableView.reloadData()
     }
     
     func markContactInBook() -> Client?{
-        //делаем пометку в адресс бук что это клиент салона
+        //MARK: делаем пометку в адресс бук что это клиент салона
         self.cellsInSection = self.cells[.dontSaveInCore] ?? nil
         if self.cellsInSection == nil {return nil}
         do {
@@ -54,11 +57,21 @@ class CellsForSettingView {
     }
     
     func unmarkContactInBook() -> Client?{
-        //снимаем метку салона с контакта в адресс бук
+        //MARK: снимаем метку салона с контакта в адресс бук
+        
         self.cellsInSection = self.cells[.saveInCore] ?? nil
         if self.cellsInSection == nil {return nil}
+        let phoneNumber = cellsInSection?[self.index.row].subTitle ?? "0"
+        if checkMasterIsOn(phoneNumber: phoneNumber){
+            showMessage(message: "Удалять из клиентов нельзя, т.к. это мастер!")
+            return nil
+        }
         do {
-            let contact = try getSomeContact(phoneNumber: cellsInSection?[self.index.row].subTitle ?? "")
+            let contact = try getSomeContact(phoneNumber: phoneNumber)
+            if contact.isEmpty {
+                showMessage(message: "Клиент в адресной книге не найден")
+                return nil
+            }
             try CrmSalon.unmarkContactInBook(contact: contact[0]) // снимаем метку
             return getFioPhoneClient(contacts: contact).first
         }
@@ -68,13 +81,51 @@ class CellsForSettingView {
     return nil
     }
     
+    
+    ///проверяем клиента в базе Core мастеров.
+    ///
+    ///true если мастер с таким телефоном найден
+    func checkMasterIsOn(phoneNumber: String)-> Bool{
+
+        if self.buttonName != .clients {return false} // проверяем мастера только при нажатой кнопке клиенты
+        do{
+            let objects = try self.base.fetchContext(base: .masters, predicate: nil)
+            for object in objects{
+                let master = object as! EntityMasters
+                if master.phone == phoneNumber { return true}
+            }
+        }
+        catch{
+            showMessage(message: error.localizedDescription)
+            return true
+        }
+        return false
+    }
+    
+    func saveMasterInCoreBase(client: Client) {
+        //Добавляем клиента в basecore
+        self.base.saveMaster(client: client)
+    }
+    
     func saveClientInCoreBase(client: Client) {
         //Добавляем клиента в basecore
-        let base = BaseCoreData()
-        base.saveClient(client: client)
+        self.base.saveClient(client: client)
+    }
+    
+    func updateCells(client: Client){
+        var cell: Cell
         guard self.cellsInSection?.remove(at: self.index.row) != nil else {return}
-        guard let client = base.findClientByPhone(phone: client.telephone) else {return}
-        let cell = objectClientToCell(object: client) //обновляем данные ячейки
+        
+        switch buttonName {
+        case .clients:
+            guard let clients = self.base.findClientByPhone(phone: client.telephone) else {return}
+            cell = objectClientToCell(object: clients) //обновляем данные ячейки
+        case .masters:
+            guard let client = self.base.findMasterByPhone(phone: client.telephone) else {return}
+            cell = objectClientToCell(object: client) //обновляем данные ячейки
+        case .orders, .services:
+            return
+        }
         self.cells[.saveInCore]?.append(cell)
         self.cells[.dontSaveInCore] = cellsInSection
     }
@@ -82,11 +133,18 @@ class CellsForSettingView {
     func deleteClientInCoreBase(client: Client) {
         // Удаляем клиента из basecore
         do{
-            let base = BaseCoreData()
-            guard let client = base.findClientByPhone(phone: client.telephone) else {return}
+            switch buttonName {
+            case .clients:
+                guard let object = self.base.findClientByPhone(phone: client.telephone) else {return}
+                try self.base.deleteObject(object: object)
+            case .masters:
+                guard let object = self.base.findMasterByPhone(phone: client.telephone) else {return}
+                try self.base.deleteObject(object: object)
+            case .orders, .services:
+                return
+            }
             guard var element = self.cellsInSection?.remove(at: self.index.row) else {return}
-            element.title = (client.firstName ?? "") + " " + (client.lastName ?? "") //обновляем данные ячейки
-            try base.deleteObject(object: client)
+            element.title = client.fio.fio //обновляем данные ячейки
             self.cells[.dontSaveInCore]?.append(element)
             self.cells[.saveInCore] = cellsInSection
         }
@@ -101,7 +159,7 @@ class CellsForSettingView {
             let clients = getFioPhoneClient(contacts: contacts)
             var cells: [Cell] = []
             for client in clients {
-                cells.append(Cell(title: client.fio.fio, subTitle: client.telephone, typeContact: TypeContact.client))
+                cells.append(Cell(title: client.fio.fio, subTitle: client.telephone))
             }
             self.cells[.dontSaveInCore] = cells
         }
@@ -111,9 +169,8 @@ class CellsForSettingView {
     }
     
     func readCoreBase(baseName: Bases){
-        let base = BaseCoreData()
         var cells: [Cell] = []
-        if let fetchResult = try? base.fetchContext(base: baseName.rawValue, predicate: nil) {
+        if let fetchResult = try? self.base.fetchContext(base: baseName, predicate: nil) {
             
             switch baseName {
             case .clients, .masters:
@@ -155,8 +212,7 @@ class CellsForSettingView {
         let firstName = object.value(forKey: "firstName") as! String
         let lastName = object.value(forKey: "lastName") as! String
         var cell = Cell(title: firstName + " " + lastName,
-                        subTitle: object.value(forKey: "phone") as! String,
-                        typeContact: baseName == Bases.clients.rawValue ? .client : .master)
+                        subTitle: object.value(forKey: "phone") as! String)
 
         if baseName == Bases.clients.rawValue {
             let object = object as! EntityClients

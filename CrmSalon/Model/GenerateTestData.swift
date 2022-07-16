@@ -40,7 +40,7 @@ func deleteAllCoreBases() {
     let base = BaseCoreData()
     for baseName in Bases.allCases {
         do{
-            try base.deleteContext(base: baseName.rawValue, predicate: nil)
+            try base.deleteContext(base: baseName, predicate: nil)
             try base.saveContext()
         }
         catch{
@@ -91,20 +91,22 @@ func saveMasters(masters: ArraySlice<Client>) {
     }
 }
 
-func saveClients(clients: ArraySlice<Client>) {
+func saveClients(clients: ArraySlice<Client>, bases: Bases) {
     let base = BaseCoreData()
     for client in clients {
-        switch client.type {
-        case .client, .none:
+        switch bases {
+        case .clients:
             let baseIdent = base.addRecord(base: Bases.clients.rawValue) as! EntityClients
             baseIdent.lastName = client.fio.lastName
             baseIdent.firstName = client.fio.firstName
             baseIdent.phone = client.telephone
-        case .master:
+        case .masters:
             let baseIdent = base.addRecord(base: Bases.masters.rawValue) as! EntityMasters
             baseIdent.lastName = client.fio.lastName
             baseIdent.firstName = client.fio.firstName
             baseIdent.phone = client.telephone
+        case .services, .orders:
+            return
         }
     }
     do {
@@ -118,9 +120,9 @@ func saveClients(clients: ArraySlice<Client>) {
 func saveOrders(date: [Date]) -> Int{
     var countOrder = 0
     let base = BaseCoreData()
-    let clients = try! base.fetchContext(base: Bases.clients.rawValue, predicate: nil)
-    let masters = try! base.fetchContext(base: Bases.masters.rawValue, predicate: nil)
-    let services = try! base.fetchContext(base: Bases.services.rawValue, predicate: nil)
+    let clients = try! base.fetchContext(base: .clients, predicate: nil)
+    let masters = try! base.fetchContext(base: .masters, predicate: nil)
+    let services = try! base.fetchContext(base: .services, predicate: nil)
     let randomSequenceClients = Set<Int>((0...Int.random(in: 0...clients.count-1)).map({_ in Int.random(in: 0...clients.count-1)}))
     
     for n in randomSequenceClients{
@@ -180,7 +182,7 @@ func mainGenerateTestData(){
     }
     saveServices(services: services)
     saveMasters(masters: masters)
-    saveClients(clients: clients)
+    saveClients(clients: clients, bases: .clients)
     let today = Date().stripTime()
     countOrders = saveOrders(date: [today.yesterday, today, today.tomorrow])
     print ("create orders-", countOrders)

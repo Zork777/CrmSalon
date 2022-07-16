@@ -20,13 +20,18 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     
-    var typeContact: TypeContact?
+    public var buttonName: Bases? {
+        didSet{
+            cells.buttonName = buttonName ?? Bases.clients
+            addButonInNavigatorBar()
+        }
+    }
     
     var cells = CellsForSettingView()
     
     var adminButton: UIBarButtonItem?
-    var addClientInCore =  AddClientInCore()
-    var deleteClientInCore = DeleteClientInCore()
+    var buttonAddClientInCore: UIBarButtonItem?
+    var buttonDeleteClientInCore: UIBarButtonItem?
     
     let lineCoordinate = DrawLineCoordinate()
     
@@ -35,16 +40,10 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var labelSetting: UILabel!
     @IBOutlet weak var buttonDownReadBase: UIButton!
     
-    class AddClientInCore: UIBarButtonItem{
-        var client: Client?
-        var indexPath: IndexPath?
-    }
     
-    class DeleteClientInCore: UIBarButtonItem{
-//        var client: Client?
-        var indexPath: IndexPath?
+    @objc func funcAddService() {
+        print ("Add service")
     }
-    
     
     @objc func funcAdminButton() {
         hideButtonWorkBase = !hideButtonWorkBase
@@ -54,15 +53,11 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         performSegue(withIdentifier: "toNewClient", sender: self)
     }
     
-    @objc func funcDeleteClientInCore(sender: DeleteClientInCore){
+    @objc func funcDeleteClientInCore(){
         /*
          MARK: удаляем выделенного клиента из core и снимаем метку, что это клиент салона
          */
-        if sender.indexPath == nil {
-            showMessage(message: "Не смог получить ссылку на ячейку")
-            return
-        }
-        cells.index = sender.indexPath!
+
         guard let client = cells.unmarkContactInBook() else {
             showMessage(message: "Не смог снять признак салона у клиента")
             return}
@@ -70,36 +65,40 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         animationSaveFinish(view: view, text: "Удален")
         
         //MARK: двигаем ячейки
-        cells.moveCells(indexOld: sender.indexPath!, toSection: CellsForSettingView.GroupClient.dontSaveInCore.rawValue,
+        cells.moveCells(indexOld: cells.index, toSection: CellsForSettingView.GroupClient.dontSaveInCore.rawValue,
         tableView: tableView)
     }
     
-    @objc func funcAddClientInCore(sender: AddClientInCore) {
+    @objc func funcAddClientInCore(){
         /*
-         MARK: сохраняем выделенного клиента в core и делаем отметку в адресс бук, что это клиент салона
+         MARK: сохраняем выделенного клиента в core Clients и делаем отметку в адресс бук, что это клиент салона
          */
         
-        if sender.indexPath == nil {
-            showMessage(message: "Не смог получить ссылку на ячейку")
-            return
-        }
-        cells.index = sender.indexPath!
         guard let client = cells.markContactInBook() else {
             showMessage(message: "Не смог поставить признак салона у клиента")
             return}
-        cells.saveClientInCoreBase(client: client)
+        switch buttonName{
+        case .clients:
+            cells.saveClientInCoreBase(client: client)
+        case .masters:
+            cells.saveMasterInCoreBase(client: client)
+        case .services, .none, .orders:
+            return
+        }
+
         animationSaveFinish(view: view, text: "Сохранен")
-        
+        //MARK: переносим  ячейку в cells
+        cells.updateCells(client: client)
         //MARK: двигаем ячейки
-        cells.moveCells(indexOld: sender.indexPath!, toSection: CellsForSettingView.GroupClient.saveInCore.rawValue,
+        cells.moveCells(indexOld: cells.index, toSection: CellsForSettingView.GroupClient.saveInCore.rawValue,
         tableView: tableView)
     }
     
     @IBAction func buttonAdressBook(_ sender: Any) {
  
-        typeContact = TypeContact.client
+        buttonName = .clients
         //MARK: читаем клиентов из базы
-        cells.readCoreBase(baseName: Bases.clients)
+        cells.readCoreBase(baseName: .clients)
         
         /*MARK: читаем адрес бук не клиентов*/
         cells.readAdressBook()
@@ -108,9 +107,9 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func buttonListMasters(_ sender: Any) {
 
-        typeContact = TypeContact.master
+        buttonName = .masters
         /*MARK: читаем из core мастеров*/
-        cells.readCoreBase(baseName: Bases.masters)
+        cells.readCoreBase(baseName: .masters)
         
         /*MARK: читаем адрес бук не клиентов*/
         cells.readAdressBook()
@@ -120,8 +119,9 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func buttonListService(_ sender: Any) {
         /*MARK: читаем из core услуги*/
+        buttonName = .services
         
-        cells.readCoreBase(baseName: Bases.services)
+        cells.readCoreBase(baseName: .services)
         cells.cells[.dontSaveInCore] = []
         tableView.reloadData()
     }
@@ -152,9 +152,7 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         hideButtonWorkBase = true
         configButtonReadBase()
         view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
-        addClientInCore = AddClientInCore(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(funcAddClientInCore(sender:)))
-        let buttonGotoNewClient = UIBarButtonItem (barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(funcGotoNewClient))
-        navigationItem.rightBarButtonItems = [buttonGotoNewClient]
+        buttonAddClientInCore = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(funcAddClientInCore))
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(funcAdminButton))
         tap.numberOfTapsRequired = 5
@@ -174,18 +172,44 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return cells.cells.keys.count
+        return 2
     }
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let keys = Array(cells.cells.keys)[section]
-        switch keys {
-        case .saveInCore:
-            return "В клиентской базе"
-        case .dontSaveInCore:
-            return "Не сохранены"
+        let keys = CellsForSettingView.GroupClient(rawValue: section)
+        switch buttonName {
+        case .clients, .none:
+            switch keys {
+            case .saveInCore:
+                return "Клиенты"
+            case .dontSaveInCore:
+                return "Не клиенты"
+            case .none:
+                return "------"
+            }
+        case .masters:
+            switch keys {
+            case .saveInCore:
+                return "Мастера"
+            case .dontSaveInCore:
+                return "Не мастер"
+            case .none:
+                return "------"
+            }
+        case .services:
+            switch keys {
+            case .saveInCore:
+                return "Услуги"
+            case .dontSaveInCore:
+                return ""
+            case .none:
+                return "------"
+            }
+        case .orders:
+            return "------"
         }
+
     }
     
     
@@ -194,39 +218,32 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         cell.selectionStyle = .none
         guard let keys = CellsForSettingView.GroupClient(rawValue: indexPath.section) else {return cell}//Array(cells.keys)[indexPath.section]
         guard let cellsInSection = cells.cells[keys] else {return cell}
+        
+        // MARK: рисуем кнопки в зависимости от группы
         switch keys {
-    // MARK: рисуем кнопки в зависимости от группы
         case .saveInCore:
             let button = UIButton(type: .close, primaryAction: UIAction(handler: {_ in
-                self.deleteClientInCore.indexPath = indexPath
-                self.funcDeleteClientInCore(sender: self.deleteClientInCore)
+                self.cells.index = indexPath
+                self.funcDeleteClientInCore()
                 }))
             button.sizeToFit()
             cell.accessoryType = .none
             cell.accessoryView = button
     
         case .dontSaveInCore:
-            switch cellsInSection[indexPath.row].typeContact {
-            case .client:
+            switch buttonName {
+            case .clients, .masters:
                 let button = UIButton(type: .contactAdd, primaryAction: UIAction(handler: {_ in
-                    self.addClientInCore.indexPath = indexPath
-                    self.funcAddClientInCore(sender: self.addClientInCore)
+                    self.cells.index = indexPath
+                    self.funcAddClientInCore()
                     }))
                 button.sizeToFit()
                 cell.accessoryType = .none
                 cell.accessoryView = button
-            case .master:
-                let button = UIButton(type: .close, primaryAction: UIAction(handler: {_ in
-                    self.addClientInCore.indexPath = indexPath
-                    self.funcAddClientInCore(sender: self.addClientInCore)
-                    }))
-                button.sizeToFit()
-                addClientInCore.indexPath = indexPath
-                cell.accessoryType = .none
-                cell.accessoryView = button
-
-            case .none:
+                
+            case .none, .services, .orders:
                 cell.accessoryView = .none
+
             }
         }
 
@@ -238,8 +255,23 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ViewCreateNewClient {
-            destination.typeContact = typeContact
+            destination.typeContact = buttonName
         }
+    }
+    
+    
+    ///заменяем кнопку в навигаторе на соответствующую типу
+    func addButonInNavigatorBar(){
+        var button: UIBarButtonItem?
+        switch buttonName{
+        case .masters, .clients:
+            button = UIBarButtonItem (barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(funcGotoNewClient))
+        case .services:
+            button = UIBarButtonItem (barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(funcAddService))
+        case .orders, .none:
+            button = nil
+        }
+        if button != nil {navigationItem.rightBarButtonItems = [button!]} //заменяем кнопку в навигаторе
     }
     
     func configButtonReadBase(){

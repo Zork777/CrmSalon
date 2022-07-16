@@ -224,6 +224,5 @@ class CrmSalonUITests: XCTestCase {
         
         testUi.app.staticTexts["Клиент: \(testClient.fio.firstName + " " + testClient.fio.lastName)"].tap()
         testUi.app.staticTexts["Телефон: \(testClient.telephone)"].tap()
-        testUi.app.staticTexts["Услуга: Маникюр"]
     }
 }

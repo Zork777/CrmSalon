@@ -161,8 +161,8 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
         labelDate.text = dateForLabel.convertToString
         ordersTable = loadOrdersInDay(date: dateForLabel)
         do {
-            mastersTable = try base.fetchContext(base: Bases.masters.rawValue, predicate: nil) as! [EntityMasters]
-            servicesTable = try base.fetchContext(base: Bases.services.rawValue, predicate: nil) as! [EntityServices]
+            mastersTable = try base.fetchContext(base: .masters, predicate: nil) as! [EntityMasters]
+            servicesTable = try base.fetchContext(base: .services, predicate: nil) as! [EntityServices]
         }
         catch{
             fatalError("error load masters or service")

@@ -10,7 +10,7 @@ import UIKit
 class ViewCreateNewClient: UIViewController {
     let lineCoordinate = DrawLineCoordinate()
     var selectClientPhone = ""
-    var typeContact: TypeContact?
+    var typeContact: Bases?
     
     @IBOutlet weak var phoneNumber: UITextField!
     @IBOutlet weak var firstName: UITextField!
@@ -22,7 +22,6 @@ class ViewCreateNewClient: UIViewController {
     var saved: Bool = false {
         didSet {
             buttonSave.isEnabled = !saved
-            buttonSave.alpha = saved ? 0.3 : 1
         }
     }
     
@@ -61,10 +60,10 @@ class ViewCreateNewClient: UIViewController {
         
             switch receivedText {
                 //выключаем кнопку запись ордера в календаре если записываем мастера.
-            case .master:
+            case .masters:
                 butonCreateOrder.isEnabled = false
                 butonCreateOrder.alpha = 0.3
-            case .client:
+            case .clients, .services, .orders:
                 break
             }
         }
@@ -82,10 +81,10 @@ class ViewCreateNewClient: UIViewController {
             do {
                 let stringPhoneNumber = try checkPhoneNumber(PhoneNumber: clearStringPhoneNumber(phoneNumberString: phoneNumber.text ?? ""))
                 let client = Client(fio: Fio(firstName: firstName.text ?? "", lastName: lastName.text ?? ""),
-                                    telephone: stringPhoneNumber,
-                                    type: typeContact)
+                                    telephone: stringPhoneNumber)
+//                                    type: typeContact)
                 let newClient = try saveNewClient(client: client)[0] //save in adress book
-                saveClients(clients: [client]) //save in core base
+                saveClients(clients: [client], bases: .clients) //save in core base
                 animationSaveFinish(view: view, text: "Сохранено")
                 clientsBase.append(newClient)
                 selectClientPhone = stringPhoneNumber

@@ -41,6 +41,19 @@ class BaseCoreData {
           }
       }
     
+    func saveMaster(client: Client) {
+        let baseIdent = self.addRecord(base: Bases.masters.rawValue) as! EntityMasters
+        baseIdent.lastName = client.fio.lastName
+        baseIdent.firstName = client.fio.firstName
+        baseIdent.phone = client.telephone
+        do {
+            try self.saveContext()
+        }
+        catch{
+            showMessage(message: "Error save in base Clients")
+        }
+    }
+    
     func saveClient(client: Client) {
         let baseIdent = self.addRecord(base: Bases.clients.rawValue) as! EntityClients
         baseIdent.lastName = client.fio.lastName
@@ -108,8 +121,8 @@ class BaseCoreData {
         return NSEntityDescription.insertNewObject(forEntityName: base, into: context)
     }
     
-    func fetchContext (base: String, predicate: NSPredicate?) throws -> [NSManagedObject]{
-        let entityDescription = NSEntityDescription.entity(forEntityName: base, in: context)
+    func fetchContext (base: Bases, predicate: NSPredicate?) throws -> [NSManagedObject]{
+        let entityDescription = NSEntityDescription.entity(forEntityName: base.rawValue, in: context)
 
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
         fetchRequest.entity = entityDescription
@@ -121,7 +134,7 @@ class BaseCoreData {
         return objects as! [NSManagedObject]
     }
     
-    func deleteContext (base: String, predicate: NSPredicate?) throws {
+    func deleteContext (base: Bases, predicate: NSPredicate?) throws {
         do {
             let objects = try fetchContext(base: base, predicate: predicate)
             for object in objects {
@@ -136,7 +149,7 @@ class BaseCoreData {
     
     func getOrdersInDate(date: Date) -> [NSManagedObject]?{
         let predicate =  NSPredicate(format: "date == %@ && active == true", date as NSDate)
-        if let fetchResults = try? fetchContext(base: Bases.orders.rawValue, predicate: predicate){
+        if let fetchResults = try? fetchContext(base: .orders, predicate: predicate){
             return fetchResults
         }
         else{
@@ -146,7 +159,7 @@ class BaseCoreData {
     
     func getOrdersDelete() -> [NSManagedObject]{
         let predicate =  NSPredicate(format: "active == false")
-        if let fetchResults = try? fetchContext(base: Bases.orders.rawValue, predicate: predicate){
+        if let fetchResults = try? fetchContext(base: .orders, predicate: predicate){
             return fetchResults
         }
         else{
@@ -156,8 +169,18 @@ class BaseCoreData {
     
     func findClientByPhone(phone: String) -> EntityClients?{
         let predicate =  NSPredicate(format: "phone == %@", phone)
-        if let fetchResults = try? fetchContext(base: Bases.clients.rawValue, predicate: predicate){
+        if let fetchResults = try? fetchContext(base: .clients, predicate: predicate){
             return fetchResults.first as? EntityClients
+        }
+        else{
+            return nil
+        }
+    }
+    
+    func findMasterByPhone(phone: String) -> EntityMasters?{
+        let predicate =  NSPredicate(format: "phone == %@", phone)
+        if let fetchResults = try? fetchContext(base: .masters , predicate: predicate){
+            return fetchResults.first as? EntityMasters
         }
         else{
             return nil

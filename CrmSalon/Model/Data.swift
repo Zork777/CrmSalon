@@ -36,10 +36,11 @@ enum Services: String, CaseIterable {
     case pedicure = "Педикюр"
 }
 
-enum TypeContact: String {
-    case client = "клиент"
-    case master = "мастер"
-}
+//enum TypeContact: String {
+//    case client = "клиент"
+//    case master = "мастер"
+//    case service = "услуги"
+//}
 
 struct OrderForSave {
     var date: Date?
@@ -67,7 +68,7 @@ struct Fio {
 public struct Client {
     var fio: Fio
     var telephone: String
-    var type: TypeContact?
+//    var type: TypeContact?
 }
 
 

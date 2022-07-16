@@ -259,13 +259,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Настройки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pEu-t2-mMR">
-                                <rect key="frame" x="16" y="44" width="183" height="40.666666666666657"/>
+                                <rect key="frame" x="16" y="50" width="183" height="40.666666666666657"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qFh-uZ-eJf">
-                                <rect key="frame" x="16" y="114.66666666666669" width="382" height="28"/>
+                                <rect key="frame" x="16" y="120.66666666666669" width="382" height="28"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-9D-JeS">
                                         <rect key="frame" x="0.0" y="0.0" width="122" height="28"/>
@@ -328,7 +328,7 @@
                                 <rect key="frame" x="50.333333333333343" y="624" width="313.33333333333326" height="112"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bCI-1w-zUO">
-                                <rect key="frame" x="16" y="142" width="382" height="474"/>
+                                <rect key="frame" x="16" y="148" width="382" height="468"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="6UC-Hw-2xJ" detailTextLabel="mC0-vc-lZR" style="IBUITableViewCellStyleSubtitle" id="k6w-DC-LRx">
@@ -361,7 +361,7 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="vvL-Lm-n0F">
-                                <rect key="frame" x="16" y="114.66666666666669" width="382" height="48"/>
+                                <rect key="frame" x="16" y="120.66666666666669" width="382" height="48"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0so-Xt-xMs">
                                         <rect key="frame" x="0.0" y="0.0" width="110" height="48"/>
@@ -409,7 +409,7 @@
                             <constraint firstItem="qFh-uZ-eJf" firstAttribute="top" secondItem="pEu-t2-mMR" secondAttribute="bottom" constant="30" id="Eyz-Mg-jrp"/>
                             <constraint firstItem="bCI-1w-zUO" firstAttribute="leading" secondItem="IRB-qt-0A8" secondAttribute="leading" constant="16" id="J1V-tB-Asg"/>
                             <constraint firstItem="vvL-Lm-n0F" firstAttribute="leading" secondItem="IRB-qt-0A8" secondAttribute="leading" constant="16" id="Lea-zV-cbS"/>
-                            <constraint firstItem="pEu-t2-mMR" firstAttribute="top" secondItem="IRB-qt-0A8" secondAttribute="top" id="aqe-vy-TZE"/>
+                            <constraint firstItem="pEu-t2-mMR" firstAttribute="top" secondItem="IRB-qt-0A8" secondAttribute="top" constant="6" id="aqe-vy-TZE"/>
                             <constraint firstItem="2hV-qo-ZQZ" firstAttribute="firstBaseline" secondItem="bCI-1w-zUO" secondAttribute="baseline" constant="8" symbolType="layoutAnchor" id="gdc-MJ-M94"/>
                             <constraint firstItem="IRB-qt-0A8" firstAttribute="trailing" secondItem="pEu-t2-mMR" secondAttribute="trailing" constant="215" id="hM7-zO-Tdy"/>
                             <constraint firstItem="2hV-qo-ZQZ" firstAttribute="bottom" secondItem="IRB-qt-0A8" secondAttribute="bottom" id="jZx-gx-KuF"/>
