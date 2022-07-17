@@ -64,7 +64,7 @@ func deleteAllContactClient() {
 func saveServices(services: [Services]) {
     let base = BaseCoreData()
     for serviceName in services {
-        let baseIdent = base.addRecord(base: Bases.services.rawValue) as! EntityServices
+        let baseIdent = base.addRecord(base: .services) as! EntityServices
         baseIdent.service = serviceName.rawValue
     }
     do {
@@ -78,7 +78,7 @@ func saveServices(services: [Services]) {
 func saveMasters(masters: ArraySlice<Client>) {
     let base = BaseCoreData()
     for master in masters {
-        let baseIdent = base.addRecord(base: Bases.masters.rawValue) as! EntityMasters
+        let baseIdent = base.addRecord(base: .masters) as! EntityMasters
         baseIdent.lastName = master.fio.lastName
         baseIdent.firstName = master.fio.firstName
         baseIdent.phone = master.telephone
@@ -96,12 +96,12 @@ func saveClients(clients: ArraySlice<Client>, bases: Bases) {
     for client in clients {
         switch bases {
         case .clients:
-            let baseIdent = base.addRecord(base: Bases.clients.rawValue) as! EntityClients
+            let baseIdent = base.addRecord(base: .clients) as! EntityClients
             baseIdent.lastName = client.fio.lastName
             baseIdent.firstName = client.fio.firstName
             baseIdent.phone = client.telephone
         case .masters:
-            let baseIdent = base.addRecord(base: Bases.masters.rawValue) as! EntityMasters
+            let baseIdent = base.addRecord(base: .masters) as! EntityMasters
             baseIdent.lastName = client.fio.lastName
             baseIdent.firstName = client.fio.firstName
             baseIdent.phone = client.telephone
@@ -126,7 +126,7 @@ func saveOrders(date: [Date]) -> Int{
     let randomSequenceClients = Set<Int>((0...Int.random(in: 0...clients.count-1)).map({_ in Int.random(in: 0...clients.count-1)}))
     
     for n in randomSequenceClients{
-        let order = base.addRecord(base: Bases.orders.rawValue) as! EntityOrders
+        let order = base.addRecord(base: .orders) as! EntityOrders
         let client = clients[n] as! EntityClients
         let master = masters.randomElement() as! EntityMasters
         let service = services.randomElement() as! EntityServices

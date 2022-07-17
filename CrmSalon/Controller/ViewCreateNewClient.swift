@@ -56,13 +56,21 @@ class ViewCreateNewClient: UIViewController {
         }
         if let receivedText = typeContact{
             //изменяем title если был переход setting
-            labelTitle.text = "Новый " + receivedText.rawValue
+            switch receivedText {
+            case .clients:
+                labelTitle.text = "Новый Клиент"
+            case .masters:
+                labelTitle.text = "Новый Мастер"
+            case .orders, .services:
+                labelTitle.text = ""
+            }
+            
         
             switch receivedText {
                 //выключаем кнопку запись ордера в календаре если записываем мастера.
             case .masters:
                 butonCreateOrder.isEnabled = false
-                butonCreateOrder.alpha = 0.3
+//                butonCreateOrder.alpha = 0.3
             case .clients, .services, .orders:
                 break
             }
@@ -82,7 +90,7 @@ class ViewCreateNewClient: UIViewController {
                 let stringPhoneNumber = try checkPhoneNumber(PhoneNumber: clearStringPhoneNumber(phoneNumberString: phoneNumber.text ?? ""))
                 let client = Client(fio: Fio(firstName: firstName.text ?? "", lastName: lastName.text ?? ""),
                                     telephone: stringPhoneNumber)
-//                                    type: typeContact)
+
                 let newClient = try saveNewClient(client: client)[0] //save in adress book
                 saveClients(clients: [client], bases: .clients) //save in core base
                 animationSaveFinish(view: view, text: "Сохранено")

@@ -2,7 +2,7 @@
 //  EntityServices+CoreDataProperties.swift
 //  CrmSalon
 //
-//  Created by Евгений Захаров on 03.07.2022.
+//  Created by Евгений Захаров on 16.07.2022.
 //
 //
 
@@ -17,6 +17,7 @@ extension EntityServices {
     }
 
     @NSManaged public var service: String?
+    @NSManaged public var price: Int16
     @NSManaged public var serviceToOrder: NSSet?
 
 }

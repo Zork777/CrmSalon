@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		9904627C286A2D9F004351B3 /* ViewUndeleteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9904627B286A2D9F004351B3 /* ViewUndeleteController.swift */; };
 		99076ED12809EE85001D72B2 /* AlertWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99076ED02809EE85001D72B2 /* AlertWindow.swift */; };
+		991A6C5128834CD500341468 /* ViewCreateNewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991A6C5028834CD500341468 /* ViewCreateNewService.swift */; };
+		991A6C5A2883518800341468 /* EntityMasters+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991A6C522883518800341468 /* EntityMasters+CoreDataClass.swift */; };
+		991A6C5B2883518800341468 /* EntityMasters+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991A6C532883518800341468 /* EntityMasters+CoreDataProperties.swift */; };
+		991A6C5C2883518800341468 /* EntityOrders+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991A6C542883518800341468 /* EntityOrders+CoreDataClass.swift */; };
+		991A6C5D2883518800341468 /* EntityOrders+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991A6C552883518800341468 /* EntityOrders+CoreDataProperties.swift */; };
+		991A6C5E2883518800341468 /* EntityClients+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991A6C562883518800341468 /* EntityClients+CoreDataClass.swift */; };
+		991A6C5F2883518800341468 /* EntityClients+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991A6C572883518800341468 /* EntityClients+CoreDataProperties.swift */; };
+		991A6C602883518800341468 /* EntityServices+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991A6C582883518800341468 /* EntityServices+CoreDataClass.swift */; };
+		991A6C612883518800341468 /* EntityServices+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991A6C592883518800341468 /* EntityServices+CoreDataProperties.swift */; };
 		991F2EEC28440AE2001FEE42 /* ViewClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F2EEB28440AE2001FEE42 /* ViewClientController.swift */; };
 		996BE9AF27F5E46700AC29CD /* ClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996BE9AE27F5E46700AC29CD /* ClientTableViewCell.swift */; };
 		996BE9B127F6401300AC29CD /* drawLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996BE9B027F6401300AC29CD /* drawLine.swift */; };
@@ -24,14 +33,6 @@
 		99D9DF6827FB002600AE8D5E /* ViewCalendarCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D9DF6727FB002600AE8D5E /* ViewCalendarCollection.swift */; };
 		99D9DF6B27FB013E00AE8D5E /* CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D9DF6927FB013E00AE8D5E /* CalendarCollectionViewCell.swift */; };
 		99D9DF6C27FB013E00AE8D5E /* CalendarCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99D9DF6A27FB013E00AE8D5E /* CalendarCollectionViewCell.xib */; };
-		99E3566F287213E60001A344 /* EntityServices+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E35667287213E60001A344 /* EntityServices+CoreDataClass.swift */; };
-		99E35670287213E60001A344 /* EntityServices+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E35668287213E60001A344 /* EntityServices+CoreDataProperties.swift */; };
-		99E35671287213E60001A344 /* EntityMasters+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E35669287213E60001A344 /* EntityMasters+CoreDataClass.swift */; };
-		99E35672287213E60001A344 /* EntityMasters+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E3566A287213E60001A344 /* EntityMasters+CoreDataProperties.swift */; };
-		99E35673287213E60001A344 /* EntityClients+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E3566B287213E60001A344 /* EntityClients+CoreDataClass.swift */; };
-		99E35674287213E60001A344 /* EntityClients+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E3566C287213E60001A344 /* EntityClients+CoreDataProperties.swift */; };
-		99E35675287213E60001A344 /* EntityOrders+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E3566D287213E60001A344 /* EntityOrders+CoreDataClass.swift */; };
-		99E35676287213E60001A344 /* EntityOrders+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E3566E287213E60001A344 /* EntityOrders+CoreDataProperties.swift */; };
 		99F3773427EDEFB10086A1BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3773327EDEFB10086A1BF /* AppDelegate.swift */; };
 		99F3773627EDEFB10086A1BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3773527EDEFB10086A1BF /* SceneDelegate.swift */; };
 		99F3773827EDEFB10086A1BF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3773727EDEFB10086A1BF /* ViewController.swift */; };
@@ -71,6 +72,15 @@
 /* Begin PBXFileReference section */
 		9904627B286A2D9F004351B3 /* ViewUndeleteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewUndeleteController.swift; path = CrmSalon/View/ViewUndeleteController.swift; sourceTree = SOURCE_ROOT; };
 		99076ED02809EE85001D72B2 /* AlertWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindow.swift; sourceTree = "<group>"; };
+		991A6C5028834CD500341468 /* ViewCreateNewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewCreateNewService.swift; path = CrmSalon/View/ViewCreateNewService.swift; sourceTree = SOURCE_ROOT; };
+		991A6C522883518800341468 /* EntityMasters+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityMasters+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		991A6C532883518800341468 /* EntityMasters+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityMasters+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		991A6C542883518800341468 /* EntityOrders+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityOrders+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		991A6C552883518800341468 /* EntityOrders+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityOrders+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		991A6C562883518800341468 /* EntityClients+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityClients+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		991A6C572883518800341468 /* EntityClients+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityClients+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		991A6C582883518800341468 /* EntityServices+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityServices+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		991A6C592883518800341468 /* EntityServices+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityServices+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		991F2EEB28440AE2001FEE42 /* ViewClientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewClientController.swift; sourceTree = "<group>"; };
 		995D47132825B41E0029F2DB /* DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		996BE9AE27F5E46700AC29CD /* ClientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTableViewCell.swift; sourceTree = "<group>"; };
@@ -88,14 +98,6 @@
 		99D9DF6727FB002600AE8D5E /* ViewCalendarCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCalendarCollection.swift; sourceTree = "<group>"; };
 		99D9DF6927FB013E00AE8D5E /* CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewCell.swift; sourceTree = "<group>"; };
 		99D9DF6A27FB013E00AE8D5E /* CalendarCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarCollectionViewCell.xib; sourceTree = "<group>"; };
-		99E35667287213E60001A344 /* EntityServices+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityServices+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		99E35668287213E60001A344 /* EntityServices+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityServices+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		99E35669287213E60001A344 /* EntityMasters+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityMasters+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		99E3566A287213E60001A344 /* EntityMasters+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityMasters+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		99E3566B287213E60001A344 /* EntityClients+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityClients+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		99E3566C287213E60001A344 /* EntityClients+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityClients+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		99E3566D287213E60001A344 /* EntityOrders+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityOrders+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		99E3566E287213E60001A344 /* EntityOrders+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityOrders+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		99F3773027EDEFB10086A1BF /* CrmSalon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrmSalon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99F3773327EDEFB10086A1BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99F3773527EDEFB10086A1BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -147,14 +149,14 @@
 		99288E882813433F00EC55D4 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				99E35667287213E60001A344 /* EntityServices+CoreDataClass.swift */,
-				99E35668287213E60001A344 /* EntityServices+CoreDataProperties.swift */,
-				99E35669287213E60001A344 /* EntityMasters+CoreDataClass.swift */,
-				99E3566A287213E60001A344 /* EntityMasters+CoreDataProperties.swift */,
-				99E3566B287213E60001A344 /* EntityClients+CoreDataClass.swift */,
-				99E3566C287213E60001A344 /* EntityClients+CoreDataProperties.swift */,
-				99E3566D287213E60001A344 /* EntityOrders+CoreDataClass.swift */,
-				99E3566E287213E60001A344 /* EntityOrders+CoreDataProperties.swift */,
+				991A6C522883518800341468 /* EntityMasters+CoreDataClass.swift */,
+				991A6C532883518800341468 /* EntityMasters+CoreDataProperties.swift */,
+				991A6C542883518800341468 /* EntityOrders+CoreDataClass.swift */,
+				991A6C552883518800341468 /* EntityOrders+CoreDataProperties.swift */,
+				991A6C562883518800341468 /* EntityClients+CoreDataClass.swift */,
+				991A6C572883518800341468 /* EntityClients+CoreDataProperties.swift */,
+				991A6C582883518800341468 /* EntityServices+CoreDataClass.swift */,
+				991A6C592883518800341468 /* EntityServices+CoreDataProperties.swift */,
 				99B4FE9E281468B6004A47A1 /* WorkWithCoreData.swift */,
 				998598B12811BBFC0079EF58 /* DataModel.xcdatamodeld */,
 			);
@@ -241,6 +243,7 @@
 		99F3776527EDEFF70086A1BF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				991A6C5028834CD500341468 /* ViewCreateNewService.swift */,
 				9904627B286A2D9F004351B3 /* ViewUndeleteController.swift */,
 				99F3773727EDEFB10086A1BF /* ViewController.swift */,
 				996BE9B227F640D100AC29CD /* ViewCreateNewClient.swift */,
@@ -423,32 +426,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				991A6C5D2883518800341468 /* EntityOrders+CoreDataProperties.swift in Sources */,
 				99F3773827EDEFB10086A1BF /* ViewController.swift in Sources */,
 				99F3773427EDEFB10086A1BF /* AppDelegate.swift in Sources */,
 				99D9DF6827FB002600AE8D5E /* ViewCalendarCollection.swift in Sources */,
 				99D85B5F2807468D00426DCF /* Error.swift in Sources */,
+				991A6C5E2883518800341468 /* EntityClients+CoreDataClass.swift in Sources */,
+				991A6C5128834CD500341468 /* ViewCreateNewService.swift in Sources */,
 				9904627C286A2D9F004351B3 /* ViewUndeleteController.swift in Sources */,
-				99E35676287213E60001A344 /* EntityOrders+CoreDataProperties.swift in Sources */,
-				99E35674287213E60001A344 /* EntityClients+CoreDataProperties.swift in Sources */,
-				99E35673287213E60001A344 /* EntityClients+CoreDataClass.swift in Sources */,
+				991A6C5C2883518800341468 /* EntityOrders+CoreDataClass.swift in Sources */,
 				99D9DF6427FA1B0F00AE8D5E /* ViewCalendarController.swift in Sources */,
 				99D9DF6B27FB013E00AE8D5E /* CalendarCollectionViewCell.swift in Sources */,
 				99076ED12809EE85001D72B2 /* AlertWindow.swift in Sources */,
 				99F3773627EDEFB10086A1BF /* SceneDelegate.swift in Sources */,
+				991A6C612883518800341468 /* EntityServices+CoreDataProperties.swift in Sources */,
 				996BE9B127F6401300AC29CD /* drawLine.swift in Sources */,
-				99E3566F287213E60001A344 /* EntityServices+CoreDataClass.swift in Sources */,
 				996BE9AF27F5E46700AC29CD /* ClientTableViewCell.swift in Sources */,
 				99B4FE9F281468B6004A47A1 /* WorkWithCoreData.swift in Sources */,
 				991F2EEC28440AE2001FEE42 /* ViewClientController.swift in Sources */,
 				998598B32811BBFC0079EF58 /* DataModel.xcdatamodeld in Sources */,
+				991A6C602883518800341468 /* EntityServices+CoreDataClass.swift in Sources */,
 				996BE9B327F640D100AC29CD /* ViewCreateNewClient.swift in Sources */,
 				99CA20042822FC1E000DC833 /* GenerateTestData.swift in Sources */,
-				99E35670287213E60001A344 /* EntityServices+CoreDataProperties.swift in Sources */,
-				99E35671287213E60001A344 /* EntityMasters+CoreDataClass.swift in Sources */,
 				99CA2002281F2CDB000DC833 /* ViewSettingController.swift in Sources */,
-				99E35672287213E60001A344 /* EntityMasters+CoreDataProperties.swift in Sources */,
+				991A6C5A2883518800341468 /* EntityMasters+CoreDataClass.swift in Sources */,
 				99BF1A7C284A3CA00080739A /* Animation.swift in Sources */,
-				99E35675287213E60001A344 /* EntityOrders+CoreDataClass.swift in Sources */,
+				991A6C5B2883518800341468 /* EntityMasters+CoreDataProperties.swift in Sources */,
+				991A6C5F2883518800341468 /* EntityClients+CoreDataProperties.swift in Sources */,
 				99F3776727EDF1E70086A1BF /* Data.swift in Sources */,
 				99A1573B287EEA7600BEE53E /* CellsForSettingView.swift in Sources */,
 			);

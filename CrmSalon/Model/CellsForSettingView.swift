@@ -34,11 +34,8 @@ class CellsForSettingView {
     
     func moveCells(indexOld: IndexPath, toSection: Int, tableView: UITableView){
         let indexNew = IndexPath(row: tableView.numberOfRows(inSection: toSection), section: toSection)
-//        tableView.beginUpdates()
-//        tableView.moveRow(at: indexOld, to: indexNew)
-//        tableView.endUpdates()
-//        tableView.reloadRows(at: tableView.indexPathsForVisibleRows!, with: .automatic)
-        tableView.reloadData()
+        tableView.moveRow(at: indexOld, to: indexNew)
+        tableView.reloadRows(at: [indexOld, indexNew], with: .automatic)
     }
     
     func markContactInBook() -> Client?{
@@ -130,6 +127,38 @@ class CellsForSettingView {
         self.cells[.dontSaveInCore] = cellsInSection
     }
     
+    func deleteServiceInCoreBase() -> Bool{
+        // Удаляем услугу из basecore
+        self.cellsInSection = self.cells[.saveInCore] ?? nil
+        if self.cellsInSection == nil {return false}
+        let serviceName = cellsInSection?.remove(at: self.index.row).title ?? "-"
+        
+        if let fetchResult = try? self.base.fetchContext(base: .services, predicate: nil) {
+            for object in fetchResult{
+                let objectService = object as! EntityServices
+//                let service = object.value(forKey: "service") as! String
+//                let serviceToOrder = object.value(forKey: "serviceToOrder")
+                if objectService.serviceToOrder?.count != 0{
+                    showMessage(message: "услуга привязана к ордеру \(objectService.serviceToOrder)")
+                    return false
+                }
+                else{
+                    if objectService.service == serviceName {
+                        do {
+                            try self.base.deleteObject(object: object)
+                            self.cells[.saveInCore] = self.cellsInSection
+                            return true
+                        }
+                        catch{
+                            showMessage(message: error.localizedDescription)
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
+    
     func deleteClientInCoreBase(client: Client) {
         // Удаляем клиента из basecore
         do{
@@ -196,9 +225,10 @@ class CellsForSettingView {
             case .services:
                 for object in fetchResult{
                     let service = object.value(forKey: "service") as! String
+                    let price = object.value(forKey: "price") as! Int16
                     let serviceToOrder = object.value(forKey: "serviceToOrder") as? String ?? ""
                     cells.append(Cell(title: service,
-                                       subTitle: serviceToOrder))
+                                       subTitle: "цена-\(String(price))" + serviceToOrder))
                 }
             }
         }

@@ -42,7 +42,7 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     
     
     @objc func funcAddService() {
-        print ("Add service")
+        performSegue(withIdentifier: "toNewService", sender: self)
     }
     
     @objc func funcAdminButton() {
@@ -51,6 +51,18 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     
     @objc func funcGotoNewClient() {
         performSegue(withIdentifier: "toNewClient", sender: self)
+    }
+    
+    @objc func funcDeleteServiceInCore(){
+        print ("delete in core service")
+        
+        if cells.deleteServiceInCoreBase(){
+            animationSaveFinish(view: view, text: "Удален")
+            tableView.deleteRows(at: [cells.index], with: .automatic)
+        }
+        else{
+            showMessage(message: "Не смог удалить услугу")
+        }
     }
     
     @objc func funcDeleteClientInCore(){
@@ -222,14 +234,28 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         // MARK: рисуем кнопки в зависимости от группы
         switch keys {
         case .saveInCore:
-            let button = UIButton(type: .close, primaryAction: UIAction(handler: {_ in
-                self.cells.index = indexPath
-                self.funcDeleteClientInCore()
-                }))
-            button.sizeToFit()
-            cell.accessoryType = .none
-            cell.accessoryView = button
-    
+            switch buttonName {
+            case .masters, .clients:
+                let button = UIButton(type: .close, primaryAction: UIAction(handler: {_ in
+                    self.cells.index = indexPath
+                    self.funcDeleteClientInCore()
+                    }))
+                button.sizeToFit()
+                cell.accessoryType = .none
+                cell.accessoryView = button
+                
+            case .services:
+                let button = UIButton(type: .close, primaryAction: UIAction(handler: {_ in
+                    self.cells.index = indexPath
+                    self.funcDeleteServiceInCore()
+                    }))
+                button.sizeToFit()
+                cell.accessoryType = .none
+                cell.accessoryView = button
+            case .none, .orders:
+                cell.accessoryView = .none
+            }
+            
         case .dontSaveInCore:
             switch buttonName {
             case .clients, .masters:

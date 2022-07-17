@@ -42,7 +42,7 @@ class BaseCoreData {
       }
     
     func saveMaster(client: Client) {
-        let baseIdent = self.addRecord(base: Bases.masters.rawValue) as! EntityMasters
+        let baseIdent = self.addRecord(base: .masters) as! EntityMasters
         baseIdent.lastName = client.fio.lastName
         baseIdent.firstName = client.fio.firstName
         baseIdent.phone = client.telephone
@@ -54,8 +54,22 @@ class BaseCoreData {
         }
     }
     
+    func saveService(service: String, price: Int16) {
+        
+        let baseIdent = self.addRecord(base: .services) as! EntityServices
+            baseIdent.service = service
+            baseIdent.price = price
+        do {
+            try self.saveContext()
+        }
+        catch{
+            showMessage(message: "Error save in base Services")
+        }
+    }
+
+    
     func saveClient(client: Client) {
-        let baseIdent = self.addRecord(base: Bases.clients.rawValue) as! EntityClients
+        let baseIdent = self.addRecord(base: .clients) as! EntityClients
         baseIdent.lastName = client.fio.lastName
         baseIdent.firstName = client.fio.firstName
         baseIdent.phone = client.telephone
@@ -72,7 +86,7 @@ class BaseCoreData {
         var countOrder = 0
         if date == nil || time.isEmpty || client == nil || service == nil || master == nil { return 0}
         
-        let order = self.addRecord(base: Bases.orders.rawValue) as! EntityOrders
+        let order = self.addRecord(base: .orders) as! EntityOrders
         order.time = Data(time)
         order.date = date
         order.active = true
@@ -117,8 +131,8 @@ class BaseCoreData {
     }
     }
     
-    func addRecord (base: String) -> NSObject{
-        return NSEntityDescription.insertNewObject(forEntityName: base, into: context)
+    func addRecord (base: Bases) -> NSObject{
+        return NSEntityDescription.insertNewObject(forEntityName: base.rawValue, into: context)
     }
     
     func fetchContext (base: Bases, predicate: NSPredicate?) throws -> [NSManagedObject]{
@@ -146,6 +160,7 @@ class BaseCoreData {
             throw ValidationError.failedDeleteInCoreData
         }
     }
+    
     
     func getOrdersInDate(date: Date) -> [NSManagedObject]?{
         let predicate =  NSPredicate(format: "date == %@ && active == true", date as NSDate)
@@ -176,6 +191,7 @@ class BaseCoreData {
             return nil
         }
     }
+    
     
     func findMasterByPhone(phone: String) -> EntityMasters?{
         let predicate =  NSPredicate(format: "phone == %@", phone)
