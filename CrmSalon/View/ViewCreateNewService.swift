@@ -11,20 +11,23 @@ import UIKit
 
 class ViewCreateNewService: UIViewController, UITextFieldDelegate {
     
+    var funcReloadTable: (()->())?
+    
     @IBOutlet weak var labelNameService: UITextField!
     @IBOutlet weak var labelPriceService: UITextField!
     
     @objc func funcButtonClose(){
+        funcReloadTable!()
         dismiss(animated: true)
     }
     
     @IBAction func buttonSaveNewService(_ sender: Any) {
         print ("service saved")
         let base = BaseCoreData()
-        guard let service = labelNameService.text else {
+        guard let service = labelNameService.text, service != "" else {
             showMessage(message: "Укажите наименование услуги")
             return}
-        guard let price = labelPriceService.text else {
+        guard let price = labelPriceService.text, price != "" , Int16(price) != nil else {
             showMessage(message: "Укажите стоимость услуги")
             return
         }

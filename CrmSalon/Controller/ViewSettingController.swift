@@ -11,6 +11,7 @@ import Contacts
 
 class ViewSettingController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    
     var hideButtonWorkBase = true {
         didSet{
             stackButtonGenerate.isHidden = hideButtonWorkBase
@@ -59,8 +60,10 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         if cells.deleteServiceInCoreBase(){
             animationSaveFinish(view: view, text: "Удален")
             tableView.deleteRows(at: [cells.index], with: .automatic)
+            tableView.reloadRows(at: [cells.index], with: .automatic)
         }
         else{
+            tableView.reloadData()
             showMessage(message: "Не смог удалить услугу")
         }
     }
@@ -104,6 +107,10 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         //MARK: двигаем ячейки
         cells.moveCells(indexOld: cells.index, toSection: CellsForSettingView.GroupClient.saveInCore.rawValue,
         tableView: tableView)
+    }
+    
+    @objc func appMovedToBackground() {
+        print("App moved to background!")
     }
     
     @IBAction func buttonAdressBook(_ sender: Any) {
@@ -157,6 +164,7 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBOutlet weak var tableView: UITableView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -282,6 +290,10 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ViewCreateNewClient {
             destination.typeContact = buttonName
+        }
+        if let destination = segue.destination as? ViewCreateNewService {
+            destination.funcReloadTable = {
+                self.buttonListService(self)}
         }
     }
     

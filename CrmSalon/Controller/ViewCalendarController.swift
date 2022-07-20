@@ -77,13 +77,6 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
         var order: EntityOrders?
     }
     
-//    class BarButtonEdit: UIBarButtonItem{
-//        var function: (()->())? = nil
-//    }
-//
-    //    @objc func buttonEditOrder(sender: BarButtonEdit){
-    //        sender.function!()
-    //    }
     
     @objc func buttonDeleteOrder(sender: BarButtonDelete) {
         /*
@@ -195,9 +188,6 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
         navigationItem.rightBarButtonItems = [undeleteButton!]
     }
     
-    override func didMove(toParent parent: UIViewController?) {
-        print ("did Move")
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         selectCellWithOrder.removeAll() //снимаем выделения со всех ячеек
@@ -207,7 +197,6 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        print ("deselect item cell")
         
         /*
          отмена выбора ячейки Условие: ячейка должна быть выбрана и зашли через календарь
@@ -220,9 +209,6 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        print ("didHighlightItemAt")
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return timeShiftArray.count
@@ -289,6 +275,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
             let clientName = order.orderToClient?.firstName ?? ""
             let masterName = order.orderToMaster?.lastName ?? ""
             let service = order.orderToService!.service!
+            let price = order.orderToService!.price
             
             if let cell = collectionView.cellForItem(at: indexPath) as? CalendarCollectionViewCell {
             UIView.animate(withDuration: 0.2, animations: {cell.backgroundColor = .systemGreen})
@@ -298,7 +285,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
             labelFio.text = "Клиент: " + clientName + " " + (order.orderToClient?.lastName ?? "")
             labelPhoneNumber.text = "Телефон: " + order.orderToClient!.phone!
             labelMaster.text = "Мастер: " + (order.orderToMaster?.firstName ?? "") + " " + masterName
-            labelService.text = "Услуга: " + service
+            labelService.text = "Услуга: \(service),  цена-\(price)"
             let deleteButton = BarButtonDelete(title: "Удалить", style: .plain, target: self, action: #selector(buttonDeleteOrder(sender:)))
             selectOrderForMove = indexPath.row
             deleteButton.order = order
@@ -453,7 +440,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func createPickerViewSelectMasterService(finished: @escaping () -> Void){
-        screenHeight = fontSizeForLabelSelectMaster * CGFloat(mastersTable.count == 0 ? 1 : mastersTable.count * 2)
+        screenHeight = view.bounds.height/5
         let vc = UIViewController()
         vc.preferredContentSize = CGSize(width: screenWidth, height: screenHeight!)
         let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight!))

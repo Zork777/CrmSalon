@@ -90,7 +90,7 @@ class BaseCoreData {
         order.time = Data(time)
         order.date = date
         order.active = true
-        order.price = Int16(Int.random(in: 5...15)*100)
+        order.price = service?.price ?? 0
         order.orderToClient = client
         order.orderToMaster = master
         order.orderToService = service

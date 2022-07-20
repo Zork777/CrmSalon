@@ -131,7 +131,8 @@ class CellsForSettingView {
         // Удаляем услугу из basecore
         self.cellsInSection = self.cells[.saveInCore] ?? nil
         if self.cellsInSection == nil {return false}
-        let serviceName = cellsInSection?.remove(at: self.index.row).title ?? "-"
+        guard cellsInSection!.count > self.index.row else {return false}
+        guard let serviceName = cellsInSection?.remove(at: self.index.row).title else {return false}
         
         if let fetchResult = try? self.base.fetchContext(base: .services, predicate: nil) {
             for object in fetchResult{
