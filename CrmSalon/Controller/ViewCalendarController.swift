@@ -259,6 +259,18 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        /*
+         MARK: выбор занятой ячейки, для переключения на выбранный ордер
+         */
+        
+        if ordersTable [indexPath.row] != nil, selectOrderForMove != nil{
+            //обнуляем предыдущие параметры
+            let index = IndexPath(item: selectOrderForMove ?? 0, section: 0)
+            selectCellWithOrder.removeAll()
+            selectOrderForMove = nil
+            selectClient = false
+            collectionView.reloadItems(at: [index])
+        }
         
         /*
          выбор пустой ячейки для перемещения ордера
@@ -336,10 +348,11 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
                 self.reloadCell()
             },funcCancel: { self.funcButtonCancel() })
         }
+    
         
         
         /*
-         зашли через клиента, выбор пустой ячейки для записи нового ордера
+         MARK: зашли через клиента, выбор пустой ячейки для записи нового ордера
          */
         if ordersTable [indexPath.row] == nil ,selectClient, self.selectCellWithOrder[indexPath.row] == nil {
             self.navigationItem.rightBarButtonItems = [saveButton!, cancelButton!]
@@ -377,6 +390,8 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
 
             }
         }
+        
+
     }
     
     func checkChangeMasterOrService() -> Bool{
