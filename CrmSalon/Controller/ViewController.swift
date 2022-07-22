@@ -26,6 +26,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func buttonCreateNewClient(_ sender: Any) {
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         clientsBase = allContacts()
@@ -51,6 +52,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
             }
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -91,6 +96,7 @@ extension ViewController: UISearchBarDelegate {
         searching = false
         searchBar.text = ""
         tblView.reloadData()
+        view.endEditing(true)
     }
     
     

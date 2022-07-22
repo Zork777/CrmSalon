@@ -196,20 +196,20 @@
             <objects>
                 <viewController title="ViewUndeleteController" id="8r8-y5-Wqd" customClass="ViewUndeleteController" customModule="CrmSalon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q7Q-Cc-JmC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Корзина" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpu-0A-kp6">
-                                <rect key="frame" x="16" y="8" width="382" height="41"/>
+                                <rect key="frame" x="16" y="52" width="382" height="41"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoSalon" translatesAutoresizingMaskIntoConstraints="NO" id="3kZ-hg-QJb">
-                                <rect key="frame" x="50.333333333333343" y="604" width="313.33333333333326" height="112"/>
+                                <rect key="frame" x="50.333333333333343" y="624" width="313.33333333333326" height="112"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="j7D-az-GNv">
-                                <rect key="frame" x="16" y="79" width="382" height="517"/>
+                                <rect key="frame" x="16" y="123" width="382" height="493"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="gRg-pj-ycN">
@@ -539,20 +539,20 @@
             <objects>
                 <viewController title="Новый клиент" id="Bxi-cs-NFD" customClass="ViewCreateNewClient" customModule="CrmSalon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9gl-PH-rvJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Новый клиент" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBg-zJ-jBt">
-                                <rect key="frame" x="16" y="8" width="382" height="40.666666666666664"/>
+                                <rect key="frame" x="16" y="52" width="382" height="40.666666666666657"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoSalon" translatesAutoresizingMaskIntoConstraints="NO" id="p8x-U5-uQE">
-                                <rect key="frame" x="0.0" y="604" width="414" height="112"/>
+                                <rect key="frame" x="0.0" y="624" width="414" height="112"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Фамилия" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8qe-ip-kfo">
-                                <rect key="frame" x="16" y="78.666666666666671" width="382" height="30"/>
+                                <rect key="frame" x="16" y="122.66666666666669" width="382" height="30"/>
                                 <color key="backgroundColor" name="BackgroundLabel"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="tRY-oj-99N"/>
@@ -561,7 +561,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Имя" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-tq-rky">
-                                <rect key="frame" x="16" y="124.66666666666669" width="382" height="30"/>
+                                <rect key="frame" x="16" y="168.66666666666666" width="382" height="30"/>
                                 <color key="backgroundColor" name="BackgroundLabel"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="emN-dm-XY0"/>
@@ -570,7 +570,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Телефон" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g6a-96-4ad">
-                                <rect key="frame" x="16" y="170.66666666666666" width="382" height="30"/>
+                                <rect key="frame" x="16" y="214.66666666666666" width="382" height="30"/>
                                 <color key="backgroundColor" name="BackgroundLabel"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="4Yi-8s-61B"/>
@@ -579,7 +579,7 @@
                                 <textInputTraits key="textInputTraits" textContentType="tel"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PED-Y5-cVj">
-                                <rect key="frame" x="117" y="336" width="180" height="80"/>
+                                <rect key="frame" x="117" y="356" width="180" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="X9o-Xb-VbU"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="s1B-LY-Zw8"/>
@@ -605,7 +605,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBG-jh-1fo">
-                                <rect key="frame" x="117" y="448" width="180" height="80"/>
+                                <rect key="frame" x="117" y="468" width="180" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="I1i-Z0-DVU"/>
                                     <constraint firstAttribute="height" constant="80" id="gGu-qZ-nkq"/>
@@ -729,20 +729,20 @@
             <objects>
                 <viewController id="D8g-tO-lO0" customClass="ViewCalendarController" customModule="CrmSalon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UDz-wF-hhC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Календарь" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mUK-fh-y7l">
-                                <rect key="frame" x="16" y="8" width="382" height="40.666666666666664"/>
+                                <rect key="frame" x="16" y="52" width="382" height="40.666666666666657"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoSalon" translatesAutoresizingMaskIntoConstraints="NO" id="gMN-kp-Otp">
-                                <rect key="frame" x="50.333333333333343" y="604" width="313.33333333333326" height="112"/>
+                                <rect key="frame" x="50.333333333333343" y="624" width="313.33333333333326" height="112"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1zQ-X1-bOg">
-                                <rect key="frame" x="16" y="78.666666666666686" width="382" height="144"/>
+                                <rect key="frame" x="16" y="122.66666666666669" width="382" height="144"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mle-D2-rbA">
                                         <rect key="frame" x="0.0" y="0.0" width="382" height="30"/>
@@ -755,7 +755,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PhoneNumber" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPv-bx-uhr">
-                                        <rect key="frame" x="0.0" y="38" width="382" height="30"/>
+                                        <rect key="frame" x="0.0" y="37.999999999999986" width="382" height="30"/>
                                         <color key="backgroundColor" name="BackgroundLabel"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="yRI-DD-v7w"/>
@@ -787,7 +787,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="mAW-k4-B0I">
-                                <rect key="frame" x="112.33333333333333" y="222" width="189.33333333333337" height="42"/>
+                                <rect key="frame" x="112.33333333333333" y="266" width="189.33333333333337" height="42"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tW4-2Y-qoF">
                                         <rect key="frame" x="0.0" y="0.0" width="48" height="42"/>
@@ -833,7 +833,7 @@
                                 </subviews>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1XN-Uf-ipF" customClass="ViewCalendarCollection" customModule="CrmSalon" customModuleProvider="target">
-                                <rect key="frame" x="16" y="259.66666666666674" width="382" height="336.33333333333326"/>
+                                <rect key="frame" x="16" y="303.66666666666674" width="382" height="312.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZnY-I3-kr6">
                                     <size key="itemSize" width="128" height="128"/>
@@ -895,8 +895,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="rMU-DC-oUf"/>
-        <segue reference="XEl-Dv-3YU"/>
+        <segue reference="Wb3-dl-mKx"/>
+        <segue reference="zFG-9M-mqq"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gearshape" catalog="system" width="128" height="121"/>
