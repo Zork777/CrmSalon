@@ -8,20 +8,17 @@
 import Foundation
 import UIKit
 
-struct DrawLineCoordinate {
-    let start = CGPoint(x: 8, y: 120)
-    let end = CGPoint(x: UIWindow().bounds.width-8 , y: 120)
-}
-
-func drawLine(start: CGPoint, end: CGPoint, color: UIColor, weight: CGFloat) -> CALayer{
-    let path = UIBezierPath()
-    path.move(to: start) //StartPoint
-    path.addLine(to: end) //EndPoint of First Line and StartPoint for Second Line
-    //Shape part
-    let shape = CAShapeLayer()
-    shape.path = path.cgPath
-    shape.lineWidth = weight
-    shape.fillColor = color.cgColor
-    shape.strokeColor = color.cgColor
-    return shape
+//Рисуем горизонтальную линию
+extension UIView {
+    func drawLine (bottomLabel: NSLayoutYAxisAnchor){
+        let view = self
+        let lineView = UIView()
+        lineView.backgroundColor = .black
+        view.addSubview(lineView)
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+        lineView.topAnchor.constraint(equalTo: bottomLabel, constant: 0).isActive = true
+        lineView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        lineView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
+        lineView.bottomAnchor.constraint(equalTo: lineView.topAnchor, constant: 3).isActive = true
+    }
 }

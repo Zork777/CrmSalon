@@ -33,6 +33,8 @@ class ViewCreateNewService: UIViewController, UITextFieldDelegate {
         }
         
         base.saveService(service: service, price: Int16(price)!)
+        labelNameService.text = ""
+        labelPriceService.text = ""
     }
     
     override func viewDidLoad() {

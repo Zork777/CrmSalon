@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewCreateNewClient: UIViewController {
-    let lineCoordinate = DrawLineCoordinate()
+    
     var selectClientPhone = ""
     var typeContact: Bases?
     var funcReloadTable: (()->())?
@@ -46,7 +46,9 @@ class ViewCreateNewClient: UIViewController {
         super.viewDidLoad()
         
         //рисуем линию если открыли через nav
-        if self.navigationController != nil {view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))}
+        if self.navigationController != nil {
+            view.drawLine(bottomLabel: labelTitle.bottomAnchor)}
+            
         else{
             let closeButton = UIButton(type: .close)
             closeButton.addTarget(self, action: #selector(funcButtonClose), for: .touchUpInside)

@@ -29,7 +29,6 @@ class ViewUndeleteController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet weak var tableView: UITableView!
     
-    let lineCoordinate = DrawLineCoordinate()
     
     let base = BaseCoreData()
     var orders = [Cell]()
@@ -37,6 +36,7 @@ class ViewUndeleteController: UIViewController, UITableViewDataSource, UITableVi
     var sectionDate = [Date]()
     var selectOrder: OrderPosition?
     
+    @IBOutlet weak var labelTitle: UILabel!
     var undeleteButton: UIBarButtonItem?
     
     
@@ -73,7 +73,7 @@ class ViewUndeleteController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
+        view.drawLine(bottomLabel: labelTitle.bottomAnchor)
         
         sections = prepareDictForCell(orders: base.getOrdersDelete().map{$0 as! EntityOrders}) //собираем данные для cells
         sectionDate = sections.keys.sorted().reversed() //по другому сортировка по убыванию не хотела работать

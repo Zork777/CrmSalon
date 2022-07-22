@@ -60,7 +60,6 @@ class TestUiForm {
     
     func fillTestDataInBase(){
         self.app.navigationBars["CrmSalon.View"].buttons["Item"].tap()
-//        self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Bookmarks"].tap()
         let button = app.buttons["Настройки"]
         button.tap()
         button.tap()
@@ -73,7 +72,6 @@ class TestUiForm {
     
     func deleteAll(){
         self.app.navigationBars["CrmSalon.View"].buttons["Item"].tap()
-//        self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Bookmarks"].tap()
         let button = app.buttons["Настройки"]
         button.tap()
         button.tap()

@@ -28,7 +28,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     private var mastersTable = [EntityMasters]()
     private var servicesTable = [EntityServices]()
     private let base = BaseCoreData()
-    private let lineCoordinate = DrawLineCoordinate()
+    
     private var dateForLabel = Date().stripTime()
     private var ordersTable: [Int : EntityOrders] = [:]
     private var selectCellWithOrder: [Int : CellText] = [:] //храним выделенные ячейки (ячейки в работе)
@@ -146,7 +146,8 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         if animateSaveNewClient {animationSaveFinish(view: view, text: "Новый клиент!")}// воспроизведение анимации записи, если был переход от нового клиента
-        view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
+        view.drawLine(bottomLabel: labelTitleView.bottomAnchor)
+        
         labelConfig(label: labelFio)
         labelConfig(label: labelMaster)
         labelConfig(label: labelService)

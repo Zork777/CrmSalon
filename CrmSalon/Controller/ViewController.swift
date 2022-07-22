@@ -14,7 +14,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var searchClients = [Client]()
     var searching = false
-    let lineCoordinate = DrawLineCoordinate()
     var selectClientPhone: Client?
 
     @IBOutlet weak var searchBar: UISearchBar!
@@ -29,10 +28,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
-        
-            clientsBase = allContacts()
+        clientsBase = allContacts()
         
     }
 

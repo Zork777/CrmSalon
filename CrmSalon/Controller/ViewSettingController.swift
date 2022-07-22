@@ -34,8 +34,6 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     var buttonAddClientInCore: UIBarButtonItem?
     var buttonDeleteClientInCore: UIBarButtonItem?
     
-    let lineCoordinate = DrawLineCoordinate()
-    
     @IBOutlet weak var stackButtonSetting: UIStackView!
     @IBOutlet weak var stackButtonGenerate: UIStackView!
     @IBOutlet weak var labelSetting: UILabel!
@@ -168,7 +166,8 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         
         hideButtonWorkBase = true
         configButtonReadBase()
-        view.layer.addSublayer(drawLine (start: lineCoordinate.start, end: lineCoordinate.end, color: UIColor(ciColor: .black), weight: 3))
+        view.drawLine(bottomLabel: labelSetting.bottomAnchor)
+        
         buttonAddClientInCore = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(funcAddClientInCore))
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(funcAdminButton))
