@@ -11,6 +11,7 @@ class ViewCreateNewClient: UIViewController {
     let lineCoordinate = DrawLineCoordinate()
     var selectClientPhone = ""
     var typeContact: Bases?
+    var funcReloadTable: (()->())?
     
     @IBOutlet weak var phoneNumber: UITextField!
     @IBOutlet weak var firstName: UITextField!
@@ -37,6 +38,7 @@ class ViewCreateNewClient: UIViewController {
     }
 
     @objc func funcButtonClose(){
+        funcReloadTable!()
         dismiss(animated: true)
     }
     
@@ -92,7 +94,7 @@ class ViewCreateNewClient: UIViewController {
                                     telephone: stringPhoneNumber)
 
                 let newClient = try saveNewClient(client: client)[0] //save in adress book
-                saveClients(clients: [client], bases: .clients) //save in core base
+                saveClients(clients: [client], bases: typeContact ?? .clients) //save in core base
                 animationSaveFinish(view: view, text: "Сохранено")
                 clientsBase.append(newClient)
                 selectClientPhone = stringPhoneNumber

@@ -19,7 +19,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
     var orderForSave = OrderForSave()
 
     
-    let fontSizeForLabelSelectMaster: CGFloat = 20
+    let fontSizeForLabelSelectMaster: CGFloat = 16
     let screenWidth = UIScreen.main.bounds.width - 32
     var screenHeight: CGFloat?
     var selectedMasterRow = 0
@@ -273,7 +273,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
         }
         
         /*
-         выбор пустой ячейки для перемещения ордера
+         MARK: выбор пустой ячейки для перемещения ордера
          */
         
         if selectCellWithOrder [indexPath.row] == nil && ordersTable[indexPath.row] == nil{
@@ -386,8 +386,8 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
                 self.orderForSave.date = self.dateForLabel
                 self.orderForSave.time.append(UInt8(indexPath.row))
                 self.labelMaster.text = (self.mastersTable[self.selectedMasterRow].lastName ?? "") + " " + (self.mastersTable[self.selectedMasterRow].firstName ?? "")
-                self.labelService.text = self.servicesTable[self.selectedServiceRow].service
-
+                let price = self.servicesTable[self.selectedServiceRow].price
+                self.labelService.text = (self.servicesTable[self.selectedServiceRow].service ?? "") + " цена-\(price)"
             }
         }
         
@@ -427,7 +427,7 @@ class ViewCalendarController: UIViewController, UICollectionViewDelegate, UIColl
         case 0:
             label.text = (mastersTable[row].firstName ?? "") + " " + (mastersTable[row].lastName ?? "")
         case 1:
-            label.text = servicesTable[row].service
+            label.text = (servicesTable[row].service ?? "") + " " + String(servicesTable[row].price)
         default:
             label.text = ""
         }

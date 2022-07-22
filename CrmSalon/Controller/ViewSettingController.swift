@@ -109,9 +109,6 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
         tableView: tableView)
     }
     
-    @objc func appMovedToBackground() {
-        print("App moved to background!")
-    }
     
     @IBAction func buttonAdressBook(_ sender: Any) {
  
@@ -289,6 +286,16 @@ class ViewSettingController: UIViewController, UITableViewDataSource, UITableVie
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ViewCreateNewClient {
+            switch buttonName{
+            case .masters:
+                    destination.funcReloadTable = {
+                        self.buttonListMasters(self)}
+            case .clients:
+                    destination.funcReloadTable = {
+                        self.buttonAdressBook(self)}
+            case .none, .orders, .services:
+                return
+            }
             destination.typeContact = buttonName
         }
         if let destination = segue.destination as? ViewCreateNewService {

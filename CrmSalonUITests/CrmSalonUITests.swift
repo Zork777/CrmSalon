@@ -60,14 +60,26 @@ class TestUiForm {
     
     func fillTestDataInBase(){
         self.app.navigationBars["CrmSalon.View"].buttons["Item"].tap()
-        self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Bookmarks"].tap()
+//        self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Bookmarks"].tap()
+        let button = app.buttons["Настройки"]
+        button.tap()
+        button.tap()
+        button.tap()
+        button.tap()
+        button.tap()
         self.app/*@START_MENU_TOKEN@*/.staticTexts["Add data in base"]/*[[".buttons[\"Add data in base\"].staticTexts[\"Add data in base\"]",".staticTexts[\"Add data in base\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Back"].tap()
     }
     
     func deleteAll(){
         self.app.navigationBars["CrmSalon.View"].buttons["Item"].tap()
-        self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Bookmarks"].tap()
+//        self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Bookmarks"].tap()
+        let button = app.buttons["Настройки"]
+        button.tap()
+        button.tap()
+        button.tap()
+        button.tap()
+        button.tap()
         self.app/*@START_MENU_TOKEN@*/.staticTexts["Clear data base"]/*[[".buttons[\"Clear data base\"].staticTexts[\"Clear data base\"]",".staticTexts[\"Clear data base\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         self.app.navigationBars["CrmSalon.ViewSetting"].buttons["Back"].tap()
     }
@@ -148,7 +160,6 @@ class CrmSalonUITests: XCTestCase {
         testUi.app.navigationBars["CrmSalon.ViewCreateNewClient"].buttons["Back"].tap()
         //check new client in adress book
         testUi.checkNewContact(phoneNumber: String(testClients[0].telephone))
-        
     }
     
     

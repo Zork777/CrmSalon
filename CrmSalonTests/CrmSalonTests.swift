@@ -25,6 +25,7 @@ func convertObjectToClient(objects: [NSManagedObject]) -> [Client]{
 
 class CrmSalonTests: XCTestCase {
     let testClient = Client(fio: Fio(firstName: "Sergey", lastName: "Ivanov"), telephone: "89885033010")
+    let testContact = Client(fio: Fio(firstName: "Evgeny", lastName: "Petorv"), telephone: "89885033009")
     let testMaster = Client(fio: Fio(firstName: "Mariya", lastName: "Masterova"), telephone: "89885033011")
     let testService = Services.manicure
     
@@ -104,6 +105,7 @@ class CrmSalonTests: XCTestCase {
     }
     
     func testSearchContactNote() throws {
+        _ = try! saveNewClient(client: testContact)
         let resultOld = try getAllClientInContact().count
         _ = try! saveNewClient(client: testClient)
         _ = try! saveNewClient(client: testMaster)
